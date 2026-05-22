@@ -228,6 +228,17 @@ export default function Hero() {
           <polyline points="6 9 12 15 18 9" />
         </svg>
       </motion.div>
+
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 120,
+        background: 'linear-gradient(to bottom, transparent, #000000)',
+        zIndex: 3,
+        pointerEvents: 'none',
+      }} />
     </section>
   )
 }

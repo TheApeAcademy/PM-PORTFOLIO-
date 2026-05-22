@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { LocationWidget } from './WidgetRow'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -204,6 +205,10 @@ export default function About() {
               "Companies miss revenue because they optimise for the happy path and ignore the exit
               interview. I find those blind spots — and I fix them."
             </p>
+          </div>
+
+          <div style={{ marginTop: 8 }}>
+            <LocationWidget inView={true} />
           </div>
         </div>
       </div>

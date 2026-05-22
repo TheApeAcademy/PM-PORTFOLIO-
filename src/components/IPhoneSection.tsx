@@ -66,7 +66,7 @@ export default function IPhoneSection() {
         id="iphone-section"
         ref={sectionRef}
         style={{
-          background: 'var(--color-black)',
+          background: '#000',
           padding: '120px 24px 160px',
           display: 'flex',
           flexDirection: 'column',
@@ -76,6 +76,17 @@ export default function IPhoneSection() {
           borderTop: '1px solid var(--color-border)',
         }}
       >
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 140,
+          background: 'linear-gradient(to bottom, var(--color-black), #000)',
+          zIndex: 3,
+          pointerEvents: 'none',
+        }} />
+
         {/* Section header */}
         <p
           className="text-caption"

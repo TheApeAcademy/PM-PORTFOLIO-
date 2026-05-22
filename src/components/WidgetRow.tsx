@@ -1,5 +1,4 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -114,7 +113,7 @@ function WidgetLabel({ children }: { children: string }) {
 }
 
 /* ── Widget 1: Location ─────────────────── */
-function LocationWidget({ inView }: { inView: boolean }) {
+export function LocationWidget({ inView }: { inView: boolean }) {
   return (
     <Widget
       gradient="linear-gradient(145deg, #020818 0%, #001233 60%, #002466 100%)"
@@ -169,7 +168,7 @@ function LocationWidget({ inView }: { inView: boolean }) {
 }
 
 /* ── Widget 2: Activity Rings ───────────── */
-function ActivityWidget({ inView }: { inView: boolean }) {
+export function ActivityWidget({ inView }: { inView: boolean }) {
   return (
     <Widget>
       <WidgetLabel>Skills</WidgetLabel>
@@ -212,7 +211,7 @@ function ActivityWidget({ inView }: { inView: boolean }) {
 }
 
 /* ── Widget 3: Now Building ─────────────── */
-function BuildingWidget({ inView }: { inView: boolean }) {
+export function BuildingWidget({ inView }: { inView: boolean }) {
   const projects = [
     { name: 'ApeAcademy', pct: 88, status: 'Live' },
     { name: 'RB Studio', pct: 52, status: 'Building' },
@@ -256,7 +255,7 @@ function BuildingWidget({ inView }: { inView: boolean }) {
 }
 
 /* ── Widget 4: Product Mode ─────────────── */
-function PitchWidget({ inView }: { inView: boolean }) {
+export function PitchWidget({ inView }: { inView: boolean }) {
   return (
     <Widget
       gradient="linear-gradient(145deg, #020818 0%, #001233 100%)"
@@ -304,66 +303,3 @@ function PitchWidget({ inView }: { inView: boolean }) {
   )
 }
 
-/* ── Main export ────────────────────────── */
-export default function WidgetRow() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-
-  const section = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.1 } },
-  }
-  const fadeUp = {
-    hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
-  }
-
-  return (
-    <section
-      style={{
-        background: 'var(--color-black)',
-        padding: 'clamp(80px, 10vw, 120px) clamp(20px, 6vw, 80px)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'relative',
-        zIndex: 2,
-        borderTop: '1px solid var(--color-border)',
-      }}
-    >
-      <motion.div
-        variants={section}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: '-100px' }}
-        style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-      >
-        <motion.p variants={fadeUp} className="text-caption" style={{ marginBottom: 12, letterSpacing: '0.18em' }}>
-          AT A GLANCE
-        </motion.p>
-        <motion.h2
-          variants={fadeUp}
-          className="text-section-headline"
-          style={{ color: 'var(--color-text)', textAlign: 'center', marginBottom: 48 }}
-        >
-          The dashboard.
-        </motion.h2>
-
-        <div ref={ref} className="widget-scroll-row">
-          <motion.div variants={fadeUp}>
-            <LocationWidget inView={inView} />
-          </motion.div>
-          <motion.div variants={fadeUp}>
-            <ActivityWidget inView={inView} />
-          </motion.div>
-          <motion.div variants={fadeUp}>
-            <BuildingWidget inView={inView} />
-          </motion.div>
-          <motion.div variants={fadeUp}>
-            <PitchWidget inView={inView} />
-          </motion.div>
-        </div>
-      </motion.div>
-    </section>
-  )
-}
