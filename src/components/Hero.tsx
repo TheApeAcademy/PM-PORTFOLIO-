@@ -23,6 +23,7 @@ export default function Hero() {
 
   return (
     <section
+      className="always-dark"
       style={{
         position: 'relative',
         minHeight: '100svh',

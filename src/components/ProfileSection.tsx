@@ -73,6 +73,7 @@ export default function ProfileSection() {
   return (
     <section
       ref={sectionRef}
+      className="always-dark"
       style={{
         background: '#000',
         position: 'relative',
@@ -81,7 +82,8 @@ export default function ProfileSection() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden',
+        paddingTop: isMobileCheck ? 'clamp(80px, 12vw, 120px)' : 0,
+        paddingBottom: isMobileCheck ? 60 : 0,
       }}
     >
       <div
@@ -101,7 +103,7 @@ export default function ProfileSection() {
           style={{
             flex: '0 0 60%',
             position: 'relative',
-            height: '100vh',
+            height: isMobileCheck ? 'auto' : '100vh',
           }}
         >
           {slides.map((slide, i) => (
@@ -182,19 +184,6 @@ export default function ProfileSection() {
         </div>
       </div>
 
-      {/* Gradient bridge to next section */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 140,
-          background: 'linear-gradient(to bottom, transparent, var(--color-black))',
-          zIndex: 10,
-          pointerEvents: 'none',
-        }}
-      />
     </section>
   )
 }

@@ -348,3 +348,45 @@ body {
   z-index: 2;
   background: var(--color-black);
 }
+
+/* ─── Always-dark: CSS variable scope reset ───────────────────────────────
+   Apply to any section that must stay dark regardless of light/dark toggle.
+   Overrides --color-* at the element level so all children resolve dark values
+   even when html.light is active. This is the correct approach — not hardcoded
+   hex strings in inline styles.
+   ─────────────────────────────────────────────────────────────────────── */
+.always-dark {
+  --color-text: #F5F5F7;
+  --color-muted: #86868B;
+  --color-muted-2: #6E6E73;
+  --color-surface: #0A0A0A;
+  --color-surface-2: #111111;
+  --color-surface-3: #1A1A1A;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.18);
+  --color-black: #000000;
+  color: #F5F5F7;
+}
+
+/* ─── Section bridges ──────────────────────────────────────────────────────
+   Standalone in-flow divs placed in App.tsx between sections.
+   dark mode:  #000 → #000  = completely invisible (seamless)
+   light mode: #000 → #fff  = cinematic fade between always-dark and adaptive
+   ─────────────────────────────────────────────────────────────────────── */
+.bridge-dark-to-theme {
+  height: 120px;
+  background: linear-gradient(to bottom, #000000, var(--color-black));
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  margin-top: -1px; /* kill any 1px gap from rounding */
+}
+
+.bridge-theme-to-dark {
+  height: 120px;
+  background: linear-gradient(to bottom, var(--color-black), #000000);
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  margin-bottom: -1px;
+}
