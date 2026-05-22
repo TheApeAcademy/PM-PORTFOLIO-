@@ -4,7 +4,9 @@ import DynamicIsland from './components/DynamicIsland'
 import BirdCanvas from './components/BirdCanvas'
 import Hero from './components/Hero'
 import About from './components/About'
+import Journey from './components/Journey'
 import StackMarquee from './components/StackMarquee'
+import WidgetRow from './components/WidgetRow'
 import IPhoneSection from './components/IPhoneSection'
 import Footer from './components/Footer'
 
@@ -26,7 +28,9 @@ function App() {
         <main>
           <Hero />
           <About />
+          <Journey />
           <StackMarquee />
+          <WidgetRow />
           <IPhoneSection />
         </main>
         <Footer />

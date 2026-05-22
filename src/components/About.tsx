@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -10,11 +11,11 @@ const storyLines = [
   'ApeAcademy processes real payments.',
   'Real students. Real assignments.',
   'Attention to detail is non-negotiable.',
-  'I think in 4K — vivid product imagination.',
+  'I think in 4K — photographic product vision.',
   'Customer psychology is my second language.',
-  'I\'ve been my own PM from day one.',
+  'Been my own PM from day one.',
   'I find problems companies haven\'t named yet.',
-  'Then I pitch the solution.',
+  'Then I pitch the solution. Always.',
   'Cape Town in 3 months.',
   'Let\'s build something.',
 ]
@@ -22,9 +23,48 @@ const storyLines = [
 const stats = [
   { value: '3', label: 'Products shipped' },
   { value: '∞', label: 'Ideas on deck' },
-  { value: '2', label: 'Roles I\'m targeting' },
+  { value: '2', label: 'Roles targeting' },
   { value: '4K', label: 'How I think' },
 ]
+
+function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+      style={{
+        padding: '28px 24px',
+        borderRadius: 20,
+        border: '1px solid var(--color-border)',
+        background: 'rgba(255,255,255,0.02)',
+        backdropFilter: 'blur(12px)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6,
+      }}
+    >
+      <span
+        style={{
+          fontSize: 'clamp(36px, 5vw, 56px)',
+          fontWeight: 700,
+          fontFamily: 'var(--font-display)',
+          color: 'var(--color-blue-primary)',
+          lineHeight: 1,
+        }}
+      >
+        {stat.value}
+      </span>
+      <span style={{ fontSize: 12, color: 'var(--color-muted)', fontFamily: 'var(--font-body)' }}>
+        {stat.label}
+      </span>
+    </motion.div>
+  )
+}
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -32,26 +72,23 @@ export default function About() {
 
   useEffect(() => {
     if (!sectionRef.current) return
-
     const ctx = gsap.context(() => {
-      linesRef.current.forEach((line, i) => {
+      linesRef.current.forEach((line) => {
         gsap.fromTo(
           line,
-          { opacity: 0.08 },
+          { opacity: 0.07 },
           {
             opacity: 1,
             scrollTrigger: {
               trigger: line,
-              start: 'top 75%',
-              end: 'top 40%',
-              scrub: 0.8,
+              start: 'top 78%',
+              end: 'top 42%',
+              scrub: 0.9,
             },
-            delay: i * 0.02,
           }
         )
       })
     }, sectionRef)
-
     return () => ctx.revert()
   }, [])
 
@@ -60,42 +97,29 @@ export default function About() {
       ref={sectionRef}
       style={{
         background: 'var(--color-black)',
-        padding: '120px 24px',
+        padding: 'clamp(80px, 10vw, 140px) clamp(20px, 6vw, 80px)',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 80,
-          alignItems: 'start',
-        }}
-      >
-        {/* Left: story text */}
-        <div style={{ position: 'sticky', top: 120 }}>
-          <p
-            className="text-caption"
-            style={{ marginBottom: 40, letterSpacing: '0.2em' }}
-          >
+      <div className="about-grid">
+        {/* Left: sticky story text */}
+        <div className="about-sticky">
+          <p className="text-caption" style={{ marginBottom: 36, letterSpacing: '0.18em' }}>
             THE STORY
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {storyLines.map((line, i) => (
               <p
                 key={i}
                 ref={(el) => { if (el) linesRef.current[i] = el }}
                 style={{
-                  fontSize: 'clamp(22px, 3vw, 40px)',
+                  fontSize: 'clamp(20px, 2.8vw, 36px)',
                   fontWeight: 500,
                   fontFamily: 'var(--font-display)',
                   color: 'var(--color-text)',
-                  opacity: 0.08,
-                  lineHeight: 1.3,
-                  transition: 'opacity 0.3s ease',
+                  opacity: 0.07,
+                  lineHeight: 1.35,
                 }}
               >
                 {line}
@@ -104,93 +128,81 @@ export default function About() {
           </div>
         </div>
 
-        {/* Right: stats */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 24,
-            paddingTop: 80,
-          }}
-        >
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              style={{
-                padding: 32,
-                borderRadius: 20,
-                border: '1px solid var(--color-border)',
-                background: 'var(--color-surface)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 8,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 'clamp(40px, 5vw, 64px)',
-                  fontWeight: 700,
-                  fontFamily: 'var(--font-display)',
-                  color: 'var(--color-blue-primary)',
-                  lineHeight: 1,
-                }}
-              >
-                {stat.value}
-              </span>
-              <span
-                style={{
-                  fontSize: 13,
-                  color: 'var(--color-muted)',
-                  fontFamily: 'var(--font-body)',
-                }}
-              >
-                {stat.label}
-              </span>
-            </div>
-          ))}
-
-          {/* Extended bio card */}
+        {/* Right: stats + bio */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 'clamp(0px, 4vw, 80px)' }}>
           <div
             style={{
-              gridColumn: '1 / -1',
-              padding: 32,
-              borderRadius: 20,
-              border: '1px solid var(--color-border)',
-              background: 'var(--color-surface)',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 12,
             }}
           >
-            <p
-              className="text-caption"
-              style={{ marginBottom: 12, letterSpacing: '0.15em' }}
-            >
+            {stats.map((stat, i) => (
+              <StatCard key={stat.label} stat={stat} index={i} />
+            ))}
+          </div>
+
+          {/* Bio card */}
+          <div
+            style={{
+              padding: '28px 24px',
+              borderRadius: 20,
+              border: '1px solid var(--color-border)',
+              background: 'rgba(255,255,255,0.02)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            <p className="text-caption" style={{ marginBottom: 14, letterSpacing: '0.15em' }}>
               ABOUT THE BUILDER
             </p>
             <p
               style={{
-                fontSize: 15,
+                fontSize: 14,
                 color: 'var(--color-muted)',
-                lineHeight: 1.8,
+                lineHeight: 1.85,
                 fontFamily: 'var(--font-body)',
               }}
             >
-              I have an almost photographic ability to visualise products —
-              I can see the entire user journey in my head before a single wireframe exists.
-              That mental model, combined with a deep understanding of customer psychology,
-              means I don't just build features. I build the right features, in the right order,
-              for the right person.
+              I have an almost photographic ability to visualise products — I see the full user
+              journey before a single wireframe exists. Thinking in 4K. That mental model, combined
+              with a deep understanding of customer psychology, means I build the right features in
+              the right order for the right person.
             </p>
             <p
               style={{
-                fontSize: 15,
+                fontSize: 14,
                 color: 'var(--color-muted)',
-                lineHeight: 1.8,
+                lineHeight: 1.85,
                 fontFamily: 'var(--font-body)',
-                marginTop: 12,
+                marginTop: 14,
               }}
             >
               I regularly identify overlooked problems in companies and send unsolicited pitches —
-              with solutions. Not complaints. Not feature requests. Full product thinking.
-              All my work, pitches, and ideas live on my profile — updated continuously.
+              full product thinking, not feature requests. Everything lives on my profile, updated
+              continuously.
+            </p>
+          </div>
+
+          {/* Insight callout */}
+          <div
+            style={{
+              padding: '20px 24px',
+              borderRadius: 16,
+              background: 'linear-gradient(135deg, rgba(0,113,227,0.1) 0%, rgba(0,61,122,0.06) 100%)',
+              border: '1px solid rgba(0,113,227,0.2)',
+            }}
+          >
+            <p
+              style={{
+                fontSize: 13,
+                color: 'rgba(0,113,227,0.9)',
+                fontFamily: 'var(--font-body)',
+                lineHeight: 1.7,
+                fontStyle: 'italic',
+              }}
+            >
+              "Companies miss revenue because they optimise for the happy path and ignore the exit
+              interview. I find those blind spots — and I fix them."
             </p>
           </div>
         </div>

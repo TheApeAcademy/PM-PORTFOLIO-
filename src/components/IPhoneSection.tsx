@@ -118,6 +118,7 @@ export default function IPhoneSection() {
           {/* iPhone device */}
           <div
             ref={iphoneRef}
+            className="iphone-device-wrap"
             style={{
               position: 'relative',
               zIndex: 1,
@@ -132,7 +133,6 @@ export default function IPhoneSection() {
                 0 20px 40px rgba(0,0,0,0.5),
                 inset 0 1px 0 rgba(255,255,255,0.08)
               `,
-              transform: 'perspective(1200px) rotateX(4deg)',
               overflow: 'hidden',
             }}
           >

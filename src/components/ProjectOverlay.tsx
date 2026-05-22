@@ -182,12 +182,7 @@ export default function ProjectOverlay({ project, originRect, onClose }: Project
 
               {/* Two-column body */}
               <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1.5fr 1fr',
-                  gap: 64,
-                  alignItems: 'start',
-                }}
+                className="overlay-body"
               >
                 {/* Left: narrative */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
