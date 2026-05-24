@@ -326,6 +326,38 @@ body {
   .text-hero {
     font-size: clamp(40px, 10vw, 72px);
   }
+  .lab-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .ai-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* ─── Product Intelligence Lab ─── */
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* ─── AI Workflow / How I Work ─── */
+.ai-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
 /* Profile section text slides */

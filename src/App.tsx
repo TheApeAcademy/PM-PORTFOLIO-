@@ -10,6 +10,8 @@ import StackMarquee from './components/StackMarquee'
 import { BuildingWidget, PitchWidget } from './components/WidgetRow'
 import IPhoneSection from './components/IPhoneSection'
 import FloatingIPhoneButton from './components/FloatingIPhoneButton'
+import ProductLab from './components/ProductLab'
+import HowIWork from './components/HowIWork'
 import Footer from './components/Footer'
 
 interface DarkModeCtx {
@@ -48,6 +50,12 @@ function App() {
           <div className="widget-scatter-center" style={{ padding: '40px 24px 80px' }}>
             <PitchWidget inView={true} />
           </div>
+
+          {/* Product Intelligence Lab — company analyses */}
+          <ProductLab />
+
+          {/* How I Work — AI workflow + operating principles + currently exploring */}
+          <HowIWork />
 
           {/* Adaptive sections → iPhone (#000): fade var(--color-black) → #000 */}
           {/* dark mode: #000→#000 = invisible | light mode: #fff→#000 = cinematic */}
