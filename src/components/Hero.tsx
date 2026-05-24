@@ -61,15 +61,15 @@ export default function Hero() {
       {/* Background radial glow */}
       <div className="hero-glow" style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
 
-      {/* Parallax orbs */}
+      {/* Parallax orbs — max-width clamped so they never overflow mobile */}
       <motion.div
         style={{
           y: orb1Y,
           position: 'absolute',
-          top: '12%',
-          left: '6%',
-          width: 520,
-          height: 520,
+          top: '10%',
+          left: '-5%',
+          width: 'min(480px, 100vw)',
+          height: 'min(480px, 100vw)',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(0,113,227,0.16) 0%, transparent 65%)',
           filter: 'blur(72px)',
@@ -83,10 +83,10 @@ export default function Hero() {
         style={{
           y: orb2Y,
           position: 'absolute',
-          bottom: '18%',
-          right: '5%',
-          width: 400,
-          height: 400,
+          bottom: '15%',
+          right: '-5%',
+          width: 'min(360px, 80vw)',
+          height: 'min(360px, 80vw)',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(0,80,200,0.1) 0%, transparent 65%)',
           filter: 'blur(80px)',

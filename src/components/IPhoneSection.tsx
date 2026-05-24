@@ -71,17 +71,17 @@ export default function IPhoneSection() {
           overflow: 'hidden',
         }}
       >
-        {/* Ambient background glow */}
+        {/* Ambient background glow — inset so it never overflows */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             background: `
-              radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0,80,220,0.18) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 40% at 20% 80%, rgba(60,0,180,0.08) 0%, transparent 50%),
-              radial-gradient(ellipse 40% 30% at 80% 70%, rgba(0,113,227,0.06) 0%, transparent 40%)
+              radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0,80,220,0.22) 0%, transparent 65%),
+              radial-gradient(ellipse 40% 30% at 50% 60%, rgba(0,113,227,0.06) 0%, transparent 50%)
             `,
             pointerEvents: 'none',
+            overflow: 'hidden',
           }}
         />
 
@@ -130,17 +130,17 @@ export default function IPhoneSection() {
 
         {/* iPhone 17 Pro Max */}
         <div ref={iphoneRef} className="iphone-outer-wrap" style={{ position: 'relative', zIndex: 2 }}>
-          {/* Ambient glow behind phone */}
+          {/* Ambient glow behind phone — clamped so it can't cause overflow */}
           <div
             style={{
               position: 'absolute',
-              top: '10%',
+              top: '20%',
               left: '50%',
               transform: 'translateX(-50%)',
-              width: 600,
-              height: 600,
+              width: 'min(400px, 90vw)',
+              height: 'min(400px, 90vw)',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(0,113,227,0.12) 0%, transparent 65%)',
+              background: 'radial-gradient(circle, rgba(0,113,227,0.14) 0%, transparent 65%)',
               pointerEvents: 'none',
               zIndex: 0,
             }}
@@ -204,7 +204,7 @@ export default function IPhoneSection() {
                   }}
                 />
 
-                {/* Dynamic Island */}
+                {/* Dynamic Island — clean pill only */}
                 <div
                   style={{
                     position: 'absolute',
@@ -216,30 +216,9 @@ export default function IPhoneSection() {
                     borderRadius: 20,
                     background: '#000',
                     zIndex: 15,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 5,
-                    boxShadow: '0 0 0 1px rgba(255,255,255,0.06), inset 0 0 8px rgba(0,0,0,0.8)',
+                    boxShadow: 'inset 0 0 8px rgba(0,0,0,0.9)',
                   }}
-                >
-                  {/* Live music indicator in Dynamic Island */}
-                  <span style={{ fontSize: 11, color: '#1DB954', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '-0.01em' }}>♫</span>
-                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: 2, height: 14 }}>
-                    {[5, 10, 7, 12, 8].map((h, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          width: 2.5,
-                          height: h,
-                          background: '#1DB954',
-                          borderRadius: 2,
-                          animation: `musicBar 0.8s ease-in-out ${i * 0.12}s infinite alternate`,
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
+                />
 
                 {/* Status bar */}
                 <div

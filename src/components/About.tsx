@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -22,24 +22,43 @@ const storyLines = [
 ]
 
 const stats = [
-  { value: '3', label: 'Products shipped' },
-  { value: '∞', label: 'Ideas on deck' },
-  { value: '2', label: 'Roles targeting' },
-  { value: '4K', label: 'How I think' },
+  { value: 3, suffix: '', label: 'Products shipped', color: '#0071E3' },
+  { value: 4, suffix: 'K', label: 'Thinking in 4K', color: '#40A0FF' },
+  { value: 5, suffix: '+', label: 'Unsolicited pitches', color: '#0071E3' },
+  { value: 2, suffix: '', label: 'Roles targeting', color: '#40A0FF' },
 ]
+
+function useCountUp(target: number, inView: boolean, duration = 1400) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (!inView) return
+    let startTime: number | null = null
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.round(eased * target))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [inView, target, duration])
+  return count
+}
 
 function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const count = useCountUp(stat.value, inView)
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.55, delay: index * 0.09, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="card-3d glow-hover animated-border"
       style={{
-        padding: '28px 24px',
+        padding: '28px 22px',
         borderRadius: 20,
         border: '1px solid var(--color-border)',
         background: 'rgba(255,255,255,0.02)',
@@ -47,20 +66,35 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
         display: 'flex',
         flexDirection: 'column',
         gap: 6,
+        cursor: 'default',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Subtle inner glow */}
+      <div style={{
+        position: 'absolute',
+        top: 0, left: 0, right: 0, height: 1,
+        background: `linear-gradient(90deg, transparent, ${stat.color}55, transparent)`,
+        pointerEvents: 'none',
+      }} />
       <span
+        className="count-up"
         style={{
-          fontSize: 'clamp(36px, 5vw, 56px)',
-          fontWeight: 700,
+          fontSize: 'clamp(40px, 6vw, 60px)',
+          fontWeight: 800,
           fontFamily: 'var(--font-display)',
-          color: 'var(--color-blue-primary)',
+          background: `linear-gradient(135deg, ${stat.color} 0%, ${stat.color}99 100%)`,
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
           lineHeight: 1,
+          letterSpacing: '-0.03em',
         }}
       >
-        {stat.value}
+        {count}{stat.suffix}
       </span>
-      <span style={{ fontSize: 12, color: 'var(--color-muted)', fontFamily: 'var(--font-body)' }}>
+      <span style={{ fontSize: 11, color: 'var(--color-muted)', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
         {stat.label}
       </span>
     </motion.div>
@@ -77,14 +111,14 @@ export default function About() {
       linesRef.current.forEach((line) => {
         gsap.fromTo(
           line,
-          { opacity: 0.07 },
+          { opacity: 0.06 },
           {
             opacity: 1,
             scrollTrigger: {
               trigger: line,
-              start: 'top 78%',
-              end: 'top 42%',
-              scrub: 0.9,
+              start: 'top 80%',
+              end: 'top 40%',
+              scrub: 0.8,
             },
           }
         )
@@ -104,23 +138,24 @@ export default function About() {
       }}
     >
       <div className="about-grid">
-        {/* Left: sticky story text */}
+        {/* Left: story lines — each fades in on scroll */}
         <div className="about-sticky">
           <p className="text-caption" style={{ marginBottom: 36, letterSpacing: '0.18em' }}>
             THE STORY
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {storyLines.map((line, i) => (
               <p
                 key={i}
                 ref={(el) => { if (el) linesRef.current[i] = el }}
                 style={{
-                  fontSize: 'clamp(20px, 2.8vw, 36px)',
-                  fontWeight: 500,
+                  fontSize: 'clamp(18px, 2.6vw, 32px)',
+                  fontWeight: i % 3 === 0 ? 700 : 300,
                   fontFamily: 'var(--font-display)',
                   color: 'var(--color-text)',
-                  opacity: 0.07,
-                  lineHeight: 1.35,
+                  opacity: 0.06,
+                  lineHeight: 1.3,
+                  letterSpacing: '-0.01em',
                 }}
               >
                 {line}
@@ -131,81 +166,59 @@ export default function About() {
 
         {/* Right: stats + bio */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 'clamp(0px, 4vw, 80px)' }}>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 12,
-            }}
-          >
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {stats.map((stat, i) => (
               <StatCard key={stat.label} stat={stat} index={i} />
             ))}
           </div>
 
           {/* Bio card */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="glow-hover"
             style={{
               padding: '28px 24px',
               borderRadius: 20,
               border: '1px solid var(--color-border)',
               background: 'rgba(255,255,255,0.02)',
               backdropFilter: 'blur(12px)',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,113,227,0.4), transparent)' }} />
             <p className="text-caption" style={{ marginBottom: 14, letterSpacing: '0.15em' }}>
               ABOUT THE BUILDER
             </p>
-            <p
-              style={{
-                fontSize: 14,
-                color: 'var(--color-muted)',
-                lineHeight: 1.85,
-                fontFamily: 'var(--font-body)',
-              }}
-            >
-              I have an almost photographic ability to visualise products — I see the full user
-              journey before a single wireframe exists. Thinking in 4K. That mental model, combined
-              with a deep understanding of customer psychology, means I build the right features in
-              the right order for the right person.
+            <p style={{ fontSize: 14, color: 'var(--color-muted)', lineHeight: 1.85, fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+              I have an almost photographic ability to visualise products — I see the full user journey before a single wireframe exists. I call it thinking in 4K. That mental model, combined with a deep understanding of customer psychology, means I build the right features in the right order for the right person.
             </p>
-            <p
-              style={{
-                fontSize: 14,
-                color: 'var(--color-muted)',
-                lineHeight: 1.85,
-                fontFamily: 'var(--font-body)',
-                marginTop: 14,
-              }}
-            >
-              I regularly identify overlooked problems in companies and send unsolicited pitches —
-              full product thinking, not feature requests. Everything lives on my profile, updated
-              continuously.
+            <p style={{ fontSize: 14, color: 'var(--color-muted)', lineHeight: 1.85, fontFamily: 'var(--font-body)', marginTop: 14, fontWeight: 300 }}>
+              I regularly send unsolicited pitches to companies — full product thinking, not feature requests. Everything on this portfolio is updated continuously.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Insight callout */}
-          <div
+          {/* Insight quote */}
+          <motion.div
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
-              padding: '20px 24px',
+              padding: '22px 24px',
               borderRadius: 16,
-              background: 'linear-gradient(135deg, rgba(0,113,227,0.1) 0%, rgba(0,61,122,0.06) 100%)',
-              border: '1px solid rgba(0,113,227,0.2)',
+              background: 'linear-gradient(135deg, rgba(0,113,227,0.08) 0%, rgba(0,61,122,0.04) 100%)',
+              border: '1px solid rgba(0,113,227,0.18)',
+              borderLeft: '3px solid rgba(0,113,227,0.7)',
             }}
           >
-            <p
-              style={{
-                fontSize: 13,
-                color: 'rgba(0,113,227,0.9)',
-                fontFamily: 'var(--font-body)',
-                lineHeight: 1.7,
-                fontStyle: 'italic',
-              }}
-            >
-              "Companies miss revenue because they optimise for the happy path and ignore the exit
-              interview. I find those blind spots — and I fix them."
+            <p style={{ fontSize: 13, color: 'rgba(0,160,255,0.85)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontStyle: 'italic', fontWeight: 300 }}>
+              "Companies miss revenue because they optimise for the happy path and ignore the exit interview. I find those blind spots — and I fix them."
             </p>
-          </div>
+          </motion.div>
 
           <div style={{ marginTop: 8 }}>
             <LocationWidget inView={true} />
