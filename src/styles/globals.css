@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -139,6 +139,62 @@ body {
 }
 .pulse-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
 
+/* ─── Dynamic Island music bars ─── */
+@keyframes musicBar {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* ─── Parallax depth layers ─── */
+@keyframes float-slow {
+  0%,100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-18px) scale(1.02); }
+}
+@keyframes float-medium {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.float-slow { animation: float-slow 8s ease-in-out infinite; }
+.float-medium { animation: float-medium 5s ease-in-out infinite; }
+
+/* ─── Scroll reveal utilities ─── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--ease-apple), transform 0.7s var(--ease-apple);
+}
+.reveal-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Progress bar animation ─── */
+@keyframes progressFill {
+  from { width: 0%; }
+}
+.metric-bar { animation: progressFill 1.2s var(--ease-apple) forwards; }
+
+/* ─── Gradient text ─── */
+.text-gradient-blue {
+  background: linear-gradient(135deg, #0071E3 0%, #40A0FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Shine shimmer ─── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.shimmer-line {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* ─── iPhone specular ─── */
 .iphone-specular {
   background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.28) 45%, rgba(255,255,255,0) 100%);
@@ -260,7 +316,11 @@ body {
 
 /* iPhone */
 .iphone-device-wrap {
-  transform: perspective(1200px) rotateX(4deg);
+  transform: perspective(1400px) rotateX(3deg) rotateY(-1deg);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.iphone-device-wrap:hover {
+  transform: perspective(1400px) rotateX(0deg) rotateY(0deg) scale(1.01);
 }
 
 /* Widgets */
@@ -302,10 +362,23 @@ body {
     grid-template-columns: 1fr;
     gap: 32px;
   }
+
+  /* ─── iPhone mobile: full screen treatment ─── */
+  .iphone-fullscreen {
+    padding: 60px 0 40px !important;
+    min-height: 100svh;
+  }
+  .iphone-outer-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .iphone-device-wrap {
-    transform: perspective(1200px) rotateX(2deg) scale(0.82);
+    transform: scale(0.74) !important;
     transform-origin: top center;
   }
+
   .widget-scroll-row {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -337,6 +410,11 @@ body {
   .principles-grid {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+  .daye-mockups-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    align-items: center;
   }
 }
 

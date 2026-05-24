@@ -14,22 +14,22 @@ const slides = [
   },
   {
     eyebrow: 'WHO I AM',
-    text: 'Final year cybersecurity student. My own PM since year two of uni.',
+    text: 'Final year cybersecurity student. I\'ve been my own PM since year two.',
     big: false,
   },
   {
     eyebrow: 'HOW I THINK',
-    text: 'Photographic product imagination. I see the full user journey before a wireframe exists. I call it thinking in 4K.',
+    text: 'I see the full user journey before a wireframe exists. I call it thinking in 4K — photographic product imagination.',
     big: false,
   },
   {
     eyebrow: 'WHAT DRIVES ME',
-    text: 'Customer psychology is not a skill I acquired. It\'s how I naturally read every product decision. I know why users click — and why they don\'t.',
+    text: 'Customer psychology isn\'t a skill I acquired. It\'s how I naturally read every product. I know why users click — and why they don\'t.',
     big: false,
   },
   {
-    eyebrow: 'MY MOVE',
-    text: 'I send unsolicited pitches to companies. Not feature requests — full problem → root cause → solution → projected impact. Because I see the gap and I cannot stay quiet.',
+    eyebrow: 'HOW I MOVE',
+    text: 'I send unsolicited pitches to companies. Not feature requests — full problem → root cause → solution → impact. Because I see the gap and I can\'t stay quiet.',
     big: false,
   },
 ]
@@ -110,31 +110,36 @@ export default function ProfileSection() {
             isMobileCheck ? (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{
-                  marginBottom: 48,
-                  paddingTop: i === 0 ? 'clamp(80px, 10vw, 120px)' : 0,
-                }}
+                transition={{ duration: 0.75, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{ marginBottom: 52, paddingTop: i === 0 ? 'clamp(80px, 10vw, 120px)' : 0 }}
               >
                 {slide.eyebrow && (
                   <p
-                    className="text-caption"
-                    style={{ marginBottom: 12, letterSpacing: '0.18em', color: 'var(--color-blue-primary)' }}
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color: 'var(--color-blue-primary)',
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase',
+                      marginBottom: 14,
+                    }}
                   >
                     {slide.eyebrow}
                   </p>
                 )}
                 <p
                   style={{
-                    fontSize: slide.big ? 'clamp(56px, 8vw, 88px)' : 'clamp(22px, 3vw, 36px)',
-                    fontWeight: slide.big ? 700 : 500,
-                    fontFamily: slide.big ? 'var(--font-display)' : 'var(--font-display)',
+                    fontSize: slide.big ? 'clamp(56px, 8vw, 88px)' : 'clamp(20px, 2.8vw, 32px)',
+                    fontWeight: slide.big ? 800 : 300,
+                    fontFamily: 'var(--font-display)',
                     color: '#fff',
-                    lineHeight: 1.15,
+                    lineHeight: slide.big ? 1.05 : 1.4,
                     whiteSpace: 'pre-line',
+                    letterSpacing: slide.big ? '-0.04em' : '-0.01em',
                   }}
                 >
                   {slide.text}
@@ -148,20 +153,28 @@ export default function ProfileSection() {
               >
                 {slide.eyebrow && (
                   <p
-                    className="text-caption"
-                    style={{ marginBottom: 16, letterSpacing: '0.18em', color: 'var(--color-blue-primary)' }}
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color: 'var(--color-blue-primary)',
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase',
+                      marginBottom: 18,
+                    }}
                   >
                     {slide.eyebrow}
                   </p>
                 )}
                 <p
                   style={{
-                    fontSize: slide.big ? 'clamp(56px, 8vw, 88px)' : 'clamp(22px, 3vw, 36px)',
-                    fontWeight: slide.big ? 700 : 500,
+                    fontSize: slide.big ? 'clamp(64px, 9vw, 112px)' : 'clamp(24px, 3.2vw, 40px)',
+                    fontWeight: slide.big ? 800 : 300,
                     fontFamily: 'var(--font-display)',
                     color: '#fff',
-                    lineHeight: 1.2,
+                    lineHeight: slide.big ? 1.0 : 1.35,
                     whiteSpace: 'pre-line',
+                    letterSpacing: slide.big ? '-0.04em' : '-0.01em',
                   }}
                 >
                   {slide.text}
@@ -172,18 +185,10 @@ export default function ProfileSection() {
         </div>
 
         {/* Right: ActivityWidget */}
-        <div
-          style={{
-            flex: '0 0 40%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <div style={{ flex: '0 0 40%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <ActivityWidget inView={true} />
         </div>
       </div>
-
     </section>
   )
 }
