@@ -485,7 +485,6 @@ body {
     transform: scale(0.72) !important;
     transform-origin: top center;
     flex-shrink: 0;
-    /* Collapse extra height from scale so section doesn't grow */
     margin-bottom: calc(-852px * 0.28 + 20px);
   }
 

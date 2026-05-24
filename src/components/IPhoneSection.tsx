@@ -204,7 +204,7 @@ export default function IPhoneSection() {
                   }}
                 />
 
-                      {/* Dynamic Island — clean pill only */}
+                {/* Dynamic Island — clean pill only */}
                 <div
                   style={{
                     position: 'absolute',
