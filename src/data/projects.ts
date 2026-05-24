@@ -131,4 +131,88 @@ export const projects: Project[] = [
     ],
     timeline: 'Concept pitch — 2025',
   },
+  {
+    id: 'padi',
+    name: 'Padi',
+    tagline: 'An AI companion platform with season-based content drops and voice call UI.',
+    status: 'Live',
+    iconGradient: 'linear-gradient(135deg, #0D0A1A 0%, #1A1030 100%)',
+    iconLabel: 'P',
+    iconColor: '#7C3AED',
+    problem:
+      'Digital entertainment lacks genuine emotional intimacy. Users consume content passively — there is no reciprocity, no memory, no relationship that builds over time. Social media creates the illusion of connection without the substance.',
+    solution:
+      'Padi is an AI companion platform where users do not just scroll — they interact, respond, and build a relationship across episodes. Season-based narrative drops create appointment behaviour. A voice call UI lowers the barrier to emotional engagement. Bold dark editorial design keeps users coming back episode to episode.',
+    role: 'Product Designer + Frontend Developer',
+    keyDecisions: [
+      'Season-based drops create appointment viewing behaviour — drives return visits and measurable retention vs. always-on content',
+      'Voice call UI lowers the intimacy barrier vs. text-only interactions — increases emotional attachment metrics',
+      'Dark editorial design targets entertainment-native audiences, not productivity users',
+      'AI personality persistence across sessions builds genuine attachment — users know their companion remembers them',
+    ],
+    stack: ['React', 'Framer Motion', 'AI Platform', 'Voice UI', 'Tailwind'],
+    metrics: [
+      { label: 'Status', value: 'Live' },
+      { label: 'Content model', value: 'Season drops' },
+      { label: 'Interaction', value: 'Voice + Text' },
+      { label: 'Category', value: 'AI Entertainment' },
+    ],
+    timeline: '2024 – Present',
+  },
+  {
+    id: 'malaak',
+    name: 'Malaak',
+    tagline: 'Minimal editorial fashion for Snapchat-native modest luxury buyers.',
+    status: 'Live',
+    iconGradient: 'linear-gradient(135deg, #1A1008 0%, #2D2010 100%)',
+    iconLabel: 'M',
+    iconColor: '#C9A227',
+    problem:
+      'Modest fashion brands in MENA operate primarily on Snapchat and WhatsApp, but lack a digital presence that matches their luxury positioning. Standard e-commerce templates strip the brand of its premium identity — and lose customers at checkout.',
+    solution:
+      'A minimal editorial fashion site with a split-hero layout, hover-reveal product grid, and a seamless WhatsApp order flow. Designed specifically for Snapchat-native buyers: mobile-first, frictionless, and brand-coherent from first scroll to order confirmation.',
+    role: 'Product Designer + Frontend Developer',
+    keyDecisions: [
+      'WhatsApp order flow eliminates cart-abandonment friction — no checkout form, no payment gateway anxiety for the target market',
+      'Split-hero layout signals editorial luxury — differentiates from generic Shopify templates',
+      'Mobile-first build reflects the target audience\'s device distribution (94%+ mobile usage)',
+      'Hover-reveal product grid turns discovery into interaction, increasing session time and purchase intent',
+    ],
+    stack: ['React', 'Tailwind', 'Framer Motion', 'WhatsApp API'],
+    metrics: [
+      { label: 'Status', value: 'Live' },
+      { label: 'Target market', value: 'MENA' },
+      { label: 'Order flow', value: 'WhatsApp native' },
+      { label: 'Device split', value: 'Mobile-first' },
+    ],
+    timeline: '2024',
+  },
+  {
+    id: 'aaura',
+    name: 'Aaura',
+    tagline: 'An animated luxury perfumery. Gold particle canvas. Arabesque type. WhatsApp ordering.',
+    status: 'Live',
+    iconGradient: 'linear-gradient(135deg, #0A0800 0%, #1A1200 100%)',
+    iconLabel: 'A',
+    iconColor: '#D4A017',
+    problem:
+      'Luxury fragrance brands carry rich heritage and strong visual identity, but their digital experiences feel generic. Standard e-commerce templates strip the sensory journey that makes luxury perfumery worth its price — and worth its story.',
+    solution:
+      'A bespoke immersive experience with an animated gold particle canvas, arabesque typography, and WhatsApp-native ordering. Every interaction communicates luxury: the product does not just look expensive, it feels expensive. The brand\'s cultural identity is built into every pixel.',
+    role: 'Product Designer + Frontend Developer',
+    keyDecisions: [
+      'Canvas-based gold particle field delivers sensory richness that photography alone cannot — creates a signature digital experience',
+      'Arabic-influenced typography aligns with brand heritage and target market identity, not generic sans-serif defaults',
+      'WhatsApp ordering maintains the personal, high-touch feel of luxury buying — no impersonal checkout flow',
+      'Custom UI per product family — each fragrance line has its own visual language, not a template',
+    ],
+    stack: ['React', 'Canvas API', 'Tailwind', 'WhatsApp API', 'Framer Motion'],
+    metrics: [
+      { label: 'Status', value: 'Live' },
+      { label: 'Visual FX', value: 'Gold particle canvas' },
+      { label: 'Order flow', value: 'WhatsApp' },
+      { label: 'Category', value: 'Luxury brand' },
+    ],
+    timeline: '2024',
+  },
 ]
