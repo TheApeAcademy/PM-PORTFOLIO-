@@ -8,12 +8,12 @@ import type { Project } from '../data/projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Dock icon definitions
+// Dock icon definitions — Email · Phone · WhatsApp · Resume
 const dockItems = [
-  { label: 'Contact', icon: <EnvelopeIcon /> },
-  { label: 'LinkedIn', icon: <BriefcaseIcon /> },
-  { label: 'GitHub', icon: <CodeIcon /> },
-  { label: 'Resume', icon: <DocumentIcon /> },
+  { label: 'Email', href: 'mailto:j0shbankole19@gmail.com', icon: <EnvelopeIcon /> },
+  { label: 'Phone', href: 'tel:+2348165320780', icon: <PhoneIcon /> },
+  { label: 'WhatsApp', href: 'https://wa.me/2348165320780', target: '_blank', icon: <WhatsAppIcon /> },
+  { label: 'Resume', href: '/resume.html', target: '_blank', icon: <DocumentIcon /> },
 ]
 
 // Total grid slots: 4×4 = 16
@@ -277,9 +277,13 @@ export default function IPhoneSection() {
                   }}
                 >
                   {dockItems.map((item) => (
-                    <div
+                    <a
                       key={item.label}
+                      href={item.href}
+                      target={item.target as '_blank' | undefined}
+                      rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
                       title={item.label}
+                      aria-label={item.label}
                       style={{
                         width: 56,
                         height: 56,
@@ -290,13 +294,21 @@ export default function IPhoneSection() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        transition: 'transform 0.2s ease',
+                        transition: 'transform 0.2s ease, background 0.2s ease',
+                        textDecoration: 'none',
+                        flexShrink: 0,
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
-                      onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.12) translateY(-2px)'
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.13)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1) translateY(0)'
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                      }}
                     >
                       {item.icon}
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -314,35 +326,32 @@ export default function IPhoneSection() {
   )
 }
 
-// Inline SVG icons for dock
+// Dock SVG icons
 function EnvelopeIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
       <rect x="2" y="4" width="20" height="16" rx="3" />
       <path d="M2 7l10 7 10-7" />
     </svg>
   )
 }
-function BriefcaseIcon() {
+function PhoneIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5">
-      <rect x="2" y="7" width="20" height="14" rx="2" />
-      <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-      <line x1="12" y1="12" x2="12" y2="12" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   )
 }
-function CodeIcon() {
+function WhatsAppIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5">
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
     </svg>
   )
 }
 function DocumentIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <polyline points="14 2 14 8 20 8" />
       <line x1="8" y1="13" x2="16" y2="13" />

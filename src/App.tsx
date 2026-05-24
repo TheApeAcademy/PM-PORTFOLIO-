@@ -9,6 +9,7 @@ import Journey from './components/Journey'
 import StackMarquee from './components/StackMarquee'
 import { BuildingWidget, PitchWidget } from './components/WidgetRow'
 import IPhoneSection from './components/IPhoneSection'
+import FloatingIPhoneButton from './components/FloatingIPhoneButton'
 import Footer from './components/Footer'
 
 interface DarkModeCtx {
@@ -56,6 +57,7 @@ function App() {
           <IPhoneSection />
         </main>
         <Footer />
+        <FloatingIPhoneButton />
       </div>
     </DarkModeContext.Provider>
   )
