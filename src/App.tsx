@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import { useDarkMode } from './hooks/useDarkMode'
 import DynamicIsland from './components/DynamicIsland'
 import BirdCanvas from './components/BirdCanvas'
@@ -23,22 +24,29 @@ export const useDarkModeContext = () => useContext(DarkModeContext)
 
 function App() {
   const { isDark, toggle } = useDarkMode()
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 280, damping: 30, restDelta: 0.001 })
 
   return (
     <DarkModeContext.Provider value={{ isDark, toggle }}>
-      <div style={{ background: 'var(--color-black)', minHeight: '100vh', position: 'relative' }}>
+      {/* Scroll progress bar */}
+      <motion.div
+        className="scroll-progress-bar"
+        style={{ scaleX }}
+      />
+
+      {/* Film grain overlay */}
+      <div className="grain-overlay" aria-hidden />
+
+      <div style={{ background: 'var(--color-black)', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
         <BirdCanvas />
         <DynamicIsland />
         <main>
-          {/* ── Always dark ── */}
           <Hero />
           <ProfileSection />
 
-          {/* ProfileSection (#000) → adaptive sections: fade #000 → var(--color-black) */}
-          {/* dark mode: #000→#000 = invisible | light mode: #000→#fff = cinematic */}
           <div className="bridge-dark-to-theme" />
 
-          {/* ── Theme-adaptive sections ── */}
           <About />
           <Journey />
           <StackMarquee />
@@ -51,17 +59,11 @@ function App() {
             <PitchWidget inView={true} />
           </div>
 
-          {/* Product Intelligence Lab — company analyses */}
           <ProductLab />
-
-          {/* How I Work — AI workflow + operating principles + currently exploring */}
           <HowIWork />
 
-          {/* Adaptive sections → iPhone (#000): fade var(--color-black) → #000 */}
-          {/* dark mode: #000→#000 = invisible | light mode: #fff→#000 = cinematic */}
           <div className="bridge-theme-to-dark" />
 
-          {/* ── Always dark ── */}
           <IPhoneSection />
         </main>
         <Footer />

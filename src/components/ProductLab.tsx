@@ -93,6 +93,7 @@ function LabCard({ entry, index }: { entry: LabEntry; index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1, ease }}
+      className="card-3d glow-hover animated-border"
       style={{
         borderRadius: 20,
         border: '1px solid rgba(255,255,255,0.07)',
@@ -100,6 +101,7 @@ function LabCard({ entry, index }: { entry: LabEntry; index: number }) {
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative',
       }}
     >
       {/* Card header */}
@@ -367,7 +369,7 @@ export default function ProductLab() {
           </p>
           <h2
             className="text-section-headline"
-            style={{ color: '#F5F5F7', marginBottom: 20, maxWidth: 680 }}
+            style={{ color: '#F5F5F7', marginBottom: 20, maxWidth: 680, fontWeight: 800, letterSpacing: '-0.03em' }}
           >
             How I think about other people's products.
           </h2>
@@ -378,11 +380,10 @@ export default function ProductLab() {
               fontFamily: 'var(--font-body)',
               maxWidth: 560,
               lineHeight: 1.7,
+              fontWeight: 300,
             }}
           >
-            Unsolicited product analyses — real problems, root causes, and
-            proposed solutions. Written the way I'd write them inside a
-            company: no fluff, no feature requests, just structured thinking.
+            Unsolicited analyses — real problems I found, root causes I dug into, solutions I'd ship. No fluff. No feature requests. Just structured thinking, written as if I was already inside the company.
           </p>
         </motion.div>
 
