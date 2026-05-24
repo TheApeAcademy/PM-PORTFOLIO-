@@ -103,4 +103,32 @@ export const projects: Project[] = [
     ],
     timeline: '2025 – Present',
   },
+  {
+    id: 'daye',
+    name: 'Daye',
+    tagline: 'An AI music intelligence layer for Spotify. Conversational. Context-aware. Alive.',
+    status: 'Concept',
+    iconGradient: 'linear-gradient(135deg, #050F08 0%, #0A1F10 100%)',
+    iconLabel: '♫',
+    iconColor: '#1DB954',
+    problem:
+      'Spotify\'s interaction model hasn\'t changed since 2006: search, press play, shuffle. 31% of users report "playlist paralysis". Static playlists degrade. The platform knows nothing about why you\'re listening — a late-night Lagos rooftop and a 6am gym session get identical treatment. TikTok, Apple, and AI-native startups are building toward conversational music. Spotify\'s window is now.',
+    solution:
+      'Daye is an AI-native conversational layer built on top of Spotify\'s existing infrastructure. Users speak or type naturally — "give me late-night Lagos rooftop energy, start mellow, build slowly" — and Daye interprets emotional intent, curates an adaptive session, and manages transitions like a professional DJ. Real-time queue re-evaluation every 2 tracks. Harmonic mixing. BPM arc management. Voice + text modes. AI DJ personality with contextual commentary. Producer Mode for creators.',
+    role: 'PM (Unsolicited Pitch)',
+    keyDecisions: [
+      'Layer on Spotify\'s existing infra, not a standalone app — zero switching cost, leverages Audio Features API already in production',
+      'Real-time adaptive queue (re-evaluates every 2 tracks) vs. static playlists — keeps sessions emotionally coherent, not just novel',
+      'Dual interaction modes: voice for gym/commute, text for quiet contexts — maximises addressable session types',
+      'Free tier gets 2 Daye sessions/day (text-only) — creates habit loop and drives Premium conversion without cannibalising ad revenue',
+    ],
+    stack: ['Spotify Audio Features API', 'NLP / LLM', 'Harmonic Mixing Algorithms', 'AI Voice Model', 'Adaptive Queue Engine'],
+    metrics: [
+      { label: 'Session duration', value: '+18%' },
+      { label: 'Skip rate target', value: '<8%' },
+      { label: 'Premium conversion', value: '+12%' },
+      { label: 'Daye NPS target', value: '65+' },
+    ],
+    timeline: 'Concept pitch — 2025',
+  },
 ]
