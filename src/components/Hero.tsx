@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.09 } },
 }
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease } },
 }
 
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false)
+  const { scrollY } = useScroll()
+  const orb1Y = useTransform(scrollY, [0, 600], [0, -80])
+  const orb2Y = useTransform(scrollY, [0, 600], [0, -50])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -38,39 +41,60 @@ export default function Hero() {
         paddingBottom: 80,
       }}
     >
-      {/* Background glow */}
-      <div className="hero-glow" style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
-
-      {/* Floating orbs */}
+      {/* Subtle grid */}
       <div
-        className="hero-orb-1"
         style={{
           position: 'absolute',
-          top: '15%',
-          left: '8%',
-          width: 480,
-          height: 480,
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(rgba(0,113,227,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,113,227,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '64px 64px',
+          zIndex: 0,
+          pointerEvents: 'none',
+          maskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%)',
+        }}
+      />
+
+      {/* Background radial glow */}
+      <div className="hero-glow" style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
+
+      {/* Parallax orbs */}
+      <motion.div
+        style={{
+          y: orb1Y,
+          position: 'absolute',
+          top: '12%',
+          left: '6%',
+          width: 520,
+          height: 520,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,113,227,0.14) 0%, transparent 65%)',
-          filter: 'blur(64px)',
+          background: 'radial-gradient(circle, rgba(0,113,227,0.16) 0%, transparent 65%)',
+          filter: 'blur(72px)',
           zIndex: 0,
           pointerEvents: 'none',
         }}
+        className="hero-orb-1"
+        aria-hidden
       />
-      <div
-        className="hero-orb-2"
+      <motion.div
         style={{
+          y: orb2Y,
           position: 'absolute',
-          bottom: '20%',
-          right: '6%',
-          width: 360,
-          height: 360,
+          bottom: '18%',
+          right: '5%',
+          width: 400,
+          height: 400,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,113,227,0.09) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(0,80,200,0.1) 0%, transparent 65%)',
           filter: 'blur(80px)',
           zIndex: 0,
           pointerEvents: 'none',
         }}
+        className="hero-orb-2"
+        aria-hidden
       />
 
       {/* Content */}
@@ -79,60 +103,108 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
+        style={{ position: 'relative', zIndex: 2 }}
       >
         {/* Available pill */}
-        <motion.div variants={item} style={{ marginBottom: 28 }}>
+        <motion.div variants={item} style={{ marginBottom: 32 }}>
           <span
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 7,
-              padding: '7px 16px',
+              gap: 8,
+              padding: '8px 18px',
               borderRadius: 980,
-              border: '1px solid rgba(255,255,255,0.1)',
-              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(0,113,227,0.25)',
+              background: 'rgba(0,113,227,0.07)',
               backdropFilter: 'blur(12px)',
               fontSize: 12,
-              color: 'var(--color-muted)',
+              color: 'rgba(0,160,255,0.85)',
               fontFamily: 'var(--font-body)',
-              letterSpacing: '0.02em',
+              letterSpacing: '0.04em',
+              fontWeight: 500,
             }}
           >
             <span
               className="pulse-dot"
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                background: '#0071E3',
-                flexShrink: 0,
-              }}
+              style={{ width: 6, height: 6, borderRadius: '50%', background: '#0071E3', flexShrink: 0 }}
             />
             Available for roles · Cape Town · 2025
           </span>
         </motion.div>
 
         {/* Eyebrow */}
-        <motion.p variants={item} className="text-caption" style={{ marginBottom: 28, letterSpacing: '0.18em' }}>
-          PRODUCT · FRONTEND · BUILDER
+        <motion.p
+          variants={item}
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 11,
+            fontWeight: 500,
+            color: 'rgba(255,255,255,0.3)',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            marginBottom: 24,
+          }}
+        >
+          Product · Frontend · Builder
         </motion.p>
 
-        {/* Headline */}
-        <motion.h1 variants={item} className="text-hero" style={{ color: 'var(--color-text)', marginBottom: 0 }}>
+        {/* Headline — mixed weights for visual impact */}
+        <motion.h1
+          variants={item}
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(52px, 9vw, 104px)',
+            fontWeight: 300,
+            letterSpacing: '-0.04em',
+            lineHeight: 1.0,
+            color: 'rgba(255,255,255,0.6)',
+            textAlign: 'center',
+            marginBottom: 0,
+          }}
+        >
           I build things
         </motion.h1>
-        <motion.h1 variants={item} className="text-hero" style={{ color: 'var(--color-text)', marginBottom: 36 }}>
+        <motion.h1
+          variants={item}
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(52px, 9vw, 104px)',
+            fontWeight: 800,
+            letterSpacing: '-0.04em',
+            lineHeight: 1.0,
+            color: '#fff',
+            textAlign: 'center',
+            marginBottom: 36,
+          }}
+        >
           that actually{' '}
-          <span style={{ color: 'var(--color-blue-primary)' }}>ship.</span>
+          <span
+            style={{
+              background: 'linear-gradient(135deg, #0071E3 0%, #3BA0FF 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            ship.
+          </span>
         </motion.h1>
 
         {/* Body */}
         <motion.p
           variants={item}
-          className="text-body"
-          style={{ color: 'var(--color-muted)', marginBottom: 52, maxWidth: 540 }}
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 18,
+            fontWeight: 300,
+            color: 'rgba(255,255,255,0.45)',
+            marginBottom: 52,
+            maxWidth: 520,
+            lineHeight: 1.65,
+            textAlign: 'center',
+          }}
         >
-          PM thinking. Frontend execution. Real products in production.
+          PM thinking. Frontend execution. I don't wait for permission to build — I've been shipping real products since year two of university.
         </motion.p>
 
         {/* CTAs */}
@@ -147,11 +219,12 @@ export default function Hero() {
               e.preventDefault()
               document.getElementById('iphone-section')?.scrollIntoView({ behavior: 'smooth' })
             }}
+            style={{ fontWeight: 700, fontSize: 15 }}
           >
             See my work
           </a>
-          <a href="/cv.pdf" className="btn-secondary" download>
-            Download CV
+          <a href="/resume.html" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+            View Resume
           </a>
         </motion.div>
 
@@ -159,44 +232,55 @@ export default function Hero() {
         <motion.div
           variants={item}
           style={{
-            marginTop: 64,
+            marginTop: 72,
             display: 'flex',
             gap: 0,
-            borderRadius: 16,
+            borderRadius: 18,
             border: '1px solid rgba(255,255,255,0.07)',
-            background: 'rgba(255,255,255,0.03)',
+            background: 'rgba(255,255,255,0.025)',
             backdropFilter: 'blur(20px)',
             overflow: 'hidden',
           }}
         >
           {[
             { value: '3', label: 'Products shipped' },
-            { value: '4K', label: 'How I think' },
-            { value: '∞', label: 'Ideas active' },
+            { value: '4K', label: 'Thinking in 4K' },
+            { value: '∞', label: 'Ideas never stop' },
           ].map((s, i) => (
             <div
               key={s.label}
               style={{
-                padding: '16px 28px',
+                padding: '18px 32px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 2,
-                borderRight: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                gap: 3,
+                borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
               }}
             >
               <span
                 style={{
-                  fontSize: 22,
-                  fontWeight: 700,
+                  fontSize: 24,
+                  fontWeight: 800,
                   fontFamily: 'var(--font-display)',
-                  color: 'var(--color-blue-primary)',
+                  background: 'linear-gradient(135deg, #0071E3 0%, #3BA0FF 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
                   lineHeight: 1,
                 }}
               >
                 {s.value}
               </span>
-              <span style={{ fontSize: 11, color: 'var(--color-muted)', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+              <span
+                style={{
+                  fontSize: 10,
+                  color: 'rgba(255,255,255,0.3)',
+                  fontFamily: 'var(--font-body)',
+                  whiteSpace: 'nowrap',
+                  fontWeight: 400,
+                }}
+              >
                 {s.label}
               </span>
             </div>
@@ -204,7 +288,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll chevron */}
+      {/* Scroll indicator */}
       <motion.div
         animate={{ opacity: scrolled ? 0 : 1 }}
         transition={{ duration: 0.3 }}
@@ -217,29 +301,32 @@ export default function Hero() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 4,
-          color: 'var(--color-muted)',
+          gap: 6,
+          color: 'rgba(255,255,255,0.25)',
           pointerEvents: 'none',
         }}
       >
-        <span style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>
+        <span style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: 'var(--font-body)', fontWeight: 500 }}>
           scroll
         </span>
-        <svg className="chevron-bounce" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg className="chevron-bounce" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <polyline points="6 9 12 15 18 9" />
         </svg>
       </motion.div>
 
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 120,
-        background: 'linear-gradient(to bottom, transparent, #000000)',
-        zIndex: 3,
-        pointerEvents: 'none',
-      }} />
+      {/* Bottom fade */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 140,
+          background: 'linear-gradient(to bottom, transparent, #000)',
+          zIndex: 3,
+          pointerEvents: 'none',
+        }}
+      />
     </section>
   )
 }

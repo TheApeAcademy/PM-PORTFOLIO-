@@ -15,6 +15,8 @@ export interface Project {
   timeline: string
   liveUrl?: string
   githubUrl?: string
+  caseStudyUrl?: string
+  showInGrid?: boolean
 }
 
 export const projects: Project[] = [
@@ -23,9 +25,10 @@ export const projects: Project[] = [
     name: 'ApeAcademy',
     tagline: 'A SaaS platform connecting students with real assignments — with real payments.',
     status: 'Live',
-    iconGradient: 'linear-gradient(135deg, #1A1A2E 0%, #16213E 100%)',
+    showInGrid: true,
+    iconGradient: 'linear-gradient(135deg, #0A1628 0%, #1A3050 100%)',
     iconLabel: '🦍',
-    iconColor: '#2D7A4F',
+    iconColor: '#0071E3',
     problem:
       'Students in African universities struggle to gain practical experience. Companies need quality work done cheaply. The gap between education and employability is wide — and growing.',
     solution:
@@ -46,6 +49,7 @@ export const projects: Project[] = [
     ],
     timeline: 'Jan 2025 – Present',
     liveUrl: 'https://apeacademy.vercel.app',
+    caseStudyUrl: 'https://apeacademy.vercel.app',
   },
   {
     id: 'jobhunter',
@@ -108,7 +112,8 @@ export const projects: Project[] = [
     name: 'Daye',
     tagline: 'An AI music intelligence layer for Spotify. Conversational. Context-aware. Alive.',
     status: 'Concept',
-    iconGradient: 'linear-gradient(135deg, #050F08 0%, #0A1F10 100%)',
+    showInGrid: true,
+    iconGradient: 'linear-gradient(135deg, #041208 0%, #0A2214 100%)',
     iconLabel: '♫',
     iconColor: '#1DB954',
     problem:
@@ -130,6 +135,7 @@ export const projects: Project[] = [
       { label: 'Daye NPS target', value: '65+' },
     ],
     timeline: 'Concept pitch — 2025',
+    caseStudyUrl: '/daye-case-study.html',
   },
   {
     id: 'padi',

@@ -1,24 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { projects } from '../data/projects'
-import AppIcon, { EmptyIconSlot } from './AppIcon'
 import ProjectOverlay from './ProjectOverlay'
 import type { Project } from '../data/projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Dock icon definitions — Email · Phone · WhatsApp · Resume
-const dockItems = [
-  { label: 'Email', href: 'mailto:j0shbankole19@gmail.com', icon: <EnvelopeIcon /> },
-  { label: 'Phone', href: 'tel:+2348165320780', icon: <PhoneIcon /> },
-  { label: 'WhatsApp', href: 'https://wa.me/2348165320780', target: '_blank', icon: <WhatsAppIcon /> },
-  { label: 'Resume', href: '/resume.html', target: '_blank', icon: <DocumentIcon /> },
-]
+const gridProjects = projects.filter((p) => p.showInGrid)
 
-// Total grid slots: 4×4 = 16
-const GRID_SLOTS = 16
-const EMPTY_SLOTS = GRID_SLOTS - projects.length
+const dockItems = [
+  { label: 'Mail', href: 'mailto:j0shbankole19@gmail.com', bg: '#0071E3', icon: <MailIcon /> },
+  { label: 'Phone', href: 'tel:+2348165320780', bg: '#34C759', icon: <PhoneIcon /> },
+  { label: 'WhatsApp', href: 'https://wa.me/2348165320780', target: '_blank', bg: '#25D366', icon: <WhatsAppIcon /> },
+  { label: 'Resume', href: '/resume.html', target: '_blank', bg: '#FF9500', icon: <ResumeIcon /> },
+]
 
 export default function IPhoneSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -28,25 +25,21 @@ export default function IPhoneSection() {
 
   useEffect(() => {
     if (!sectionRef.current || !iphoneRef.current) return
-
     const ctx = gsap.context(() => {
       gsap.fromTo(
         iphoneRef.current,
-        { y: 120, opacity: 0, scale: 0.92 },
+        { y: 100, opacity: 0, scale: 0.88 },
         {
-          y: 0,
-          opacity: 1,
-          scale: 1,
+          y: 0, opacity: 1, scale: 1,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 80%',
-            end: 'top 30%',
-            scrub: 1,
+            start: 'top 85%',
+            end: 'top 25%',
+            scrub: 1.2,
           },
         }
       )
     }, sectionRef)
-
     return () => ctx.revert()
   }, [])
 
@@ -54,7 +47,6 @@ export default function IPhoneSection() {
     setOriginRect(rect)
     setActiveProject(project)
   }
-
   const handleClose = () => {
     setActiveProject(null)
     setOriginRect(null)
@@ -65,251 +57,296 @@ export default function IPhoneSection() {
       <section
         id="iphone-section"
         ref={sectionRef}
-        className="always-dark"
+        className="always-dark iphone-fullscreen"
         style={{
           background: '#000',
-          padding: '80px 24px 160px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          justifyContent: 'center',
           position: 'relative',
           zIndex: 2,
+          minHeight: '100vh',
+          padding: 'clamp(60px, 8vw, 100px) 24px clamp(80px, 10vw, 140px)',
+          overflow: 'hidden',
         }}
       >
+        {/* Ambient background glow */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `
+              radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0,80,220,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 40% at 20% 80%, rgba(60,0,180,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse 40% 30% at 80% 70%, rgba(0,113,227,0.06) 0%, transparent 40%)
+            `,
+            pointerEvents: 'none',
+          }}
+        />
 
         {/* Section header */}
-        <p
-          className="text-caption"
-          style={{ marginBottom: 16, letterSpacing: '0.2em', textAlign: 'center' }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(40px, 6vw, 72px)', position: 'relative', zIndex: 2 }}
         >
-          THE FOLDER
-        </p>
-        <h2
-          className="text-section-headline"
-          style={{ color: 'var(--color-text)', textAlign: 'center', marginBottom: 20 }}
-        >
-          Every idea. One place.
-        </h2>
-        <button
-          className="btn-ghost"
-          style={{ marginBottom: 80 }}
-          onClick={() => iphoneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
-        >
-          View all projects ↓
-        </button>
+          <p className="text-caption" style={{ marginBottom: 14, letterSpacing: '0.22em' }}>
+            THE FOLDER
+          </p>
+          <h2
+            className="text-section-headline"
+            style={{
+              color: 'var(--color-text)',
+              marginBottom: 20,
+              fontWeight: 800,
+              letterSpacing: '-0.03em',
+            }}
+          >
+            Every idea. One place.
+          </h2>
+          <p
+            style={{
+              fontSize: 16,
+              color: 'var(--color-muted)',
+              fontFamily: 'var(--font-body)',
+              maxWidth: 400,
+              margin: '0 auto 28px',
+              lineHeight: 1.65,
+              fontWeight: 300,
+            }}
+          >
+            Tap any project to go deep — the problem, the thinking, the decisions.
+          </p>
+          <button
+            className="btn-ghost"
+            onClick={() => iphoneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+          >
+            View all projects ↓
+          </button>
+        </motion.div>
 
-        {/* iPhone container with ambient glow */}
-        <div style={{ position: 'relative' }}>
-          {/* Ambient glow behind iPhone */}
+        {/* iPhone 17 Pro Max */}
+        <div ref={iphoneRef} className="iphone-outer-wrap" style={{ position: 'relative', zIndex: 2 }}>
+          {/* Ambient glow behind phone */}
           <div
             style={{
               position: 'absolute',
-              top: '50%',
+              top: '10%',
               left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 500,
-              height: 500,
+              transform: 'translateX(-50%)',
+              width: 600,
+              height: 600,
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(0,113,227,0.15) 0%, transparent 65%)',
+              background: 'radial-gradient(circle, rgba(0,113,227,0.12) 0%, transparent 65%)',
               pointerEvents: 'none',
               zIndex: 0,
             }}
           />
 
-          {/* iPhone device */}
-          <div
-            ref={iphoneRef}
-            className="iphone-device-wrap"
-            style={{
-              position: 'relative',
-              zIndex: 1,
-              width: 340,
-              height: 736,
-              borderRadius: 54,
-              background: '#1C1C1E',
-              boxShadow: `
-                0 0 0 10px #2C2C2E,
-                0 0 0 10.5px #3A3A3C,
-                0 40px 80px rgba(0,0,0,0.7),
-                0 20px 40px rgba(0,0,0,0.5),
-                inset 0 1px 0 rgba(255,255,255,0.08)
-              `,
-              overflow: 'hidden',
-            }}
-          >
-            {/* Titanium frame highlight (left edge) */}
-            <div
-              className="iphone-specular"
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '15%',
-                height: '70%',
-                zIndex: 10,
-                pointerEvents: 'none',
-              }}
-            />
-
-            {/* Screen area */}
+          {/* Phone wrapper */}
+          <div className="iphone-device-wrap" style={{ position: 'relative', zIndex: 1 }}>
+            {/* Natural Titanium outer frame */}
             <div
               style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                right: 10,
-                bottom: 10,
-                borderRadius: 44,
-                overflow: 'hidden',
-                background: 'linear-gradient(180deg, #050510 0%, #000818 50%, #000000 100%)',
+                width: 393,
+                height: 852,
+                borderRadius: 55,
+                background: 'linear-gradient(145deg, #D2D2D7 0%, #ACACB1 25%, #C4C4C9 50%, #9E9EA3 75%, #B8B8BD 100%)',
+                padding: 13,
+                boxShadow: `
+                  0 0 0 0.5px rgba(255,255,255,0.35),
+                  0 0 0 1.5px #6A6A6F,
+                  0 60px 140px rgba(0,0,0,0.85),
+                  0 30px 70px rgba(0,0,0,0.55),
+                  0 10px 30px rgba(0,0,0,0.4),
+                  inset 0 1.5px 0 rgba(255,255,255,0.5),
+                  inset 0 -1px 0 rgba(0,0,0,0.25)
+                `,
+                position: 'relative',
               }}
             >
-              {/* Wallpaper glow */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '20%',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 240,
-                  height: 240,
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(0,113,227,0.12) 0%, transparent 70%)',
-                  pointerEvents: 'none',
-                }}
-              />
+              {/* Volume buttons (left side) */}
+              <div style={{ position: 'absolute', left: -3.5, top: 140, width: 3.5, height: 36, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #8C8C91, #ACACB1)', boxShadow: '-1px 0 3px rgba(0,0,0,0.4)' }} />
+              <div style={{ position: 'absolute', left: -3.5, top: 188, width: 3.5, height: 64, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #8C8C91, #ACACB1)', boxShadow: '-1px 0 3px rgba(0,0,0,0.4)' }} />
+              <div style={{ position: 'absolute', left: -3.5, top: 264, width: 3.5, height: 64, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #8C8C91, #ACACB1)', boxShadow: '-1px 0 3px rgba(0,0,0,0.4)' }} />
+              {/* Power button (right side) */}
+              <div style={{ position: 'absolute', right: -3.5, top: 190, width: 3.5, height: 90, borderRadius: '0 2px 2px 0', background: 'linear-gradient(to left, #8C8C91, #ACACB1)', boxShadow: '1px 0 3px rgba(0,0,0,0.4)' }} />
 
-              {/* Screen inner shadow */}
+              {/* Screen */}
               <div
                 style={{
-                  position: 'absolute',
-                  inset: 0,
-                  borderRadius: 44,
-                  boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.5)',
-                  pointerEvents: 'none',
-                  zIndex: 10,
-                }}
-              />
-
-              {/* Dynamic Island cutout */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 12,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 126,
-                  height: 37,
-                  borderRadius: 20,
-                  background: '#000',
-                  zIndex: 5,
-                }}
-              />
-
-              {/* Status bar */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 58,
-                  left: 16,
-                  right: 16,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  zIndex: 4,
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: 43,
+                  overflow: 'hidden',
+                  background: `
+                    radial-gradient(ellipse 110% 60% at 50% 110%, rgba(0,80,220,0.65) 0%, rgba(0,40,130,0.4) 30%, transparent 60%),
+                    radial-gradient(ellipse 80% 45% at 25% 100%, rgba(50,0,180,0.3) 0%, transparent 50%),
+                    radial-gradient(ellipse 60% 35% at 75% 95%, rgba(0,120,255,0.22) 0%, transparent 45%),
+                    radial-gradient(ellipse 50% 25% at 50% 50%, rgba(0,30,80,0.15) 0%, transparent 60%),
+                    linear-gradient(180deg, #020307 0%, #030610 20%, #04080F 60%, #020407 100%)
+                  `,
+                  position: 'relative',
                 }}
               >
-                <span style={{ fontSize: 15, fontWeight: 600, color: '#fff', fontFamily: 'var(--font-display)' }}>
-                  9:41
-                </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                  <SignalIcon />
-                  <BatteryIcon />
-                </div>
-              </div>
-
-              {/* App grid */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 90,
-                  left: 12,
-                  right: 12,
-                  bottom: 88,
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: 16,
-                  padding: '8px 0',
-                  alignContent: 'start',
-                  zIndex: 3,
-                }}
-              >
-                {projects.map((project) => (
-                  <AppIcon
-                    key={project.id}
-                    project={project}
-                    onOpen={handleOpen}
-                  />
-                ))}
-                {Array.from({ length: EMPTY_SLOTS }).map((_, i) => (
-                  <EmptyIconSlot key={`empty-${i}`} />
-                ))}
-              </div>
-
-              {/* Dock */}
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: 14,
-                  left: 12,
-                  right: 12,
-                  zIndex: 4,
-                }}
-              >
+                {/* Screen gloss overlay */}
                 <div
-                  className="glass"
                   style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.05) 100%)',
+                    borderRadius: 43,
+                    pointerEvents: 'none',
+                    zIndex: 20,
+                  }}
+                />
+
+                {/* Dynamic Island */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 14,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 126,
+                    height: 37,
                     borderRadius: 20,
-                    padding: '10px 16px',
+                    background: '#000',
+                    zIndex: 15,
                     display: 'flex',
-                    justifyContent: 'space-around',
                     alignItems: 'center',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    justifyContent: 'center',
+                    gap: 5,
+                    boxShadow: '0 0 0 1px rgba(255,255,255,0.06), inset 0 0 8px rgba(0,0,0,0.8)',
                   }}
                 >
-                  {dockItems.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target={item.target as '_blank' | undefined}
-                      rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
-                      title={item.label}
-                      aria-label={item.label}
-                      style={{
-                        width: 56,
-                        height: 56,
-                        borderRadius: 15,
-                        background: 'rgba(255,255,255,0.08)',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        transition: 'transform 0.2s ease, background 0.2s ease',
-                        textDecoration: 'none',
-                        flexShrink: 0,
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.12) translateY(-2px)'
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.13)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'scale(1) translateY(0)'
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
-                      }}
-                    >
-                      {item.icon}
-                    </a>
+                  {/* Live music indicator in Dynamic Island */}
+                  <span style={{ fontSize: 11, color: '#1DB954', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '-0.01em' }}>♫</span>
+                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: 2, height: 14 }}>
+                    {[5, 10, 7, 12, 8].map((h, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          width: 2.5,
+                          height: h,
+                          background: '#1DB954',
+                          borderRadius: 2,
+                          animation: `musicBar 0.8s ease-in-out ${i * 0.12}s infinite alternate`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Status bar */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 60,
+                    left: 24,
+                    right: 24,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    zIndex: 10,
+                  }}
+                >
+                  <span style={{ fontSize: 15, fontWeight: 700, color: '#fff', fontFamily: '-apple-system, SF Pro Display, var(--font-display)' }}>
+                    9:41
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <SignalIcon />
+                    <WifiIcon />
+                    <BatteryIcon />
+                  </div>
+                </div>
+
+                {/* App grid */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 110,
+                    left: 20,
+                    right: 20,
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: 22,
+                    padding: '8px 4px',
+                    alignContent: 'start',
+                    zIndex: 5,
+                  }}
+                >
+                  {gridProjects.map((project) => (
+                    <AppIconCell
+                      key={project.id}
+                      project={project}
+                      onOpen={handleOpen}
+                    />
                   ))}
+                </div>
+
+                {/* Dock area */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 20,
+                    left: 14,
+                    right: 14,
+                    zIndex: 10,
+                  }}
+                >
+                  {/* Home indicator */}
+                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
+                    <div style={{ width: 120, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.35)' }} />
+                  </div>
+
+                  {/* Dock */}
+                  <div
+                    style={{
+                      borderRadius: 26,
+                      padding: '12px 18px',
+                      display: 'flex',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      background: 'rgba(255,255,255,0.09)',
+                      backdropFilter: 'blur(30px)',
+                      WebkitBackdropFilter: 'blur(30px)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    {dockItems.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        target={item.target as '_blank' | undefined}
+                        rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
+                        title={item.label}
+                        aria-label={item.label}
+                        style={{
+                          width: 56,
+                          height: 56,
+                          borderRadius: 14,
+                          background: item.bg,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          transition: 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                          textDecoration: 'none',
+                          flexShrink: 0,
+                          boxShadow: `0 4px 12px ${item.bg}55, inset 0 1px 0 rgba(255,255,255,0.3)`,
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.15) translateY(-3px)' }}
+                        onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1) translateY(0)' }}
+                      >
+                        {item.icon}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -317,64 +354,149 @@ export default function IPhoneSection() {
         </div>
       </section>
 
-      <ProjectOverlay
-        project={activeProject}
-        originRect={originRect}
-        onClose={handleClose}
-      />
+      <ProjectOverlay project={activeProject} originRect={originRect} onClose={handleClose} />
     </>
   )
 }
 
-// Dock SVG icons
-function EnvelopeIcon() {
+function AppIconCell({ project, onOpen }: { project: Project; onOpen: (p: Project, r: DOMRect) => void }) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  const handleClick = () => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    onOpen(project, rect)
+  }
+
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
-      <rect x="2" y="4" width="20" height="16" rx="3" />
-      <path d="M2 7l10 7 10-7" />
+    <div
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, cursor: 'pointer' }}
+      onClick={handleClick}
+      ref={ref}
+    >
+      {/* iOS-style app icon */}
+      <div
+        style={{
+          width: 60,
+          height: 60,
+          borderRadius: 15,
+          background: project.iconGradient,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 26,
+          boxShadow: `
+            0 4px 14px rgba(0,0,0,0.6),
+            0 1px 4px rgba(0,0,0,0.4),
+            inset 0 1px 0 rgba(255,255,255,0.12),
+            0 0 0 0.5px ${project.iconColor}55
+          `,
+          transition: 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+        onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.1)' }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)' }}
+        onMouseDown={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(0.93)' }}
+        onMouseUp={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.1)' }}
+      >
+        {/* Icon gloss */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '50%',
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%)',
+            borderRadius: '15px 15px 0 0',
+            pointerEvents: 'none',
+          }}
+        />
+        <span style={{ position: 'relative', zIndex: 1, lineHeight: 1 }}>
+          {project.iconLabel}
+        </span>
+      </div>
+      {/* App name */}
+      <span
+        style={{
+          fontSize: 10,
+          color: 'rgba(255,255,255,0.88)',
+          fontFamily: '-apple-system, SF Pro Text, var(--font-body)',
+          fontWeight: 400,
+          textAlign: 'center',
+          letterSpacing: '0.01em',
+          lineHeight: 1.2,
+          maxWidth: 62,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+        }}
+      >
+        {project.name}
+      </span>
+    </div>
+  )
+}
+
+// Realistic dock icons
+function MailIcon() {
+  return (
+    <svg width="26" height="22" viewBox="0 0 26 22" fill="none">
+      <rect width="26" height="22" rx="0" fill="none" />
+      <path d="M1 3.5L13 12.5L25 3.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M1 3.5H25V18.5C25 19.6 24.1 20.5 23 20.5H3C1.9 20.5 1 19.6 1 18.5V3.5Z" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
     </svg>
   )
 }
 function PhoneIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+      <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z" />
     </svg>
   )
 }
 function WhatsAppIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="white">
+      <path d="M13 2C7 2 2 7 2 13c0 2 .5 3.8 1.5 5.4L2 24l5.8-1.5C9.2 23.5 11 24 13 24c6 0 11-5 11-11S19 2 13 2zm5.5 15.4c-.2.7-1.3 1.3-1.8 1.4-.5.1-1 .1-3-.6-3.6-1.5-5.9-5.1-6.1-5.4-.2-.3-1.3-1.7-1.3-3.2 0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.9-.4h.6c.2 0 .5-.1.7.5l1 2.4c.1.3.1.6-.1.8l-.4.5c-.2.2-.3.4-.1.8.5 1 1.3 1.9 2.2 2.6.6.4 1.3.8 2 1.1.4.2.6.1.8-.1l.6-.7c.2-.3.5-.4.8-.2l2.4 1.1c.3.1.5.3.5.6 0 .3-.2 1.1-.8 1.7z" />
     </svg>
   )
 }
-function DocumentIcon() {
+function ResumeIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth="1.5">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="8" y1="13" x2="16" y2="13" />
-      <line x1="8" y1="17" x2="16" y2="17" />
+    <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
+      <rect x="1" y="1" width="20" height="24" rx="3" fill="none" stroke="white" strokeWidth="1.5" />
+      <path d="M5 8h12M5 12h12M5 16h8" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
 function SignalIcon() {
   return (
+    <svg width="17" height="12" viewBox="0 0 17 12" fill="white">
+      <rect x="0" y="8" width="3" height="4" rx="1" />
+      <rect x="4.5" y="5.5" width="3" height="6.5" rx="1" />
+      <rect x="9" y="3" width="3" height="9" rx="1" />
+      <rect x="13.5" y="0" width="3" height="12" rx="1" />
+    </svg>
+  )
+}
+function WifiIcon() {
+  return (
     <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
-      <rect x="0" y="8" width="3" height="4" rx="1" opacity="0.4" />
-      <rect x="4.5" y="5" width="3" height="7" rx="1" opacity="0.6" />
-      <rect x="9" y="2" width="3" height="10" rx="1" opacity="0.8" />
-      <rect x="13.5" y="0" width="2.5" height="12" rx="1" />
+      <path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" />
+      <path d="M3.8 6.5C5 5.3 6.4 4.5 8 4.5s3 .8 4.2 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+      <path d="M1 3.5C3 1.5 5.4 0.5 8 0.5s5 1 7 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none" />
     </svg>
   )
 }
 function BatteryIcon() {
   return (
-    <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
-      <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" strokeOpacity="0.5" />
-      <rect x="2" y="2" width="16" height="8" rx="2" fill="white" />
-      <path d="M23 4v4a2 2 0 0 0 0-4z" fill="white" fillOpacity="0.5" />
+    <svg width="27" height="13" viewBox="0 0 27 13" fill="none">
+      <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="white" strokeOpacity="0.45" />
+      <rect x="2" y="2" width="18" height="9" rx="2" fill="white" />
+      <path d="M25 4.5v4c.8-.4 1.3-1.2 1.3-2S25.8 4.9 25 4.5z" fill="white" fillOpacity="0.45" />
     </svg>
   )
 }
