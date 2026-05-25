@@ -22,6 +22,7 @@ export default function IPhoneSection() {
   const iphoneRef = useRef<HTMLDivElement>(null)
   const [activeProject, setActiveProject] = useState<Project | null>(null)
   const [originRect, setOriginRect] = useState<DOMRect | null>(null)
+  const tiltRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!sectionRef.current || !iphoneRef.current) return
@@ -41,6 +42,49 @@ export default function IPhoneSection() {
       )
     }, sectionRef)
     return () => ctx.revert()
+  }, [])
+
+  useEffect(() => {
+    const outer = iphoneRef.current
+    const el = tiltRef.current
+    if (!outer || !el) return
+
+    let animId: number | null = null
+    let currentX = 2, currentY = -6, targetX = 2, targetY = -6
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+
+    function animate() {
+      currentX = lerp(currentX, targetX, 0.10)
+      currentY = lerp(currentY, targetY, 0.10)
+      el!.style.transform = `perspective(1200px) rotateX(${currentX}deg) rotateY(${currentY}deg) translateZ(0)`
+      if (Math.abs(targetX - currentX) > 0.02 || Math.abs(targetY - currentY) > 0.02) {
+        animId = requestAnimationFrame(animate)
+      } else { animId = null }
+    }
+
+    const onMove = (e: MouseEvent) => {
+      const r = outer.getBoundingClientRect()
+      const nx = (e.clientX - r.left) / r.width - 0.5
+      const ny = (e.clientY - r.top) / r.height - 0.5
+      targetX = -ny * 14; targetY = nx * 18
+      if (!animId) animId = requestAnimationFrame(animate)
+    }
+
+    const onLeave = () => {
+      targetX = 2; targetY = -6
+      if (!animId) animId = requestAnimationFrame(animate)
+    }
+
+    outer.addEventListener('mousemove', onMove as EventListener)
+    outer.addEventListener('mouseleave', onLeave)
+    el.style.transform = `perspective(1200px) rotateX(2deg) rotateY(-6deg) translateZ(0)`
+
+    return () => {
+      outer.removeEventListener('mousemove', onMove as EventListener)
+      outer.removeEventListener('mouseleave', onLeave)
+      if (animId) cancelAnimationFrame(animId)
+    }
   }, [])
 
   const handleOpen = (project: Project, rect: DOMRect) => {
@@ -148,32 +192,53 @@ export default function IPhoneSection() {
 
           {/* Phone wrapper */}
           <div className="iphone-device-wrap" style={{ position: 'relative', zIndex: 1 }}>
-            {/* Natural Titanium outer frame */}
+            {/* Natural Titanium outer frame — 14-stop metallic gradient */}
             <div
+              ref={tiltRef}
               style={{
                 width: 393,
                 height: 852,
                 borderRadius: 55,
-                background: 'linear-gradient(145deg, #D2D2D7 0%, #ACACB1 25%, #C4C4C9 50%, #9E9EA3 75%, #B8B8BD 100%)',
+                background: `linear-gradient(
+                  148deg,
+                  rgba(255,255,255,0.92) 0%, #E2E2EA 3%, #C6C6D2 8%, #D8D8E4 15%,
+                  #B8B8C8 22%, #CCCCD8 30%, #B4B4C4 39%, #CCCCD8 49%,
+                  #B2B2C2 59%, #C6C6D4 69%, #B8B8C8 79%, #D2D2E0 89%,
+                  #EAEAF2 96%, #C4C4D2 100%
+                )`,
                 padding: 13,
                 boxShadow: `
-                  0 0 0 0.5px rgba(255,255,255,0.35),
-                  0 0 0 1.5px #6A6A6F,
-                  0 60px 140px rgba(0,0,0,0.85),
-                  0 30px 70px rgba(0,0,0,0.55),
-                  0 10px 30px rgba(0,0,0,0.4),
-                  inset 0 1.5px 0 rgba(255,255,255,0.5),
-                  inset 0 -1px 0 rgba(0,0,0,0.25)
+                  0 0 0 0.5px rgba(255,255,255,0.88),
+                  0 0 0 1px rgba(80,80,105,0.65),
+                  0 0 0 1.5px rgba(140,140,165,0.18),
+                  inset 0 2px 0 rgba(255,255,255,0.8),
+                  inset 0 -2px 0 rgba(0,0,0,0.1),
+                  inset 2px 0 0 rgba(255,255,255,0.5),
+                  inset -2px 0 0 rgba(0,0,0,0.07),
+                  0 60px 150px rgba(0,0,0,0.92),
+                  0 25px 65px rgba(0,0,0,0.58),
+                  0 8px 22px rgba(0,0,0,0.40)
                 `,
                 position: 'relative',
+                transformStyle: 'preserve-3d',
+                willChange: 'transform',
               }}
             >
-              {/* Volume buttons (left side) */}
-              <div style={{ position: 'absolute', left: -3.5, top: 140, width: 3.5, height: 36, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #8C8C91, #ACACB1)', boxShadow: '-1px 0 3px rgba(0,0,0,0.4)' }} />
-              <div style={{ position: 'absolute', left: -3.5, top: 188, width: 3.5, height: 64, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #8C8C91, #ACACB1)', boxShadow: '-1px 0 3px rgba(0,0,0,0.4)' }} />
-              <div style={{ position: 'absolute', left: -3.5, top: 264, width: 3.5, height: 64, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #8C8C91, #ACACB1)', boxShadow: '-1px 0 3px rgba(0,0,0,0.4)' }} />
+              {/* Corner glint — top-left titanium flare */}
+              <div style={{
+                position: 'absolute', top: 0, left: 0, width: 120, height: 120,
+                borderRadius: '55px 0 0 0',
+                background: 'radial-gradient(ellipse at 0% 0%, rgba(255,255,255,0.55) 0%, transparent 65%)',
+                pointerEvents: 'none', zIndex: 2,
+              }} />
+              {/* Action button (left side, top — iPhone 15+) */}
+              <div style={{ position: 'absolute', left: -4, top: 118, width: 4, height: 34, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #9A9AA2, #C8C8D0)', boxShadow: '-2px 0 5px rgba(0,0,0,0.55)', zIndex: 5 }} />
+              {/* Volume up */}
+              <div style={{ position: 'absolute', left: -4, top: 168, width: 4, height: 66, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #9A9AA2, #C8C8D0)', boxShadow: '-2px 0 5px rgba(0,0,0,0.55)', zIndex: 5 }} />
+              {/* Volume down */}
+              <div style={{ position: 'absolute', left: -4, top: 248, width: 4, height: 66, borderRadius: '2px 0 0 2px', background: 'linear-gradient(to right, #9A9AA2, #C8C8D0)', boxShadow: '-2px 0 5px rgba(0,0,0,0.55)', zIndex: 5 }} />
               {/* Power button (right side) */}
-              <div style={{ position: 'absolute', right: -3.5, top: 190, width: 3.5, height: 90, borderRadius: '0 2px 2px 0', background: 'linear-gradient(to left, #8C8C91, #ACACB1)', boxShadow: '1px 0 3px rgba(0,0,0,0.4)' }} />
+              <div style={{ position: 'absolute', right: -4, top: 190, width: 4, height: 92, borderRadius: '0 2px 2px 0', background: 'linear-gradient(to left, #9A9AA2, #C8C8D0)', boxShadow: '2px 0 5px rgba(0,0,0,0.55)', zIndex: 5 }} />
 
               {/* Screen */}
               <div
@@ -192,19 +257,30 @@ export default function IPhoneSection() {
                   position: 'relative',
                 }}
               >
-                {/* Screen gloss overlay */}
+                {/* Screen glass sheen — upper reflection */}
                 <div
                   style={{
                     position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.05) 100%)',
-                    borderRadius: 43,
+                    top: 0, left: 0, right: 0, height: '46%',
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.028) 55%, transparent 100%)',
+                    borderRadius: '43px 43px 0 0',
                     pointerEvents: 'none',
                     zIndex: 20,
                   }}
                 />
+                {/* Side-specular light stripe */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '10%', left: 0, width: 2, bottom: '10%',
+                    background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.06) 70%, transparent)',
+                    borderRadius: 2,
+                    pointerEvents: 'none',
+                    zIndex: 21,
+                  }}
+                />
 
-                {/* Dynamic Island — clean pill only */}
+                {/* Dynamic Island with camera + Face ID detail */}
                 <div
                   style={{
                     position: 'absolute',
@@ -216,9 +292,34 @@ export default function IPhoneSection() {
                     borderRadius: 20,
                     background: '#000',
                     zIndex: 15,
-                    boxShadow: 'inset 0 0 8px rgba(0,0,0,0.9)',
+                    boxShadow: 'inset 0 0 10px rgba(0,0,0,1), 0 0 0 0.5px rgba(255,255,255,0.06)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingLeft: 11,
+                    gap: 5,
                   }}
-                />
+                >
+                  {/* Camera lens */}
+                  <div style={{
+                    width: 13, height: 13, borderRadius: '50%',
+                    background: 'radial-gradient(circle at 35% 35%, #1A1A2E 0%, #000 60%)',
+                    border: '1px solid rgba(255,255,255,0.07)',
+                    boxShadow: 'inset 0 0 5px rgba(0,0,0,0.9)',
+                    position: 'relative', flexShrink: 0,
+                  }}>
+                    <div style={{
+                      position: 'absolute', top: 2.5, left: 2.5,
+                      width: 3.5, height: 3.5, borderRadius: '50%',
+                      background: 'rgba(255,255,255,0.20)',
+                    }} />
+                  </div>
+                  {/* Face ID sensor dots */}
+                  <div style={{ display: 'flex', gap: 3, marginLeft: 3 }}>
+                    {[0, 1, 2].map(i => (
+                      <div key={i} style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(255,255,255,0.07)' }} />
+                    ))}
+                  </div>
+                </div>
 
                 {/* Status bar */}
                 <div
