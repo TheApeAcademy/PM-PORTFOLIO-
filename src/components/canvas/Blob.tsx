@@ -121,14 +121,14 @@ export default function Blob() {
             <sphereGeometry args={[1.4, 128, 128]} />
             <MeshDistortMaterial
               ref={matRef}
-              color="#e8f2ff"
-              emissive="#4488ff"
-              emissiveIntensity={0.12}
+              color="#040e28"
+              emissive="#0044ee"
+              emissiveIntensity={1.15}
               distort={0.45}
               speed={1.8}
-              roughness={0.15}
-              metalness={0.0}
-              envMapIntensity={3}
+              roughness={0.18}
+              metalness={0.55}
+              envMapIntensity={1.2}
             />
           </mesh>
         </Float>

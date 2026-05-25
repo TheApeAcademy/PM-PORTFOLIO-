@@ -59,10 +59,10 @@ export default function Scene() {
         style={{ width: '100%', height: '100%' }}
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={1.2} color="#ddeeff" />
-          <pointLight position={[5, 5, 5]} intensity={4} color="#ffffff" />
-          <pointLight position={[-5, -2, 4]} intensity={2} color="#88bbff" />
-          <pointLight position={[2, -4, 3]} intensity={1.5} color="#ffffff" />
+          <ambientLight intensity={0.18} color="#ddeeff" />
+          <pointLight position={[5, 5, 5]} intensity={1.2} color="#1155ff" />
+          <pointLight position={[-5, -2, 4]} intensity={1.8} color="#3377ff" />
+          <pointLight position={[2, -4, 3]} intensity={0.9} color="#0033cc" />
           <DynamicMouseLight />
           <Environment preset="city" />
           <Blob />
