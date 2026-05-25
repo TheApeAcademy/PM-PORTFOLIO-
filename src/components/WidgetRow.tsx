@@ -1,6 +1,8 @@
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
+
 
 /* ── Activity Ring ──────────────────────── */
 function Ring({
@@ -50,6 +52,7 @@ function Widget({
   gradient,
   className,
   style: extraStyle,
+  floatIndex = 0,
 }: {
   children: React.ReactNode
   w?: number
@@ -57,41 +60,84 @@ function Widget({
   gradient?: string
   className?: string
   style?: React.CSSProperties
+  floatIndex?: number
 }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [glowPos, setGlowPos] = useState({ x: 50, y: 50 })
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    const cx = (e.clientX - rect.left) / rect.width
+    const cy = (e.clientY - rect.top) / rect.height
+    setTilt({ x: (cy - 0.5) * -14, y: (cx - 0.5) * 14 })
+    setGlowPos({ x: cx * 100, y: cy * 100 })
+  }
+  const reset = () => setTilt({ x: 0, y: 0 })
+
   return (
-    <div
-      className={`widget-card ${className ?? ''}`}
-      style={{
-        width: w,
-        height: h,
-        borderRadius: 22,
-        padding: 18,
-        border: '1px solid rgba(255,255,255,0.09)',
-        background: gradient ?? 'rgba(28,28,30,0.88)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
-        overflow: 'hidden',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-        ...extraStyle,
+    <motion.div
+      animate={{ y: [0, -6, 0] }}
+      transition={{
+        duration: 3.5 + floatIndex * 0.4,
+        repeat: Infinity,
+        ease: [0.45, 0, 0.55, 1],
+        delay: floatIndex * 0.3,
       }}
+      style={{ display: 'inline-block' }}
     >
-      {/* Widget glass sheen */}
       <div
+        ref={ref}
+        onMouseMove={handleMove}
+        onMouseLeave={reset}
+        className={`widget-card ${className ?? ''}`}
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 1,
-          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)',
-          pointerEvents: 'none',
+          width: w,
+          height: h,
+          borderRadius: 22,
+          padding: 18,
+          border: '1px solid rgba(255,255,255,0.09)',
+          background: gradient ?? 'rgba(28,28,30,0.88)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          overflow: 'hidden',
+          boxShadow: `0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04)`,
+          transform: `perspective(700px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+          willChange: 'transform',
+          ...extraStyle,
         }}
-      />
-      {children}
-    </div>
+      >
+        {/* Widget glass sheen */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 1,
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent)',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Mouse-tracked glow */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(0,113,227,0.08) 0%, transparent 60%)`,
+            pointerEvents: 'none',
+            borderRadius: 22,
+            transition: 'background 0.15s ease',
+          }}
+        />
+        {children}
+      </div>
+    </motion.div>
   )
 }
 
@@ -116,6 +162,7 @@ function WidgetLabel({ children }: { children: string }) {
 export function LocationWidget({ inView }: { inView: boolean }) {
   return (
     <Widget
+      floatIndex={0}
       gradient="linear-gradient(145deg, #020818 0%, #001233 60%, #002466 100%)"
       style={{ border: '1px solid rgba(0,113,227,0.2)' }}
     >
@@ -170,7 +217,7 @@ export function LocationWidget({ inView }: { inView: boolean }) {
 /* ── Widget 2: Activity Rings ───────────── */
 export function ActivityWidget({ inView }: { inView: boolean }) {
   return (
-    <Widget>
+    <Widget floatIndex={1}>
       <WidgetLabel>Skills</WidgetLabel>
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
         <svg width="120" height="120" viewBox="0 0 120 120">
@@ -218,7 +265,7 @@ export function BuildingWidget({ inView }: { inView: boolean }) {
     { name: 'Job Finder', pct: 28, status: 'Concept' },
   ]
   return (
-    <Widget>
+    <Widget floatIndex={2}>
       <WidgetLabel>Now Building</WidgetLabel>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 16 }}>
         {projects.map((p, i) => (
@@ -258,6 +305,7 @@ export function BuildingWidget({ inView }: { inView: boolean }) {
 export function PitchWidget({ inView }: { inView: boolean }) {
   return (
     <Widget
+      floatIndex={3}
       gradient="linear-gradient(145deg, #020818 0%, #001233 100%)"
       style={{ border: '1px solid rgba(0,113,227,0.18)' }}
     >

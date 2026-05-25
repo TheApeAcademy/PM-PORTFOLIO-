@@ -149,7 +149,7 @@ export default function ProjectOverlay({ project, originRect, onClose }: Project
                     </p>
                     <p style={{ fontSize: 13, color: '#86868B', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
                       {project.id === 'daye'
-                        ? 'Deep-dive into every product decision — problem framing, user research, technical architecture, go-to-market.'
+                        ? 'Deep-dive into every product decision: problem framing, user research, technical architecture, go-to-market.'
                         : 'Real users. Real assignments. Real payments. Built solo in 4 months.'}
                     </p>
                   </div>
@@ -436,7 +436,7 @@ function DayeWorkflowMockups() {
           {/* Daye insight */}
           <div style={{ marginTop: 'auto', padding: '6px 8px', borderRadius: 6, background: 'rgba(29,185,84,0.08)', border: '1px solid rgba(29,185,84,0.18)' }}>
             <p style={{ fontSize: 6.5, color: '#1DB954', fontFamily: 'var(--font-body)', lineHeight: 1.45 }}>
-              ♫ BPM rising in 2 tracks — session building toward your rooftop peak
+              ♫ BPM rising in 2 tracks. Session building toward your rooftop peak.
             </p>
           </div>
         </div>

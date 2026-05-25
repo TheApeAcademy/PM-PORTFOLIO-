@@ -118,7 +118,7 @@ export default function IPhoneSection() {
               fontWeight: 300,
             }}
           >
-            Tap any project to go deep — the problem, the thinking, the decisions.
+            Tap any project to go deep. The problem, the thinking, the decisions.
           </p>
           <button
             className="btn-ghost"

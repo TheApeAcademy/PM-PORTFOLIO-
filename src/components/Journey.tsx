@@ -7,19 +7,19 @@ const milestones = [
   {
     year: '2022',
     title: 'Started seeing things.',
-    body: 'Enrolled in cybersecurity. Spent more time writing up product problems than studying for exams. Couldn\'t help it — the gaps were everywhere.',
+    body: 'Enrolled in cybersecurity. Spent more time writing up product problems than studying for exams. The gaps were everywhere. Couldn\'t help it.',
     tag: 'Year one',
   },
   {
     year: '2023',
     title: 'Started saying them out loud.',
-    body: 'Wrote my first full product pitch — to a company I\'d never spoken to. Problem, root cause, solution, projected impact. They didn\'t respond. I sent another one.',
+    body: 'Wrote my first full product pitch to a company I\'d never spoken to. Problem, root cause, solution, projected impact. They didn\'t respond. I sent another one.',
     tag: 'Pitch mode',
   },
   {
     year: '2024',
     title: 'Started shipping.',
-    body: 'Built ApeAcademy solo. PM, frontend, design — all of it. Real Flutterwave payments. Real students. Real assignments. From zero to live in 4 months.',
+    body: 'Built ApeAcademy solo. PM, frontend, design. All of it. Real Flutterwave payments. Real students. Real assignments. From zero to live in 4 months.',
     tag: 'Founder mode',
   },
   {

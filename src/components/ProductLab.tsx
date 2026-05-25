@@ -30,11 +30,11 @@ const entries: LabEntry[] = [
     status: 'Full PRD',
     tagline: 'The music platform that forgot how to listen.',
     problem:
-      "Spotify's core interaction model — search, press play, shuffle — hasn't meaningfully evolved since 2006. 31% of users self-report \"playlist paralysis\". Static playlists degrade emotionally over time. The platform knows nothing about WHY you're listening: a late-night Lagos rooftop session and a 6am gym lift receive identical algorithmic treatment. TikTok and Apple Music are actively converging on conversational music. Spotify's window to lead is narrow.",
+      "Spotify's core interaction model (search, press play, shuffle) hasn't meaningfully evolved since 2006. 31% of users self-report \"playlist paralysis\". Static playlists degrade emotionally over time. The platform knows nothing about WHY you're listening: a late-night Lagos rooftop session and a 6am gym lift receive identical algorithmic treatment. TikTok and Apple Music are actively converging on conversational music. Spotify's window to lead is narrow.",
     rootCause:
-      'The product optimises for catalogue discovery, not session quality. There is no emotional context layer — the platform treats music preference as categorical (genre, artist) rather than situational (mood, energy arc, social context). The recommendation engine looks backward at history rather than forward into the current moment.',
+      'The product optimises for catalogue discovery, not session quality. There is no emotional context layer. The platform treats music preference as categorical (genre, artist) rather than situational (mood, energy arc, social context). The recommendation engine looks backward at history rather than forward into the current moment.',
     proposal:
-      'Daye — an AI-native conversational layer built on top of Spotify\'s existing Audio Features API. Users speak or type intent naturally ("give me late-night Lagos rooftop energy, start mellow, build slowly") and Daye interprets emotional intent, curates an adaptive session, and manages transitions like a professional DJ. Real-time queue re-evaluation every 2 tracks. Harmonic mixing. BPM arc management. Voice + text modes. Free tier gets 2 Daye sessions/day to create habit loop and drive Premium conversion.',
+      'Daye is an AI-native conversational layer built on top of Spotify\'s existing Audio Features API. Users speak or type intent naturally ("give me late-night Lagos rooftop energy, start mellow, build slowly") and Daye interprets emotional intent, curates an adaptive session, and manages transitions like a professional DJ. Real-time queue re-evaluation every 2 tracks. Harmonic mixing. BPM arc management. Voice + text modes. Free tier gets 2 Daye sessions/day to create habit loop and drive Premium conversion.',
     impact: '+18% session duration · <8% skip rate · +12% Premium conversion · NPS target 65+',
     docUrl: '/daye-case-study.html',
   },
@@ -48,11 +48,11 @@ const entries: LabEntry[] = [
     status: 'Analysis Complete',
     tagline: "The assistant that knows your home but doesn't know you.",
     problem:
-      "Alexa resets to zero at the start of every conversation. It has no persistent memory, no household identity model, and no ability to distinguish between family members reliably. A product that calls itself an \"assistant\" but forgets every interaction is a contradiction. Smart home routines fail silently — users never learn why — so they abandon automation entirely. After the initial novelty wears off, engagement collapses because there is no relationship to deepen.",
+      "Alexa resets to zero at the start of every conversation. It has no persistent memory, no household identity model, and no ability to distinguish between family members reliably. A product that calls itself an \"assistant\" but forgets every interaction is a contradiction. Smart home routines fail silently and users never learn why, so they abandon automation entirely. After the initial novelty wears off, engagement collapses because there is no relationship to deepen.",
     rootCause:
-      "Alexa was architecturally designed as a command interface, not a relational one. The interaction model — \"trigger word + command + response\" — was correct in 2014 but has not evolved with user expectation. The absence of voice-profile-level personalisation means the platform serves the device, not the person using it. Silent failure in routines compounds this: no feedback loop means no improvement in trust.",
+      "Alexa was architecturally designed as a command interface, not a relational one. The \"trigger word + command + response\" model was correct in 2014 but has not evolved with user expectation. The absence of voice-profile-level personalisation means the platform serves the device, not the person using it. Silent failure in routines compounds this: no feedback loop means no improvement in trust.",
     proposal:
-      'Persistent Memory Layer (opt-in): A user-consent-gated memory system where Alexa retains context across sessions — preferences, recurring patterns, ongoing tasks. Voice ID per household member with automatic profile switching. Proactive micro-context: \"You usually ask for traffic at 7:50am — want me to start automatically?\" Silent failure alerts with plain-language diagnosis: \"Your morning routine failed because the smart plug didn\'t respond — tap to fix.\" This repositions Alexa from command tool to ambient relationship.',
+      'Persistent Memory Layer (opt-in): A user-consent-gated memory system where Alexa retains context across sessions: preferences, recurring patterns, ongoing tasks. Voice ID per household member with automatic profile switching. Proactive micro-context: "You usually ask for traffic at 7:50am. Want me to start automatically?" Silent failure alerts with plain-language diagnosis: "Your morning routine failed because the smart plug didn\'t respond. Tap to fix." This repositions Alexa from command tool to ambient relationship.',
     impact:
       'Daily active use retention +24% · Routine adoption +40% · Household NPS recovery from 34 → 58',
   },
@@ -66,11 +66,11 @@ const entries: LabEntry[] = [
     status: 'Analysis Complete',
     tagline: "A network of 1 billion people where nobody can find the right signal.",
     problem:
-      'LinkedIn\'s feed is algorithmically optimised for engagement, not relevance. The result: a scroll of corporate announcements, motivational quotes, and "I\'m excited to announce" posts that train users to disengage. Job seekers apply to hundreds of roles and hear nothing. Hiring managers are buried in unqualified applications. The connection model conflates "colleague" with "contact" with "person I met once" — destroying the signal value of a recommendation.',
+      'LinkedIn\'s feed is algorithmically optimised for engagement, not relevance. The result: a scroll of corporate announcements, motivational quotes, and "I\'m excited to announce" posts that train users to disengage. Job seekers apply to hundreds of roles and hear nothing. Hiring managers are buried in unqualified applications. The connection model conflates "colleague" with "contact" with "person I met once", destroying the signal value of a recommendation.',
     rootCause:
-      'LinkedIn optimises for time-on-platform over professional value delivered. Engagement (likes, comments, shares) as a primary metric incentivises viral emotional content over substantive professional exchange. The job matching algorithm treats skills as keywords, not capabilities. Applications are unverified claims on a PDF — the platform does nothing to validate them before they reach a hiring manager.',
+      'LinkedIn optimises for time-on-platform over professional value delivered. Engagement (likes, comments, shares) as a primary metric incentivises viral emotional content over substantive professional exchange. The job matching algorithm treats skills as keywords, not capabilities. Applications are unverified claims on a PDF and the platform does nothing to validate them before they reach a hiring manager.',
     proposal:
-      'Three interventions: (1) Feed Quality Score — a user-adjustable signal/noise dial that deprioritises engagement-bait and surfaces only content from people you\'ve actually worked with or explicitly follow for professional insight. (2) Verified Skills badges — short async assessments that validate claimed skills before an application reaches a recruiter. (3) Warm Intro Layer — when applying to a role, surface first and second-degree connections at the company with a one-tap "ask for context".',
+      'Three interventions: (1) Feed Quality Score, a user-adjustable signal/noise dial that deprioritises engagement-bait and surfaces only content from people you\'ve actually worked with or follow for professional insight. (2) Verified Skills badges, short async assessments that validate claimed skills before an application reaches a recruiter. (3) Warm Intro Layer: when applying to a role, surface first and second-degree connections at the company with a one-tap "ask for context".',
     impact:
       'Recruiter response rate +35% · Application-to-interview conversion +28% · Feed session satisfaction NPS +22pts',
   },
@@ -266,15 +266,17 @@ export default function ProductLab() {
           ))}
         </motion.div>
 
-        {/* Animated content panel */}
+        {/* Animated content panel — 3D flip on tab switch */}
+        <div style={{ perspective: 1200 }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={active.id}
-            initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }}
-            transition={{ duration: 0.4, ease }}
+            initial={{ opacity: 0, rotateY: 8, scale: 0.98, filter: 'blur(3px)' }}
+            animate={{ opacity: 1, rotateY: 0, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, rotateY: -8, scale: 0.98, filter: 'blur(3px)' }}
+            transition={{ duration: 0.45, ease }}
             style={{
+              transformStyle: 'preserve-3d',
               borderRadius: 24,
               border: '1px solid rgba(255,255,255,0.07)',
               background: 'rgba(255,255,255,0.025)',
@@ -434,6 +436,7 @@ export default function ProductLab() {
             </div>
           </motion.div>
         </AnimatePresence>
+        </div>
 
         {/* Closing CTA — links to iPhone / projects section */}
         <motion.div

@@ -11,8 +11,8 @@ const storyLines = [
   'I shipped my first SaaS in year two. Nobody asked me to.',
   'ApeAcademy processes real payments.',
   'Real students. Real assignments.',
-  'I notice things most PMs miss. That\'s not a flex — it\'s just how I\'m wired.',
-  'I think in 4K — photographic product vision.',
+  'I notice things most PMs miss. Not a flex. Just how I\'m wired.',
+  'I think in 4K. Photographic product vision.',
   'I can tell you why your user abandoned checkout. It\'s rarely what you think.',
   'Been my own PM from day one.',
   'I find problems companies haven\'t named yet.',
@@ -197,7 +197,7 @@ export default function About() {
               I see the full user journey before a single wireframe exists. When I was designing ApeAcademy's payment flow, I'd already mentally walked 200 students through every edge case before I wrote a line of code. I call it thinking in 4K.
             </p>
             <p style={{ fontSize: 14, color: 'var(--color-muted)', lineHeight: 1.85, fontFamily: 'var(--font-body)', marginTop: 14, fontWeight: 300 }}>
-              I've sent unsolicited product analyses to Spotify, Amazon, and LinkedIn — not to get noticed, but because I genuinely couldn't stop seeing the problems. Everything on this site is work I actually did.
+              I've sent unsolicited product analyses to Spotify, Amazon, and LinkedIn. Not to get noticed. I just couldn't stop seeing the problems. Everything on this site is work I actually did.
             </p>
           </motion.div>
 
@@ -216,7 +216,7 @@ export default function About() {
             }}
           >
             <p style={{ fontSize: 13, color: 'rgba(0,160,255,0.85)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontStyle: 'italic', fontWeight: 300 }}>
-              "Companies miss revenue because they optimise for the happy path and ignore the exit interview. I find those blind spots — and I fix them."
+              "Companies miss revenue because they optimise for the happy path and ignore the exit interview. I find those blind spots and I fix them."
             </p>
           </motion.div>
 

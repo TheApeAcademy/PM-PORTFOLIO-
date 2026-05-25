@@ -204,7 +204,7 @@ export default function Hero() {
             textAlign: 'center',
           }}
         >
-          PM thinking. Frontend execution. I don't wait for permission to build — I've been shipping real products since year two of university.
+          PM thinking. Frontend execution. I don't wait for permission to build. I've been shipping real products since year two of university.
         </motion.p>
 
         {/* CTAs */}

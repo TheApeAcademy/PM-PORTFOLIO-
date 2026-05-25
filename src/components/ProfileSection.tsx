@@ -19,17 +19,17 @@ const slides = [
   },
   {
     eyebrow: 'HOW I THINK',
-    text: 'I see the full user journey before a wireframe exists. I call it thinking in 4K — photographic product imagination.',
+    text: 'I see the full user journey before a wireframe exists. I call it thinking in 4K. Photographic product imagination.',
     big: false,
   },
   {
     eyebrow: 'WHAT DRIVES ME',
-    text: 'Customer psychology isn\'t a skill I acquired. It\'s how I naturally read every product. I know why users click — and why they don\'t.',
+    text: 'Customer psychology isn\'t a skill I acquired. It\'s how I naturally read every product. I know why users click. And why they don\'t.',
     big: false,
   },
   {
     eyebrow: 'HOW I MOVE',
-    text: 'I send unsolicited pitches to companies. Not feature requests — full problem → root cause → solution → impact. Because I see the gap and I can\'t stay quiet.',
+    text: 'I send unsolicited pitches to companies. Not feature requests: full problem, root cause, solution, impact. Because I see the gap and I can\'t stay quiet.',
     big: false,
   },
 ]
