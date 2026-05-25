@@ -4228,9 +4228,22 @@ body {
       grid-template-columns: 1fr;
     }
     .iphone-doc { display: flex; justify-content: center; }
-    .iphone-row { grid-template-columns: 1fr; max-width: 240px; margin: 48px auto 0; }
+    .iphone-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 0 24px 20px;
+      margin: 48px -24px 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .iphone-row::-webkit-scrollbar { display: none; }
+    .iphone-row .iphone-screen-card {
+      flex: 0 0 160px;
+      min-width: 160px;
+    }
     .iphone-row .iphone-screen-card:nth-child(2),
-    .iphone-row .iphone-screen-card:nth-child(3) { display: none; }
+    .iphone-row .iphone-screen-card:nth-child(3) { display: block; }
   }
 
 </style>
