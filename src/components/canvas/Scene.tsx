@@ -26,18 +26,19 @@ export default function Scene() {
         style={{ width: '100%', height: '100%' }}
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={0.4} />
-          <pointLight position={[4, 4, 4]} intensity={2} color="#0071E3" />
-          <pointLight position={[-4, -4, 3]} intensity={1} color="#40a0ff" />
+          <ambientLight intensity={0.6} />
+          <pointLight position={[4, 4, 4]} intensity={4} color="#0071E3" />
+          <pointLight position={[-4, -4, 3]} intensity={2} color="#40a0ff" />
+          <pointLight position={[0, 0, 3]} intensity={2} color="#ffffff" />
           <Environment preset="city" />
           <Blob />
         </Suspense>
         <EffectComposer>
           <Bloom
             mipmapBlur
-            luminanceThreshold={0.15}
+            luminanceThreshold={0.05}
             luminanceSmoothing={0.9}
-            intensity={0.7}
+            intensity={1.5}
           />
           <ChromaticAberration
             blendFunction={BlendFunction.NORMAL}

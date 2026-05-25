@@ -64,13 +64,24 @@ export default function Hero() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#000',
+        background: 'transparent',
         overflow: 'hidden',
         zIndex: 2,
         paddingTop: 80,
         paddingBottom: 80,
       }}
     >
+      {/* Dark vignette so text stays readable over the 3D canvas */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.85) 100%)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+
       {/* Subtle grid */}
       <div
         style={{
