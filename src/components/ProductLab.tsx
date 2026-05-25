@@ -82,67 +82,156 @@ const statusColors: Record<LabEntry['status'], { bg: string; text: string; borde
   'In Progress': { bg: 'rgba(134,134,139,0.12)', text: '#86868B', border: 'rgba(134,134,139,0.2)' },
 }
 
+function ImpactChips({ impact, accentColor }: { impact: string; accentColor: string }) {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+      {impact.split(' · ').map((chip, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'inline-block',
+            padding: '5px 12px',
+            borderRadius: 8,
+            background: `${accentColor}12`,
+            border: `1px solid ${accentColor}30`,
+            fontSize: 11,
+            color: accentColor,
+            fontFamily: 'var(--font-body)',
+            fontWeight: 600,
+            lineHeight: 1.5,
+            letterSpacing: '0.01em',
+          }}
+        >
+          {chip}
+        </span>
+      ))}
+    </div>
+  )
+}
+
+function ContentBlock({ label, content, accentColor }: { label: string; content: string; accentColor: string }) {
+  return (
+    <div>
+      <p
+        style={{
+          fontSize: 9,
+          fontWeight: 700,
+          color: accentColor,
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          fontFamily: 'var(--font-body)',
+          marginBottom: 10,
+        }}
+      >
+        {label}
+      </p>
+      <p
+        style={{
+          fontSize: 13,
+          color: 'rgba(134,134,139,0.9)',
+          lineHeight: 1.85,
+          fontFamily: 'var(--font-body)',
+          fontWeight: 300,
+        }}
+      >
+        {content}
+      </p>
+    </div>
+  )
+}
+
 function LabCard({ entry, index }: { entry: LabEntry; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
   const sc = statusColors[entry.status]
 
   return (
-    <motion.div
+    <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 48 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1, ease }}
-      className="card-3d glow-hover animated-border"
+      transition={{ duration: 0.9, delay: index * 0.15, ease }}
+      whileHover={{ y: -6, transition: { duration: 0.3, ease } }}
       style={{
-        borderRadius: 20,
+        borderRadius: 24,
         border: '1px solid rgba(255,255,255,0.07)',
-        background: 'rgba(255,255,255,0.02)',
+        background: 'rgba(255,255,255,0.025)',
+        backdropFilter: 'blur(48px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(48px) saturate(180%)',
         overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
         position: 'relative',
+        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.07), 0 40px 100px rgba(0,0,0,0.5)`,
+        transition: 'box-shadow 0.4s ease',
+        cursor: 'default',
       }}
     >
-      {/* Card header */}
+      {/* Brand ambient glow */}
       <div
         style={{
-          padding: '24px 24px 20px',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '50%',
+          height: '280px',
+          background: `radial-gradient(ellipse at 10% 0%, ${entry.accentColor}16 0%, transparent 65%)`,
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Top accent line */}
+      <div
+        style={{
+          height: 2,
+          background: `linear-gradient(90deg, ${entry.accentColor}CC 0%, ${entry.accentColor}40 50%, transparent 80%)`,
+          position: 'relative',
+          zIndex: 1,
+        }}
+      />
+
+      {/* Header */}
+      <div
+        style={{
+          padding: 'clamp(20px,3vw,32px) clamp(20px,3vw,36px) clamp(16px,2.5vw,24px)',
           display: 'flex',
           alignItems: 'flex-start',
-          gap: 16,
+          gap: 18,
+          position: 'relative',
+          zIndex: 1,
+          flexWrap: 'wrap',
         }}
       >
-        {/* Company icon */}
+        {/* Brand icon */}
         <div
           style={{
-            width: 48,
-            height: 48,
-            borderRadius: 13,
+            width: 54,
+            height: 54,
+            borderRadius: 16,
             background: entry.iconBg,
-            border: `1px solid ${entry.accentColor}22`,
+            border: `1px solid ${entry.accentColor}30`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0,
-            fontSize: entry.iconLabel.length > 1 ? 14 : 22,
-            fontWeight: 700,
+            fontSize: entry.iconLabel.length > 1 ? 16 : 24,
+            fontWeight: 800,
             color: entry.accentColor,
             fontFamily: 'var(--font-display)',
+            flexShrink: 0,
+            boxShadow: `0 0 28px ${entry.accentColor}22`,
           }}
         >
           {entry.iconLabel}
         </div>
 
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 5, flexWrap: 'wrap' }}>
             <span
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 16,
-                fontWeight: 700,
+                fontSize: 'clamp(18px,2.5vw,24px)',
+                fontWeight: 800,
                 color: '#F5F5F7',
+                letterSpacing: '-0.025em',
               }}
             >
               {entry.company}
@@ -151,9 +240,9 @@ function LabCard({ entry, index }: { entry: LabEntry; index: number }) {
               style={{
                 fontSize: 9,
                 fontWeight: 700,
-                letterSpacing: '0.08em',
+                letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                padding: '2px 8px',
+                padding: '3px 10px',
                 borderRadius: 980,
                 background: sc.bg,
                 color: sc.text,
@@ -165,160 +254,115 @@ function LabCard({ entry, index }: { entry: LabEntry; index: number }) {
           </div>
           <p
             style={{
-              fontSize: 11,
-              color: '#86868B',
+              fontSize: 10,
+              color: '#686868',
               fontFamily: 'var(--font-body)',
-              letterSpacing: '0.06em',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              marginBottom: 12,
             }}
           >
             {entry.category}
           </p>
-        </div>
-      </div>
-
-      {/* Card body */}
-      <div style={{ padding: '20px 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: 18 }}>
-        {/* Tagline */}
-        <p
-          style={{
-            fontSize: 15,
-            fontWeight: 600,
-            fontFamily: 'var(--font-display)',
-            color: '#F5F5F7',
-            lineHeight: 1.4,
-            fontStyle: 'italic',
-          }}
-        >
-          "{entry.tagline}"
-        </p>
-
-        {/* Problem */}
-        <div>
           <p
             style={{
-              fontSize: 10,
+              fontSize: 'clamp(14px,1.8vw,17px)',
               fontWeight: 600,
-              color: entry.accentColor,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              fontFamily: 'var(--font-body)',
-              marginBottom: 6,
-            }}
-          >
-            Problem
-          </p>
-          <p style={{ fontSize: 13, color: '#86868B', lineHeight: 1.75, fontFamily: 'var(--font-body)' }}>
-            {entry.problem}
-          </p>
-        </div>
-
-        {/* Root Cause */}
-        <div>
-          <p
-            style={{
-              fontSize: 10,
-              fontWeight: 600,
-              color: entry.accentColor,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              fontFamily: 'var(--font-body)',
-              marginBottom: 6,
-            }}
-          >
-            Root Cause
-          </p>
-          <p style={{ fontSize: 13, color: '#86868B', lineHeight: 1.75, fontFamily: 'var(--font-body)' }}>
-            {entry.rootCause}
-          </p>
-        </div>
-
-        {/* Proposal */}
-        <div>
-          <p
-            style={{
-              fontSize: 10,
-              fontWeight: 600,
-              color: entry.accentColor,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              fontFamily: 'var(--font-body)',
-              marginBottom: 6,
-            }}
-          >
-            Proposed Solution
-          </p>
-          <p style={{ fontSize: 13, color: '#86868B', lineHeight: 1.75, fontFamily: 'var(--font-body)' }}>
-            {entry.proposal}
-          </p>
-        </div>
-
-        {/* Impact */}
-        <div
-          style={{
-            padding: '12px 16px',
-            borderRadius: 12,
-            background: `${entry.accentColor}0A`,
-            border: `1px solid ${entry.accentColor}1A`,
-          }}
-        >
-          <p
-            style={{
-              fontSize: 10,
-              fontWeight: 600,
-              color: entry.accentColor,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              fontFamily: 'var(--font-body)',
-              marginBottom: 5,
-            }}
-          >
-            Projected Impact
-          </p>
-          <p
-            style={{
-              fontSize: 13,
-              color: entry.accentColor,
-              fontFamily: 'var(--font-body)',
-              lineHeight: 1.6,
-              opacity: 0.85,
-            }}
-          >
-            {entry.impact}
-          </p>
-        </div>
-      </div>
-
-      {/* CTA footer */}
-      {entry.docUrl && (
-        <div style={{ padding: '0 24px 24px' }}>
-          <a
-            href={entry.docUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              fontSize: 13,
-              fontWeight: 600,
-              color: entry.accentColor,
+              fontStyle: 'italic',
+              color: 'rgba(245,245,247,0.82)',
               fontFamily: 'var(--font-display)',
-              textDecoration: 'none',
-              padding: '10px 0',
-              transition: 'opacity 0.2s',
+              lineHeight: 1.45,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
           >
-            Read full PRD document
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="7" y1="17" x2="17" y2="7" />
-              <polyline points="7 7 17 7 17 17" />
-            </svg>
-          </a>
+            "{entry.tagline}"
+          </p>
         </div>
-      )}
-    </motion.div>
+      </div>
+
+      {/* Impact strip */}
+      <div
+        style={{
+          padding: '14px clamp(20px,3vw,36px)',
+          borderTop: '1px solid rgba(255,255,255,0.04)',
+          borderBottom: '1px solid rgba(255,255,255,0.04)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 14,
+          flexWrap: 'wrap',
+          background: `${entry.accentColor}06`,
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <span
+          style={{
+            fontSize: 9,
+            fontWeight: 700,
+            color: entry.accentColor,
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            fontFamily: 'var(--font-body)',
+            flexShrink: 0,
+            opacity: 0.8,
+          }}
+        >
+          Impact Target
+        </span>
+        <ImpactChips impact={entry.impact} accentColor={entry.accentColor} />
+      </div>
+
+      {/* Content — 2-column horizontal layout */}
+      <div className="lab-content-grid" style={{ position: 'relative', zIndex: 1 }}>
+        {/* Left: Problem + Root Cause */}
+        <div className="lab-content-col">
+          <ContentBlock label="Problem" content={entry.problem} accentColor={entry.accentColor} />
+          <div style={{ height: 28 }} />
+          <ContentBlock label="Root Cause" content={entry.rootCause} accentColor={entry.accentColor} />
+        </div>
+
+        {/* Right: Proposed Solution + CTA */}
+        <div className="lab-content-col lab-content-col-right">
+          <ContentBlock label="Proposed Solution" content={entry.proposal} accentColor={entry.accentColor} />
+          {entry.docUrl && (
+            <a
+              href={entry.docUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 7,
+                marginTop: 24,
+                fontSize: 12,
+                fontWeight: 600,
+                color: entry.accentColor,
+                fontFamily: 'var(--font-display)',
+                textDecoration: 'none',
+                padding: '9px 16px',
+                borderRadius: 10,
+                border: `1px solid ${entry.accentColor}30`,
+                background: `${entry.accentColor}08`,
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = `${entry.accentColor}18`
+                e.currentTarget.style.borderColor = `${entry.accentColor}55`
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = `${entry.accentColor}08`
+                e.currentTarget.style.borderColor = `${entry.accentColor}30`
+              }}
+            >
+              Read full PRD document
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.article>
   )
 }
 
@@ -341,35 +385,32 @@ export default function ProductLab() {
       <div
         style={{
           position: 'absolute',
-          top: '10%',
+          top: '8%',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: 800,
-          height: 400,
+          width: 900,
+          height: 500,
           borderRadius: '50%',
-          background: 'radial-gradient(ellipse, rgba(0,113,227,0.07) 0%, transparent 65%)',
+          background: 'radial-gradient(ellipse, rgba(0,113,227,0.06) 0%, transparent 60%)',
           pointerEvents: 'none',
         }}
       />
 
-      <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
         {/* Header */}
         <motion.div
           ref={headerRef}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
+          transition={{ duration: 0.7, ease }}
           style={{ marginBottom: 64 }}
         >
-          <p
-            className="text-caption"
-            style={{ marginBottom: 16, letterSpacing: '0.22em' }}
-          >
+          <p className="text-caption" style={{ marginBottom: 16, letterSpacing: '0.22em' }}>
             INTELLIGENCE LAB
           </p>
           <h2
             className="text-section-headline"
-            style={{ color: '#F5F5F7', marginBottom: 20, maxWidth: 680, fontWeight: 800, letterSpacing: '-0.03em' }}
+            style={{ color: '#F5F5F7', marginBottom: 20, maxWidth: 700, fontWeight: 800, letterSpacing: '-0.03em' }}
           >
             How I think about other people's products.
           </h2>
@@ -383,32 +424,31 @@ export default function ProductLab() {
               fontWeight: 300,
             }}
           >
-            Unsolicited analyses — real problems I found, root causes I dug into, solutions I'd ship. No fluff. No feature requests. Just structured thinking, written as if I was already inside the company.
+            Unsolicited analyses — real problems I found, root causes I dug into, solutions I'd ship. No fluff. Just structured thinking, written as if I was already inside the company.
           </p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="lab-grid">
+        {/* Stacked full-width cards */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           {entries.map((entry, i) => (
             <LabCard key={entry.id} entry={entry} index={i} />
           ))}
         </div>
 
-        {/* Bottom note */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={headerInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5, ease }}
+          transition={{ duration: 0.6, delay: 0.6, ease }}
           style={{
             marginTop: 48,
-            fontSize: 12,
-            color: '#48484A',
+            fontSize: 11,
+            color: '#38383A',
             fontFamily: 'var(--font-body)',
             textAlign: 'center',
             letterSpacing: '0.04em',
           }}
         >
-          These are unsolicited analyses — not affiliated with or endorsed by these companies.
+          Unsolicited analyses — not affiliated with or endorsed by these companies.
         </motion.p>
       </div>
     </section>

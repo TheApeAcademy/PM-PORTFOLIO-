@@ -509,8 +509,15 @@ body {
     font-size: clamp(40px, 10vw, 72px);
   }
   .lab-grid {
-    grid-template-columns: 1fr;
     gap: 16px;
+  }
+  .lab-content-grid {
+    grid-template-columns: 1fr;
+  }
+  .lab-content-col-right {
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 0;
   }
   .ai-tools-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -518,6 +525,10 @@ body {
   }
   .principles-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .exploring-grid {
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
   .daye-mockups-grid {
@@ -529,10 +540,22 @@ body {
 
 /* ─── Product Intelligence Lab ─── */
 .lab-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Lab card horizontal content layout */
+.lab-content-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.lab-content-col {
+  padding: clamp(20px, 3vw, 28px) clamp(20px, 3vw, 36px);
+}
+.lab-content-col-right {
+  border-left: 1px solid rgba(255,255,255,0.04);
 }
 
 /* ─── AI Workflow / How I Work ─── */
@@ -542,6 +565,13 @@ body {
   gap: 12px;
 }
 .principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* Currently Exploring grid */
+.exploring-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
