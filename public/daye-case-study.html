@@ -4627,8 +4627,131 @@ body {
     .mobile-feat-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
   }
 
+  /* ── ATMOSPHERIC SECTION LIGHTING ── */
+  #prototype {
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%,    rgba(0, 30, 100, 0.30) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 30% at 20% 60%,   rgba(20, 0, 80, 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 30% at 80% 60%,   rgba(0, 60, 20, 0.14) 0%, transparent 50%),
+      #06060e;
+  }
+  #mobile {
+    background:
+      radial-gradient(ellipse 90% 50% at 50% 15%,   rgba(0, 50, 180, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 40% at 50% 85%,   rgba(0, 80, 30, 0.14) 0%, transparent 50%),
+      #060810;
+  }
+
+  /* Row-level ambient glow pads */
+  .row-ambient {
+    position: relative;
+    padding: 56px 0 20px;
+  }
+  .row-ambient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: var(--row-glow, transparent);
+    pointer-events: none;
+  }
+  .row-ambient.green-glow  { --row-glow: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(29,185,84,0.07) 0%, transparent 65%); }
+  .row-ambient.purple-glow { --row-glow: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(140,90,255,0.09) 0%, transparent 65%); }
+  .row-ambient.amber-glow  { --row-glow: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(212,160,23,0.08) 0%, transparent 65%); }
+
+  /* ── DEVICE FLOAT ANIMATION ── */
+  @keyframes device-float {
+    0%,100% { transform: translateY(0px);  }
+    50%      { transform: translateY(-12px); }
+  }
+  .cluster-center-wrap {
+    animation: device-float 5.5s ease-in-out infinite;
+  }
+
+  /* Screen emission — colored light pooling below each cluster device */
+  .cluster-center-wrap::after,
+  .cluster-left-wrap::after,
+  .cluster-right-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(18px);
+    z-index: 0;
+  }
+  .cluster-center-wrap::after {
+    width: 220px; height: 55px;
+    background: radial-gradient(ellipse, rgba(29,185,84,0.22) 0%, transparent 70%);
+  }
+  .cluster-left-wrap::after {
+    width: 140px; height: 38px;
+    background: radial-gradient(ellipse, rgba(0,100,255,0.16) 0%, transparent 70%);
+  }
+  .cluster-right-wrap::after {
+    width: 140px; height: 38px;
+    background: radial-gradient(ellipse, rgba(140,90,255,0.20) 0%, transparent 70%);
+  }
+
+  /* ── STRONGER VISIBLE SHADOWS (colored, not pure black) ── */
+  .iphone-mini-frame {
+    box-shadow:
+      0 0 0 0.5px rgba(255,255,255,0.85),
+      0 0 0 1px rgba(80,80,105,0.6),
+      0 0 0 1.5px rgba(160,160,180,0.14),
+      inset 0 2px 0 rgba(255,255,255,0.75),
+      inset 0 -2px 0 rgba(0,0,0,0.1),
+      inset 2px 0 0 rgba(255,255,255,0.45),
+      inset -2px 0 0 rgba(0,0,0,0.07),
+      0 40px 90px rgba(0,10,40,0.96),
+      0 16px 40px rgba(0,10,40,0.7),
+      0 4px 12px rgba(0,10,40,0.5);
+  }
+  .samsung-mini-frame {
+    box-shadow:
+      0 0 0 0.5px rgba(255,255,255,0.2),
+      0 0 0 1px rgba(20,20,32,0.95),
+      0 0 0 1.5px rgba(60,60,80,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.12),
+      inset 0 -1px 0 rgba(0,0,0,0.35),
+      inset 1px 0 0 rgba(255,255,255,0.08),
+      inset -1px 0 0 rgba(0,0,0,0.2),
+      0 40px 90px rgba(10,0,30,0.98),
+      0 16px 40px rgba(10,0,30,0.75),
+      0 4px 12px rgba(10,0,30,0.55);
+  }
+  .iphone-doc-frame {
+    box-shadow:
+      0 0 0 0.5px rgba(255,255,255,0.88),
+      0 0 0 1px rgba(80,80,105,0.65),
+      0 0 0 1.5px rgba(140,140,165,0.18),
+      inset 0 2px 0 rgba(255,255,255,0.8),
+      inset 0 -2px 0 rgba(0,0,0,0.1),
+      inset 2px 0 0 rgba(255,255,255,0.5),
+      inset -2px 0 0 rgba(0,0,0,0.07),
+      0 70px 160px rgba(0,10,50,0.98),
+      0 30px 80px rgba(0,10,50,0.75),
+      0 10px 30px rgba(0,10,50,0.55),
+      0 0 80px 4px rgba(29,185,84,0.06);
+  }
+
+  /* ── BIGGER PHONES ON MOBILE ── */
+  @media (max-width: 900px) {
+    .iphone-row .iphone-screen-card,
+    .iphone-row .iphone-screen-card:nth-child(2),
+    .iphone-row .iphone-screen-card:nth-child(3) {
+      flex: 0 0 245px !important;
+      min-width: 245px !important;
+    }
+    .iphone-doc-frame {
+      width: clamp(280px, 84vw, 320px) !important;
+      height: calc(clamp(280px, 84vw, 320px) * (650 / 300)) !important;
+    }
+  }
+
 </style>
-</head>
 <body>
 
 <nav>
@@ -4957,7 +5080,7 @@ body {
 <div class="divider"></div>
 
 <!-- PROTOTYPE -->
-<section id="prototype" style="padding:80px 0;">
+<section id="prototype" style="padding:80px 0; overflow:hidden;">
   <div style="padding:0 48px 48px;" class="reveal">
     <div class="section-label">04 — Live Prototype</div>
     <h2 class="section-title" style="font-size:clamp(32px,4vw,56px);">The <em>experience.</em></h2>
@@ -5414,7 +5537,8 @@ body {
       </div>
     </div>
 
-    <!-- Three-screen row -->
+    <!-- Three-screen row — Listener pathway -->
+    <div class="row-ambient green-glow">
     <div class="iphone-row reveal">
       <!-- Screen 1: Voice active -->
       <div class="iphone-screen-card">
@@ -5508,6 +5632,7 @@ body {
         </div>
       </div>
     </div>
+    </div><!-- /row-ambient green-glow -->
 
     <!-- ====================================================
          PATHWAY 02 — ARTIST & CREATOR MODE
@@ -5519,6 +5644,7 @@ body {
       <p style="font-size:14px;color:var(--muted);max-width:600px;line-height:1.75;margin:0;">Daye Studio gives artists a full creative layer inside Spotify. Describe a sound in natural language — AI generates a beat. Layer your vocals on top. Publish directly to Spotify without DistroKid or any third-party distributor. The creative loop, closed.</p>
     </div>
 
+    <div class="row-ambient purple-glow">
     <div class="iphone-row reveal" style="margin-top:36px;">
 
       <!-- Screen 4: Beat Studio Home -->
@@ -5664,6 +5790,7 @@ body {
         </div>
       </div>
     </div>
+    </div><!-- /row-ambient purple-glow -->
 
     <!-- ====================================================
          PATHWAY 03 — DJ & PRODUCER MODE
@@ -5675,6 +5802,7 @@ body {
       <p style="font-size:14px;color:var(--muted);max-width:600px;line-height:1.75;margin:0;">Daye embeds a professional DJ suite. Harmonic key detection, BPM arc management, real-time crossfade controls, and an energy curve visualiser that maps the emotional shape of a full session. Then a 4th screen: publish your track and distribute directly.</p>
     </div>
 
+    <div class="row-ambient amber-glow">
     <div class="iphone-row reveal" style="margin-top:36px;">
 
       <!-- Screen 7: DJ Mixing Deck -->
@@ -5840,6 +5968,7 @@ body {
         </div>
       </div>
     </div>
+    </div><!-- /row-ambient amber-glow -->
 
     <!-- ====================================================
          SCREEN 10 — PUBLISH & DISTRIBUTE
