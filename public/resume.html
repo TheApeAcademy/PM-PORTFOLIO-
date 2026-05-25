@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joshua Bankole — Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0071E3;
+      --black: #000;
+      --surface: #0A0A0A;
+      --border: rgba(255,255,255,0.08);
+      --text: #F5F5F7;
+      --muted: #86868B;
+      --font-display: 'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+      --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--text); }
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 20px;
+      background: var(--blue);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 980px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .download-btn:hover { opacity: 0.88; }
+
+    /* ── Header ── */
+    .header { margin-bottom: 40px; }
+    .name {
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+    .role-line {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--blue);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      align-items: center;
+    }
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-family: var(--font-body);
+    }
+    .contact-item:hover { color: var(--text); }
+    .contact-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    /* ── Summary ── */
+    .summary {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+    .summary strong { color: var(--text); font-weight: 600; }
+
+    /* ── Experience ── */
+    .exp-item { margin-bottom: 28px; }
+    .exp-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
+    .exp-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .exp-company {
+      font-size: 13px;
+      color: var(--blue);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .exp-date {
+      font-size: 11.5px;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-top: 2px;
+      font-family: var(--font-body);
+    }
+    .exp-bullets {
+      list-style: none;
+      padding: 0;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .exp-bullets li {
+      display: flex;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .exp-bullets li::before {
+      content: '→';
+      color: var(--blue);
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 12px;
+    }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .project-card {
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .project-name {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .project-status {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 980px;
+    }
+    .status-live { background: rgba(45,122,79,0.2); color: #2D7A4F; border: 1px solid rgba(45,122,79,0.3); }
+    .status-concept { background: rgba(134,134,139,0.15); color: #86868B; border: 1px solid rgba(134,134,139,0.2); }
+    .status-progress { background: rgba(0,113,227,0.15); color: #0071E3; border: 1px solid rgba(0,113,227,0.2); }
+    .project-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .stack-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .stack-tag {
+      font-size: 10px;
+      color: var(--muted);
+      padding: 2px 8px;
+      border-radius: 980px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      font-family: var(--font-body);
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .skill-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 6px;
+      font-family: var(--font-display);
+    }
+    .skill-list {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── Education ── */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .edu-degree {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .edu-school { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .edu-date { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+    /* ── Callout ── */
+    .callout {
+      margin-top: 28px;
+      padding: 18px 22px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,113,227,0.08) 0%, rgba(0,61,122,0.05) 100%);
+      border: 1px solid rgba(0,113,227,0.18);
+    }
+    .callout p {
+      font-size: 13px;
+      color: rgba(0,113,227,0.85);
+      font-style: italic;
+      line-height: 1.7;
+      font-family: var(--font-body);
+    }
+
+    /* ── Footer strip ── */
+    .resume-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .resume-footer span {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--font-body);
+    }
+    .resume-footer a {
+      font-size: 11px;
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff; color: #1D1D1F; }
+      :root {
+        --black: #fff;
+        --surface: #F5F5F7;
+        --border: rgba(0,0,0,0.1);
+        --text: #1D1D1F;
+        --muted: #6E6E73;
+      }
+      .toolbar { display: none; }
+      .page { padding: 32px 32px 40px; max-width: 100%; }
+      .project-card { border-color: rgba(0,0,0,0.1); background: #F9F9F9; }
+      .callout { background: #EFF6FF; border-color: rgba(0,113,227,0.2); }
+      .stack-tag { border-color: rgba(0,0,0,0.15); }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 32px 24px 60px; }
+      .name { font-size: 32px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .edu-row { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <a href="/" class="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Back to portfolio
+      </a>
+      <button class="download-btn" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Save as PDF
+      </button>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1 class="name">Joshua Bankole</h1>
+      <p class="role-line">Product Manager · Frontend Developer · Builder</p>
+      <div class="contact-row">
+        <a href="mailto:j0shbankole19@gmail.com" class="contact-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 7 10-7"/></svg>
+          j0shbankole19@gmail.com
+        </a>
+        <span class="contact-dot"></span>
+        <a href="tel:+2348165320780" class="contact-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +234 816 532 0780
+        </a>
+        <span class="contact-dot"></span>
+        <a href="https://wa.me/2348165320780" target="_blank" class="contact-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          WhatsApp
+        </a>
+        <span class="contact-dot"></span>
+        <a href="https://linkedin.com/in/joshuabankole" target="_blank" class="contact-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <span class="contact-dot"></span>
+        <span class="contact-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Cape Town (relocating 2025)
+        </span>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Summary -->
+    <div style="margin-bottom: 32px;">
+      <p class="section-label">Positioning</p>
+      <p class="summary">
+        Final-year cybersecurity student and self-directed product builder.
+        <strong>Shipped live SaaS with real payment processing since year two.</strong>
+        I think in systems, identify overlooked problems, and move from concept to production faster than most teams.
+        PM thinking + frontend execution — I've been my own product manager from day one,
+        writing comprehensive unsolicited pitches to companies before I'd seen a single job description.
+      </p>
+    </div>
+
+    <hr />
+
+    <!-- Experience -->
+    <div style="margin-bottom: 32px;">
+      <p class="section-label">Experience</p>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Founder &amp; Product Manager</div>
+            <div class="exp-company">ApeAcademy</div>
+          </div>
+          <div class="exp-date">Jan 2025 – Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built and launched a full SaaS marketplace solo in 4 months — React, TypeScript, Supabase, Flutterwave</li>
+          <li>Chose Flutterwave over Stripe — 40% lower transaction fees for the African market; integrated in 2 days</li>
+          <li>Architected row-level security (Supabase PostgreSQL) for multi-tenant marketplace isolation</li>
+          <li>Managed the full product lifecycle: discovery → wireframes → build → launch → iteration</li>
+          <li>Live with real students completing real assignments and earning real payments</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Founder &amp; Product Manager</div>
+            <div class="exp-company">RB Studio</div>
+          </div>
+          <div class="exp-date">2025 – Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Building a boutique product agency for early-stage founders — fixed-scope, fixed-price 2-week sprints</li>
+          <li>No retainers, no scope creep: founders receive a live product every two weeks, on budget</li>
+          <li>Shipped 8+ commercial client products across fashion, hospitality, luxury, and AI verticals</li>
+          <li>Notable builds: PADI (AI companion platform), MALAAK (Snapchat-native modest fashion), AAURA (luxury perfumery)</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">PM Pitch Analyst — Self-Initiated</div>
+            <div class="exp-company">Various Companies</div>
+          </div>
+          <div class="exp-date">2023 – Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Wrote comprehensive unsolicited product pitches — full problem, root cause, solution, and impact analysis</li>
+          <li>Daye (Spotify): full PRD for an AI-native conversational music layer; modelled +18% session duration, &lt;8% skip rate, +12% Premium conversion lift</li>
+          <li>Pitches framed as internal product documents, not feature requests — demonstrates professional PM communication</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Projects -->
+    <div style="margin-bottom: 32px;">
+      <p class="section-label">Selected Projects</p>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-name">
+            ApeAcademy
+            <span class="project-status status-live">Live</span>
+          </div>
+          <p class="project-desc">SaaS marketplace connecting African students with real company assignments — with real payment processing.</p>
+          <div class="stack-tags">
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">Flutterwave</span>
+            <span class="stack-tag">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">
+            Daye — Spotify AI Layer
+            <span class="project-status status-concept">Pitch</span>
+          </div>
+          <p class="project-desc">Unsolicited PRD for an AI-native conversational music intelligence layer built on Spotify's infrastructure.</p>
+          <div class="stack-tags">
+            <span class="stack-tag">Product Strategy</span>
+            <span class="stack-tag">PRD</span>
+            <span class="stack-tag">NLP / LLM</span>
+            <span class="stack-tag">Metrics</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">
+            Job Finder
+            <span class="project-status status-concept">Concept</span>
+          </div>
+          <p class="project-desc">Hyper-local, skills-based job discovery for African graduates with a verified-application monetisation model.</p>
+          <div class="stack-tags">
+            <span class="stack-tag">React Native</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">Flutterwave</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">
+            Padi — AI Companion
+            <span class="project-status status-live">Live</span>
+          </div>
+          <p class="project-desc">AI companion platform with season-based content drops, voice call UI, and dark editorial design that drives retention.</p>
+          <div class="stack-tags">
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">AI Platform</span>
+            <span class="stack-tag">Voice UI</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Skills -->
+    <div style="margin-bottom: 32px;">
+      <p class="section-label">Skills</p>
+      <div class="skills-grid">
+        <div>
+          <p class="skill-group-label">Product Management</p>
+          <p class="skill-list">User research · PRD writing · Roadmap prioritisation · A/B testing frameworks · Metrics definition · Feature trade-off analysis · Stakeholder communication · Jobs-to-be-done</p>
+        </div>
+        <div>
+          <p class="skill-group-label">Engineering</p>
+          <p class="skill-list">React · TypeScript · Tailwind CSS · Supabase · PostgreSQL · Node.js · Vite · Git · Flutterwave · REST APIs</p>
+        </div>
+        <div>
+          <p class="skill-group-label">Design &amp; Research</p>
+          <p class="skill-list">Figma · Prototyping · User flows · Information architecture · Mobile-first design · Interaction design</p>
+        </div>
+        <div>
+          <p class="skill-group-label">AI-Native Workflow</p>
+          <p class="skill-list">Claude · ChatGPT · Cursor · Lovable · Bolt · v0 · NotebookLM · Figma AI · Linear</p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Education -->
+    <div style="margin-bottom: 28px;">
+      <p class="section-label">Education</p>
+      <div class="edu-row">
+        <div>
+          <div class="edu-degree">Bachelor of Science — Cybersecurity</div>
+          <div class="edu-school">Final year · 2022 – Expected 2026</div>
+        </div>
+        <div class="edu-date">Nigeria</div>
+      </div>
+    </div>
+
+    <!-- Callout -->
+    <div class="callout">
+      <p>"Companies miss revenue because they optimise for the happy path and ignore the exit interview. I find those blind spots — and I fix them. I've been doing it since year one, unprompted."</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="resume-footer">
+      <span>Joshua Bankole · Cape Town, 2025</span>
+      <a href="https://pm-portfolio-steel-rho.vercel.app" target="_blank">pm-portfolio-steel-rho.vercel.app</a>
+    </div>
+
+  </div>
+</body>
+</html>

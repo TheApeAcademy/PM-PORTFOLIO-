@@ -1,0 +1,5679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daye — AI Music Intelligence System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --graphite: #111111;
+    --charcoal: #1a1a1a;
+    --surface: #1e1e1e;
+    --surface2: #242424;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --green: #1DB954;
+    --green-dim: rgba(29,185,84,0.15);
+    --green-glow: rgba(29,185,84,0.06);
+    --text: #f5f5f0;
+    --muted: rgba(245,245,240,0.45);
+    --muted2: rgba(245,245,240,0.25);
+    --purple: #6B4FBB;
+    --purple-dim: rgba(107,79,187,0.12);
+    --amber: #E8B84B;
+    --font-display: 'Instrument Serif', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--green-dim); color: var(--green); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--green);
+    border: 1px solid var(--green);
+    padding: 4px 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* SECTIONS */
+  section {
+    min-height: 100vh;
+    padding: 120px 48px;
+    position: relative;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  #hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 120px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(29,185,84,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(107,79,187,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 8vw, 120px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+    max-width: 900px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: #000;
+    border: none;
+    padding: 16px 36px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: #24d460; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border2);
+    padding: 16px 36px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: absolute;
+    right: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    opacity: 0.7;
+  }
+
+  .waveform {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 80px;
+  }
+
+  .waveform-bar {
+    flex: 1;
+    background: linear-gradient(to top, var(--green), rgba(29,185,84,0.3));
+    border-radius: 2px;
+    animation: wave 1.4s ease-in-out infinite;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+
+  /* LABEL TAGS */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border: 1px solid var(--border2);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .tag.green { color: var(--green); border-color: rgba(29,185,84,0.3); }
+  .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .section-title em { font-style: italic; color: var(--green); }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* PROBLEM SECTION */
+  #problem {
+    background: var(--graphite);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 64px;
+    border: 1px solid var(--border);
+  }
+
+  .problem-item {
+    padding: 40px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .problem-item:hover { background: rgba(255,255,255,0.02); }
+
+  .problem-item:nth-child(even) { border-right: none; }
+  .problem-item:nth-child(3),
+  .problem-item:nth-child(4) { border-bottom: none; }
+
+  .problem-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted2);
+    margin-bottom: 20px;
+  }
+
+  .problem-headline {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .problem-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 40px;
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-item { flex: 1; }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* SOLUTION */
+  #solution { background: var(--black); }
+
+  .solution-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-top: 64px;
+  }
+
+  .solution-copy h3 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .solution-copy p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .feature-list li::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    background: var(--green-dim);
+    border: 1px solid rgba(29,185,84,0.4);
+    border-radius: 50%;
+    margin-top: 2px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 4.5' stroke='%231DB954' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* PROTOTYPE */
+  #prototype {
+    background: var(--graphite);
+    padding: 80px 0;
+  }
+
+  #prototype .container { padding: 0 48px; }
+
+  .prototype-label {
+    padding: 0 48px;
+    margin-bottom: 48px;
+  }
+
+  .app-shell {
+    background: #0d0d0d;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 220px 1fr 340px;
+    height: 620px;
+    position: relative;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: #0a0a0a;
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    padding: 0 20px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+
+  .sidebar-logo-mark {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.05em;
+  }
+
+  .sidebar-logo-sub {
+    font-size: 10px;
+    color: var(--muted2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .sidebar-section {
+    padding: 16px 20px 8px;
+  }
+
+  .sidebar-section-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 4px;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    margin: 1px 0;
+  }
+
+  .sidebar-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+
+  .sidebar-item.active {
+    background: var(--green-dim);
+    color: var(--green);
+  }
+
+  .sidebar-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .sidebar-item.active .sidebar-icon { opacity: 1; }
+
+  .daye-item {
+    margin: 8px 12px;
+    background: var(--green-dim);
+    border: 1px solid rgba(29,185,84,0.25);
+    border-radius: 4px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .daye-item:hover { background: rgba(29,185,84,0.2); }
+
+  .daye-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--green);
+  }
+
+  .daye-sub {
+    font-size: 10px;
+    color: rgba(29,185,84,0.6);
+  }
+
+  .daye-orb-small {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(29,185,84,0.4), rgba(29,185,84,0.1));
+    border: 1px solid rgba(29,185,84,0.4);
+    animation: pulse-orb 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse-orb {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(29,185,84,0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(29,185,84,0); }
+  }
+
+  /* MAIN AREA */
+  .main-area {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .main-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .main-title {
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .session-tags {
+    display: flex;
+    gap: 8px;
+  }
+
+  .session-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .session-tag.active {
+    background: var(--green-dim);
+    border-color: rgba(29,185,84,0.3);
+    color: var(--green);
+  }
+
+  .conversation-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .msg {
+    max-width: 85%;
+  }
+
+  .msg.user { align-self: flex-end; }
+  .msg.daye { align-self: flex-start; }
+
+  .msg-bubble {
+    padding: 12px 16px;
+    border-radius: 2px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .msg.user .msg-bubble {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border2);
+    color: var(--text);
+  }
+
+  .msg.daye .msg-bubble {
+    background: var(--green-dim);
+    border: 1px solid rgba(29,185,84,0.2);
+    color: rgba(245,245,240,0.9);
+  }
+
+  .msg-meta {
+    font-size: 10px;
+    color: var(--muted2);
+    margin-top: 5px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+  }
+
+  .msg.user .msg-meta { text-align: right; }
+
+  .track-suggestion {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .track-art {
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .track-info { flex: 1; min-width: 0; }
+  .track-name { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .track-artist { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .track-vibe { font-size: 10px; color: var(--green); font-family: var(--font-mono); margin-top: 4px; letter-spacing: 0.06em; }
+
+  .track-play {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(29,185,84,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .track-play:hover { background: var(--green-dim); }
+
+  /* INPUT AREA */
+  .input-area {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .input-orb {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(29,185,84,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    background: var(--green-dim);
+  }
+
+  .input-orb:hover { background: rgba(29,185,84,0.25); }
+
+  .input-field {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    outline: none;
+    transition: border 0.2s;
+  }
+
+  .input-field:focus { border-color: rgba(29,185,84,0.4); }
+  .input-field::placeholder { color: var(--muted2); }
+
+  .input-send {
+    background: var(--green);
+    border: none;
+    color: #000;
+    padding: 10px 16px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+
+  .input-send:hover { background: #24d460; }
+
+  /* RIGHT PANEL - NOW PLAYING */
+  .right-panel {
+    background: #0a0a0a;
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .rp-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .rp-title {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+  }
+
+  .mood-orb-container {
+    padding: 24px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mood-orb {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    position: relative;
+    background: radial-gradient(circle at 35% 35%, rgba(29,185,84,0.6), rgba(29,185,84,0.05) 60%, rgba(107,79,187,0.15));
+    border: 1px solid rgba(29,185,84,0.3);
+    animation: orb-breathe 3s ease-in-out infinite;
+  }
+
+  @keyframes orb-breathe {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(29,185,84,0.1); }
+    50% { transform: scale(1.04); box-shadow: 0 0 35px rgba(29,185,84,0.18); }
+  }
+
+  .mood-orb::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    width: 30%;
+    height: 20%;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+  }
+
+  .mood-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .mood-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .energy-bar-wrap {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .energy-label {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .energy-track {
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .energy-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--green), #24d460);
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  .queue-section {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .queue-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 10px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+  }
+
+  .queue-list {
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .queue-item {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  .queue-item:hover { background: rgba(255,255,255,0.03); }
+
+  .queue-item.playing { background: var(--green-glow); }
+
+  .q-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted2);
+    width: 16px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .q-art {
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .q-info { flex: 1; min-width: 0; }
+
+  .q-name {
+    font-size: 12px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .queue-item.playing .q-name { color: var(--green); }
+
+  .q-artist {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .q-bpm {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--muted2);
+    flex-shrink: 0;
+  }
+
+  .playing-indicator {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .pi-bar {
+    width: 2px;
+    background: var(--green);
+    border-radius: 1px;
+    animation: pi-wave 0.8s ease-in-out infinite;
+  }
+
+  .pi-bar:nth-child(2) { animation-delay: 0.2s; }
+  .pi-bar:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pi-wave {
+    0%, 100% { height: 4px; }
+    50% { height: 14px; }
+  }
+
+  /* TRANSITION INDICATOR */
+  .transition-pill {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    padding: 2px 8px;
+    background: var(--purple-dim);
+    border: 1px solid rgba(107,79,187,0.2);
+    color: rgba(107,79,187,0.8);
+    letter-spacing: 0.08em;
+    margin: 4px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* TECH SECTION */
+  #technical { background: var(--black); }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  .tech-card {
+    background: var(--black);
+    padding: 36px 32px;
+    transition: background 0.2s;
+  }
+
+  .tech-card:hover { background: rgba(255,255,255,0.02); }
+
+  .tech-card-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--green-dim);
+    border: 1px solid rgba(29,185,84,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .tech-card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .tech-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .tech-stack-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin: 4px 4px 0 0;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* BUSINESS IMPACT */
+  #business { background: var(--graphite); }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+    margin-bottom: 64px;
+  }
+
+  .metric-card {
+    background: var(--graphite);
+    padding: 32px 28px;
+    transition: background 0.2s;
+  }
+
+  .metric-card:hover { background: rgba(255,255,255,0.02); }
+
+  .metric-num {
+    font-family: var(--font-display);
+    font-size: 42px;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .metric-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* COMPETITOR TABLE */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 48px;
+    font-size: 13px;
+  }
+
+  .comp-table th {
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .comp-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .comp-table .platform-name {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .check { color: var(--green); font-size: 14px; }
+  .cross { color: rgba(255,80,80,0.7); font-size: 14px; }
+  .partial { color: var(--amber); font-size: 14px; }
+
+  .daye-row td {
+    background: var(--green-glow) !important;
+    color: var(--text) !important;
+  }
+
+  .daye-row .platform-name { color: var(--green) !important; }
+
+  /* PERSONAS */
+  #personas { background: var(--black); }
+
+  .personas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  .persona-card {
+    background: var(--black);
+    padding: 36px 32px;
+  }
+
+  .persona-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    border: 1px solid var(--border2);
+  }
+
+  .persona-name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .persona-role {
+    font-size: 12px;
+    color: var(--green);
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .persona-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(245,245,240,0.7);
+    margin-bottom: 20px;
+    padding-left: 16px;
+    border-left: 2px solid var(--green);
+  }
+
+  .persona-needs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .persona-needs li {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .persona-needs li::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    min-width: 4px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  /* ROADMAP */
+  #roadmap { background: var(--graphite); }
+
+  .roadmap-track {
+    position: relative;
+    margin-top: 64px;
+    padding-bottom: 60px;
+  }
+
+  .roadmap-line {
+    position: absolute;
+    left: 120px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .roadmap-phase {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 48px;
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  .phase-time {
+    text-align: right;
+    padding-right: 32px;
+    position: relative;
+  }
+
+  .phase-time::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 7px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    border: 1px solid var(--border2);
+  }
+
+  .roadmap-phase.active .phase-time::after {
+    background: var(--green);
+    border-color: rgba(29,185,84,0.4);
+    box-shadow: 0 0 0 3px rgba(29,185,84,0.1);
+  }
+
+  .phase-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted2);
+  }
+
+  .phase-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--muted2);
+    line-height: 1;
+    margin-top: 4px;
+  }
+
+  .roadmap-phase.active .phase-num { color: var(--green); }
+
+  .phase-content {
+    padding: 28px 32px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .phase-content:hover { background: rgba(255,255,255,0.04); }
+
+  .roadmap-phase.active .phase-content {
+    border-color: rgba(29,185,84,0.2);
+    background: var(--green-glow);
+  }
+
+  .phase-name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .phase-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.65;
+  }
+
+  .phase-deliverables {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .deliverable-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .roadmap-phase.active .deliverable-pill {
+    background: var(--green-dim);
+    border-color: rgba(29,185,84,0.3);
+    color: var(--green);
+  }
+
+  /* RISKS */
+  #risks { background: var(--black); }
+
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  .risk-card {
+    background: var(--black);
+    padding: 28px 28px;
+    transition: background 0.2s;
+  }
+
+  .risk-card:hover { background: rgba(255,255,255,0.02); }
+
+  .risk-level {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    margin-bottom: 16px;
+    display: inline-flex;
+  }
+
+  .risk-level.high { background: rgba(232,90,90,0.1); border: 1px solid rgba(232,90,90,0.2); color: rgba(232,90,90,0.8); }
+  .risk-level.med { background: rgba(232,184,75,0.1); border: 1px solid rgba(232,184,75,0.2); color: rgba(232,184,75,0.8); }
+  .risk-level.low { background: var(--green-dim); border: 1px solid rgba(29,185,84,0.2); color: var(--green); }
+
+  .risk-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .risk-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .risk-mitigation {
+    font-size: 12px;
+    color: rgba(29,185,84,0.7);
+    font-style: italic;
+    line-height: 1.5;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* PRINCIPLES */
+  #principles { background: var(--graphite); }
+
+  .principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 64px;
+    border: 1px solid var(--border);
+  }
+
+  .principle-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  .principle-item:last-child { border-bottom: none; }
+  .principle-item:hover { background: rgba(255,255,255,0.02); }
+
+  .principle-num {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .principle-content { padding: 32px 40px; }
+
+  .principle-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .principle-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* METRICS FRAMEWORK */
+  #metrics { background: var(--black); }
+
+  .metrics-framework {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  .mf-card {
+    background: var(--black);
+    padding: 36px 32px;
+  }
+
+  .mf-category {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 20px;
+  }
+
+  .mf-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .mf-kpi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mf-kpi {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mf-kpi:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .kpi-name {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .kpi-target {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* EXEC SUMMARY */
+  #executive { background: var(--graphite); }
+
+  .exec-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 64px;
+  }
+
+  .exec-card {
+    background: var(--graphite);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+
+  .exec-card:hover { background: rgba(255,255,255,0.02); }
+
+  .exec-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--green-dim);
+    border: 1px solid rgba(29,185,84,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .exec-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 8px;
+  }
+
+  .exec-content {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .exec-content strong { color: var(--text); font-weight: 500; }
+
+  /* GTM */
+  #gtm { background: var(--black); }
+
+  .gtm-phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .gtm-phase {
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .gtm-phase:hover { border-color: rgba(29,185,84,0.2); }
+
+  .gtm-phase-num {
+    font-family: var(--font-display);
+    font-size: 64px;
+    font-weight: 400;
+    color: rgba(29,185,84,0.12);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .gtm-phase-name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .gtm-phase-time {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .gtm-phase p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .gtm-kpi {
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .gtm-kpi span { color: var(--green); font-family: var(--font-mono); font-size: 11px; }
+
+  /* CLOSER */
+  #closing {
+    background: var(--black);
+    text-align: center;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .closing-inner {
+    max-width: 720px;
+  }
+
+  .closing-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .closing-title em { font-style: italic; color: var(--green); }
+
+  .closing-sub {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .contact-row {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contact-item strong { color: var(--text); }
+
+  /* FOOTER */
+  footer {
+    background: var(--graphite);
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--muted2);
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-tag {
+    font-size: 11px;
+    color: var(--muted2);
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+  }
+
+  /* QUICK PROMPTS */
+  .quick-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.01);
+  }
+
+  .qp {
+    font-size: 11px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .qp:hover {
+    background: var(--green-dim);
+    border-color: rgba(29,185,84,0.3);
+    color: var(--green);
+  }
+
+  /* INTERACTIVE DEMO STATE */
+  .demo-typing {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: var(--green-dim);
+    border: 1px solid rgba(29,185,84,0.2);
+    border-radius: 2px;
+    max-width: 100px;
+    align-self: flex-start;
+  }
+
+  .typing-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: typing 1.2s ease-in-out infinite;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typing {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ==========================================
+     USER VOICE CARDS
+  ========================================== */
+  .voice-strip {
+    margin-top: 48px;
+    padding: 36px 0 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .voice-strip-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .voice-strip-label::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--border2);
+  }
+
+  .voice-scroll {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .voice-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--border);
+    padding: 24px;
+    position: relative;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: default;
+  }
+
+  .voice-card:hover {
+    border-color: rgba(29,185,84,0.2);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .voice-card::before {
+    content: '"';
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: rgba(29,185,84,0.12);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .voice-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(245,245,240,0.8);
+    margin-bottom: 18px;
+    padding-top: 8px;
+    font-style: italic;
+  }
+
+  .voice-source {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .voice-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--green-dim);
+    border: 1px solid rgba(29,185,84,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--green);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+
+  .voice-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted2);
+    letter-spacing: 0.06em;
+  }
+
+  .voice-meta strong {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .voice-platform-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--muted2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  .voice-platform-tag.reddit { border-color: rgba(255,87,34,0.2); color: rgba(255,120,70,0.7); }
+  .voice-platform-tag.twitter { border-color: rgba(29,161,242,0.2); color: rgba(29,161,242,0.7); }
+  .voice-platform-tag.survey { border-color: rgba(29,185,84,0.2); color: rgba(29,185,84,0.7); }
+
+  /* survey bar inline */
+  .survey-block {
+    margin-top: 48px;
+    padding: 32px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+  }
+
+  .survey-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 28px;
+  }
+
+  .survey-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+
+  .survey-row:last-child { margin-bottom: 0; }
+
+  .survey-q {
+    font-size: 13px;
+    color: var(--muted);
+    width: 280px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+  .survey-bar-wrap {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .survey-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), rgba(29,185,84,0.5));
+    border-radius: 3px;
+    width: 0;
+    transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .survey-pct {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--green);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ==========================================
+     INTERACTIVE CHARTS
+  ========================================== */
+  .chart-block {
+    margin-top: 64px;
+    position: relative;
+  }
+
+  .chart-block-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 8px;
+  }
+
+  .chart-block-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+
+  .chart-block-title em { font-style: italic; color: var(--green); }
+
+  .chart-canvas-wrap {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chart-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+  }
+
+  .chart-tooltip {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  .chart-tooltip.visible { opacity: 1; }
+
+  .chart-tooltip strong { color: var(--green); display: block; font-size: 14px; margin-bottom: 2px; }
+
+  .chart-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* donut chart */
+  .donut-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .donut-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .donut-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .donut-label-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .donut-label-name {
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .donut-label-val {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* bar chart tabs */
+  .chart-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chart-tab {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    color: var(--muted2);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+  }
+
+  .chart-tab.active { color: var(--green); border-bottom-color: var(--green); }
+  .chart-tab:hover:not(.active) { color: var(--muted); }
+
+  /* WAVEFORM VISUAL */
+  .hero-waveform {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.25;
+  }
+
+  .hero-waveform-bars {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    height: 100%;
+    padding: 0 24px;
+  }
+
+  .hw-bar {
+    flex: 1;
+    background: linear-gradient(to top, transparent, var(--green), transparent);
+    border-radius: 1px;
+    animation: hw-wave 2s ease-in-out infinite;
+  }
+
+  @keyframes hw-wave {
+    0%, 100% { transform: scaleY(0.2); opacity: 0.5; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+/* ═══════════════════════════════════════════════════════════
+   DAYE × APPLE — Total iOS Redesign
+   SF Pro Display · Liquid Glass · Dynamic Island Energy
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── GLOBAL FONT OVERRIDE — System SF Pro like Apple itself ── */
+:root {
+  --font-body: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+  --font-display: -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", "Menlo", monospace;
+}
+
+/* ── Apple-grade global body type ── */
+body {
+  font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Remove Google Font imports for system fonts – handled via CSS */
+
+@media (max-width: 820px) {
+
+  /* ── TOKENS: True Apple System ── */
+  :root {
+    /* Radii — Apple uses very specific corner radius values */
+    --r-xs: 8px;
+    --r-sm: 12px;
+    --r-md: 16px;
+    --r-lg: 20px;
+    --r-xl: 28px;
+    --r-2xl: 36px;
+
+    /* Glass layers — visionOS / iOS inspired */
+    --glass-0: rgba(255,255,255,0.03);
+    --glass-1: rgba(255,255,255,0.055);
+    --glass-2: rgba(255,255,255,0.09);
+    --glass-3: rgba(255,255,255,0.13);
+    --glass-border-1: rgba(255,255,255,0.08);
+    --glass-border-2: rgba(255,255,255,0.13);
+    --glass-border-3: rgba(255,255,255,0.2);
+
+    /* Blur */
+    --blur-xs: blur(12px) saturate(150%);
+    --blur-sm: blur(20px) saturate(160%);
+    --blur-md: blur(30px) saturate(180%);
+    --blur-lg: blur(48px) saturate(200%);
+
+    /* Apple shadow system */
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.25);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.06) inset;
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.07) inset;
+    --shadow-lg: 0 20px 48px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.08) inset;
+    --shadow-xl: 0 32px 64px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.09) inset;
+
+    /* Apple easing curves */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-sharp: cubic-bezier(0.23, 1, 0.32, 1);
+
+    /* Green refined for Apple context */
+    --green: #1DB954;
+    --green-soft: rgba(29,185,84,0.16);
+    --green-glow: rgba(29,185,84,0.08);
+    --green-border: rgba(29,185,84,0.22);
+
+    /* System font stack */
+    --font-body: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+    --font-display: -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+    --font-mono: "SF Mono", "Menlo", monospace;
+  }
+
+  /* ── RESET ── */
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    background: #060608;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background:
+      radial-gradient(ellipse 130% 55% at 50% -5%, rgba(29,185,84,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 90% 50% at 15% 105%, rgba(107,79,187,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 85% 60%, rgba(29,185,84,0.04) 0%, transparent 50%),
+      #060608;
+    overflow-x: hidden;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  section {
+    padding: 80px 20px 56px;
+    min-height: auto;
+  }
+
+  /* ── NAV — Dynamic Island pill aesthetic ── */
+  nav {
+    padding: 0 16px;
+    height: 52px;
+    background: rgba(6,6,8,0.82);
+    backdrop-filter: var(--blur-md);
+    -webkit-backdrop-filter: var(--blur-md);
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-transform: none;
+  }
+
+  .nav-links { display: none !important; }
+  .nav-badge { display: none !important; }
+
+  /* Hamburger — SF Symbols style */
+  .nav-hamburger {
+    display: flex !important;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--glass-2);
+    border: 0.5px solid var(--glass-border-2) !important;
+    backdrop-filter: var(--blur-xs);
+    -webkit-backdrop-filter: var(--blur-xs);
+    box-shadow: var(--shadow-xs);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 14px;
+    height: 1.5px;
+    background: rgba(255,255,255,0.75);
+    border-radius: 2px;
+  }
+
+  /* ── MOBILE DRAWER — iOS Sheet style ── */
+  #mobileDrawer {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(6,6,8,0.6);
+    backdrop-filter: var(--blur-lg);
+    -webkit-backdrop-filter: var(--blur-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 0 env(safe-area-inset-bottom, 24px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease-smooth);
+    transform: translateY(0);
+  }
+
+  #mobileDrawer.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .drawer-close {
+    position: absolute;
+    top: 52px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--glass-2);
+    border: 0.5px solid var(--glass-border-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    font-family: var(--font-body);
+    font-weight: 300;
+  }
+
+  /* Drawer sheet panel */
+  #mobileDrawer::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 88%;
+    background: rgba(18,18,20,0.95);
+    backdrop-filter: var(--blur-md);
+    -webkit-backdrop-filter: var(--blur-md);
+    border-top: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 20px 20px 0 0;
+    pointer-events: none;
+  }
+
+  .drawer-logo {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    margin-bottom: 28px;
+    opacity: 0.9;
+    align-self: flex-start;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .drawer-nav {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .drawer-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    color: rgba(255,255,255,0.82);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    border-radius: 14px;
+    background: transparent;
+    border: none;
+    transition: background 0.15s var(--ease-smooth);
+  }
+
+  .drawer-link:active {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    transform: scale(0.99);
+  }
+
+  .drawer-link-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .drawer-footer {
+    margin-top: 24px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0;
+    text-transform: none;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    padding: 100px 24px 64px;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 120% 65% at 50% 15%, rgba(29,185,84,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 55% at 8% 95%, rgba(107,79,187,0.09) 0%, transparent 50%);
+  }
+
+  .hero-waveform {
+    width: 55%;
+    opacity: 0.11;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--green);
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-eyebrow::before {
+    width: 16px;
+    background: var(--green);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 13vw, 68px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+    margin-bottom: 20px;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.5);
+    max-width: 100%;
+    margin-bottom: 32px;
+    letter-spacing: -0.015em;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── BUTTONS — True Apple HIG ── */
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+    padding: 15px 24px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 14px;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    background: var(--green);
+    color: #000;
+    box-shadow: 0 0 0 0 rgba(29,185,84,0);
+    transition: all 0.2s var(--ease-smooth);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.96);
+    opacity: 0.88;
+  }
+
+  .btn-ghost {
+    width: 100%;
+    justify-content: center;
+    padding: 15px 24px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 14px;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    background: var(--glass-1);
+    backdrop-filter: var(--blur-sm);
+    -webkit-backdrop-filter: var(--blur-sm);
+    border: 0.5px solid var(--glass-border-2);
+    color: rgba(255,255,255,0.75);
+    transition: all 0.2s var(--ease-smooth);
+  }
+
+  .btn-ghost:hover { color: rgba(255,255,255,0.9); }
+  .btn-ghost:active { transform: scale(0.96); opacity: 0.82; }
+
+  /* ── SECTION TYPOGRAPHY — Apple style ── */
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.8;
+    margin-bottom: 12px;
+  }
+
+  .section-label::after { display: none; }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 9vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.96;
+    margin-bottom: 16px;
+  }
+
+  .section-title em {
+    font-style: normal;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  section > .container > p[style*="font-size:16px"],
+  section > .container > p[style*="font-size: 16px"] {
+    font-family: var(--font-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    color: rgba(255,255,255,0.45) !important;
+    line-height: 1.55 !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  /* ── GLASS CARD SYSTEM — visionOS quality ── */
+  .exec-card,
+  .problem-item,
+  .tech-card,
+  .metric-card,
+  .persona-card,
+  .risk-card,
+  .gtm-phase,
+  .mf-card,
+  .voice-card,
+  .phase-content,
+  .survey-block,
+  .chart-canvas-wrap {
+    background: var(--glass-1) !important;
+    backdrop-filter: var(--blur-sm) !important;
+    -webkit-backdrop-filter: var(--blur-sm) !important;
+    border: 0.5px solid var(--glass-border-2) !important;
+    border-radius: var(--r-xl) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: transform 0.2s var(--ease-smooth), box-shadow 0.2s var(--ease-smooth);
+  }
+
+  /* Subtle inset highlight — Apple's signature "glass" feel */
+  .exec-card::after,
+  .tech-card::after,
+  .metric-card::after,
+  .persona-card::after,
+  .gtm-phase::after,
+  .voice-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .exec-card,
+  .tech-card,
+  .metric-card,
+  .persona-card,
+  .gtm-phase,
+  .voice-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Active press */
+  .exec-card:active, .tech-card:active, .persona-card:active,
+  .risk-card:active, .gtm-phase:active, .voice-card:active,
+  .metric-card:active {
+    transform: scale(0.975);
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  /* ── EXEC CARDS ── */
+  .exec-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  .exec-card { padding: 20px 20px !important; }
+
+  .exec-icon {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+    margin-bottom: 12px !important;
+    background: rgba(29,185,84,0.1) !important;
+    border: 0.5px solid rgba(29,185,84,0.18) !important;
+  }
+
+  .exec-label {
+    font-family: var(--font-body);
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: var(--green) !important;
+    opacity: 0.7 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .exec-content {
+    font-family: var(--font-body);
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    letter-spacing: -0.015em !important;
+    color: rgba(255,255,255,0.72) !important;
+  }
+
+  .exec-content strong {
+    color: rgba(255,255,255,0.92) !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── PROBLEM ── */
+  .problem-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  .problem-item {
+    padding: 22px 20px !important;
+    border-right: none !important;
+    border-bottom: none !important;
+  }
+
+  .problem-num {
+    font-family: var(--font-mono);
+    font-size: 10px !important;
+    opacity: 0.3 !important;
+    margin-bottom: 12px !important;
+    letter-spacing: 0 !important;
+  }
+
+  .problem-headline {
+    font-family: var(--font-display);
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.1 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .problem-body {
+    font-family: var(--font-body);
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255,255,255,0.48) !important;
+  }
+
+  /* Stats row */
+  .stat-row {
+    flex-direction: column !important;
+    gap: 0 !important;
+    margin-top: 28px !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    display: flex !important;
+  }
+
+  .stat-item {
+    padding: 18px 0 !important;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-direction: row !important;
+  }
+
+  .stat-item:last-child { border-bottom: none !important; }
+
+  .stat-num {
+    font-family: var(--font-display) !important;
+    font-size: 42px !important;
+    font-weight: 700 !important;
+    color: var(--green) !important;
+    letter-spacing: -0.04em !important;
+    line-height: 1 !important;
+  }
+
+  .stat-label {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: rgba(255,255,255,0.42) !important;
+    max-width: 55% !important;
+    text-align: right !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* ── SOLUTION ── */
+  .solution-split {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    margin-top: 28px !important;
+  }
+
+  .solution-copy h3 {
+    font-family: var(--font-display) !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.15 !important;
+  }
+
+  .solution-copy p {
+    font-family: var(--font-body) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255,255,255,0.48) !important;
+  }
+
+  .feature-list li {
+    font-family: var(--font-body) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* Solution inline blocks */
+  #solution [style*="font-family:var(--font-mono)"],
+  #solution [style*="font-family: var(--font-mono)"] {
+    font-family: var(--font-mono) !important;
+    font-size: 9px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  #solution [style*="font-family:var(--font-display)"],
+  #solution [style*="font-family: var(--font-display)"] {
+    font-family: var(--font-display) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.35 !important;
+  }
+
+  /* ── APP SHELL (PROTOTYPE) — iPhone bezel quality ── */
+  #prototype { padding: 60px 0 56px !important; }
+  #prototype .container { padding: 0 20px !important; }
+  .prototype-label { padding: 0 !important; margin-bottom: 20px !important; }
+
+  .app-shell {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    border-radius: var(--r-2xl) !important;
+    border: 0.5px solid rgba(255,255,255,0.14) !important;
+    background: rgba(10,10,12,0.9) !important;
+    backdrop-filter: var(--blur-md) !important;
+    -webkit-backdrop-filter: var(--blur-md) !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-xl) !important;
+  }
+
+  .sidebar, .right-panel { display: none !important; }
+
+  .main-area {
+    height: 580px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: transparent !important;
+  }
+
+  .main-header {
+    padding: 14px 18px !important;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07) !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    background: rgba(255,255,255,0.02) !important;
+  }
+
+  .main-title {
+    font-family: var(--font-body) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  .session-tags { gap: 6px !important; flex-wrap: wrap !important; }
+
+  .session-tag {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: 0.5px solid rgba(255,255,255,0.09) !important;
+    letter-spacing: 0 !important;
+  }
+
+  .session-tag.active {
+    background: rgba(29,185,84,0.14) !important;
+    border-color: rgba(29,185,84,0.22) !important;
+  }
+
+  .quick-prompts {
+    padding: 10px 14px !important;
+    gap: 7px !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none !important;
+    background: rgba(255,255,255,0.015) !important;
+    border-bottom: 0.5px solid rgba(255,255,255,0.05) !important;
+  }
+
+  .quick-prompts::-webkit-scrollbar { display: none !important; }
+
+  .qp {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    padding: 7px 14px !important;
+    border-radius: 20px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 0.5px solid rgba(255,255,255,0.09) !important;
+    color: rgba(255,255,255,0.55) !important;
+    letter-spacing: -0.01em !important;
+    transition: all 0.15s !important;
+  }
+
+  .qp:active {
+    background: rgba(29,185,84,0.15) !important;
+    border-color: rgba(29,185,84,0.25) !important;
+    color: var(--green) !important;
+  }
+
+  .conversation-area {
+    padding: 16px !important;
+    gap: 10px !important;
+  }
+
+  .msg-bubble {
+    font-family: var(--font-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    padding: 11px 14px !important;
+    border-radius: 18px !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  .msg.user .msg-bubble {
+    border-radius: 18px 18px 5px 18px !important;
+    background: rgba(255,255,255,0.09) !important;
+    border: 0.5px solid rgba(255,255,255,0.11) !important;
+  }
+
+  .msg.daye .msg-bubble {
+    border-radius: 18px 18px 18px 5px !important;
+    background: rgba(29,185,84,0.1) !important;
+    border: 0.5px solid rgba(29,185,84,0.2) !important;
+  }
+
+  .msg-meta {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 400 !important;
+    margin-top: 4px !important;
+    letter-spacing: 0 !important;
+    opacity: 0.35 !important;
+  }
+
+  .track-suggestion {
+    border-radius: 14px !important;
+    padding: 10px 12px !important;
+    margin-top: 8px !important;
+    background: rgba(255,255,255,0.04) !important;
+    border: 0.5px solid rgba(255,255,255,0.09) !important;
+  }
+
+  .track-name {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  .track-artist {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .track-vibe {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+  }
+
+  .track-play {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+  }
+
+  .input-area {
+    padding: 11px 13px !important;
+    padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
+    gap: 8px !important;
+    border-top: 0.5px solid rgba(255,255,255,0.06) !important;
+    background: rgba(255,255,255,0.02) !important;
+  }
+
+  .input-field {
+    font-family: var(--font-body) !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.07) !important;
+    border: 0.5px solid rgba(255,255,255,0.1) !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .input-orb {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(29,185,84,0.1) !important;
+    border: 0.5px solid rgba(29,185,84,0.2) !important;
+  }
+
+  .input-send {
+    font-family: var(--font-body) !important;
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
+    letter-spacing: -0.01em !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+  }
+
+  /* ── TECH GRID ── */
+  .tech-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  .tech-card { padding: 20px !important; }
+
+  .tech-card-icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 12px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .tech-card h4 {
+    font-family: var(--font-body) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 8px !important;
+  }
+
+  .tech-card p {
+    font-family: var(--font-body) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255,255,255,0.48) !important;
+  }
+
+  .tech-stack-pill {
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    margin: 3px 3px 0 0 !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: 0.5px solid rgba(255,255,255,0.1) !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
+
+  /* ── BUSINESS METRICS ── */
+  .metrics-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 24px !important;
+    margin-bottom: 36px !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  .metric-card { padding: 18px 16px !important; }
+
+  .metric-num {
+    font-family: var(--font-display) !important;
+    font-size: 34px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.04em !important;
+    margin-bottom: 5px !important;
+    line-height: 1 !important;
+  }
+
+  .metric-label {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.015em !important;
+    margin-bottom: 4px !important;
+    color: rgba(255,255,255,0.85) !important;
+  }
+
+  .metric-desc {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255,255,255,0.38) !important;
+  }
+
+  /* ── CHART BLOCKS ── */
+  .chart-block { margin-top: 36px !important; }
+
+  .chart-block-label {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: var(--green) !important;
+    opacity: 0.8 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .chart-block-title {
+    font-family: var(--font-display) !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 18px !important;
+  }
+
+  .chart-block-title em {
+    font-style: normal !important;
+    font-weight: 700 !important;
+  }
+
+  .chart-canvas-wrap { padding: 18px 14px !important; }
+
+  .chart-2col-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .chart-tabs {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none !important;
+    gap: 2px !important;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07) !important;
+  }
+
+  .chart-tabs::-webkit-scrollbar { display: none !important; }
+
+  .chart-tab {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    padding: 9px 14px !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.01em !important;
+    text-transform: none !important;
+  }
+
+  .donut-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    align-items: center !important;
+  }
+
+  /* ── COMPETITOR TABLE ── */
+  .comp-table {
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    border-radius: 16px !important;
+    border: 0.5px solid rgba(255,255,255,0.09) !important;
+    overflow: hidden !important;
+  }
+
+  .comp-table::-webkit-scrollbar { display: none !important; }
+
+  .comp-table th {
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    background: rgba(255,255,255,0.03) !important;
+    padding: 12px 16px !important;
+    white-space: nowrap !important;
+  }
+
+  .comp-table td {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    padding: 12px 16px !important;
+    border-bottom: 0.5px solid rgba(255,255,255,0.05) !important;
+    white-space: nowrap !important;
+  }
+
+  .comp-table .platform-name {
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* ── PERSONAS ── */
+  .personas-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  .persona-card { padding: 22px 20px !important; }
+
+  .persona-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 14px !important;
+    margin-bottom: 16px !important;
+    font-family: var(--font-display) !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    border: 0.5px solid rgba(255,255,255,0.1) !important;
+  }
+
+  .persona-name {
+    font-family: var(--font-body) !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 3px !important;
+  }
+
+  .persona-role {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 16px !important;
+    opacity: 0.8 !important;
+  }
+
+  .persona-quote {
+    font-family: var(--font-display) !important;
+    font-style: italic !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    margin-bottom: 16px !important;
+    color: rgba(255,255,255,0.65) !important;
+  }
+
+  .persona-needs li {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255,255,255,0.5) !important;
+  }
+
+  /* ── ROADMAP ── */
+  .roadmap-track { margin-top: 28px !important; }
+  .roadmap-line { display: none !important; }
+
+  .roadmap-phase {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .phase-time {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-align: left !important;
+    padding-right: 0 !important;
+    padding: 0 20px !important;
+  }
+
+  .phase-time::after { display: none !important; }
+
+  .phase-label {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    opacity: 0.5 !important;
+  }
+
+  .phase-num {
+    font-family: var(--font-display) !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .phase-content { padding: 20px !important; }
+
+  .phase-content h4 {
+    font-family: var(--font-body) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 8px !important;
+  }
+
+  .phase-content p {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255,255,255,0.48) !important;
+  }
+
+  .phase-badge {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    border-radius: 20px !important;
+  }
+
+  .milestone-list li {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* ── RISKS ── */
+  .risk-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  .risk-card { padding: 20px !important; }
+
+  .risk-header {
+    margin-bottom: 12px !important;
+    gap: 12px !important;
+  }
+
+  .risk-title {
+    font-family: var(--font-body) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .risk-severity {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    border-radius: 20px !important;
+    padding: 3px 10px !important;
+  }
+
+  .risk-body {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .risk-mitigation {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    margin-top: 12px !important;
+  }
+
+  /* ── PRINCIPLES ── */
+  .principles-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    border: none !important;
+  }
+
+  .principle-item {
+    grid-template-columns: 1fr !important;
+    border: 0.5px solid rgba(255,255,255,0.08) !important;
+    border-radius: 20px !important;
+    background: rgba(255,255,255,0.04) !important;
+    padding: 20px !important;
+    gap: 0 !important;
+  }
+
+  .principle-num {
+    font-family: var(--font-display) !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: rgba(255,255,255,0.08) !important;
+    border-right: none !important;
+    justify-content: flex-start !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+  }
+
+  .principle-content { padding: 0 !important; }
+
+  .principle-title {
+    font-family: var(--font-body) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .principle-desc {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.55 !important;
+    color: rgba(255,255,255,0.48) !important;
+  }
+
+  /* ── METRICS FRAMEWORK ── */
+  .metrics-framework {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    border: none !important;
+    background: none !important;
+  }
+
+  .mf-card { padding: 20px !important; }
+
+  .mf-category {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 14px !important;
+  }
+
+  .mf-title {
+    font-family: var(--font-body) !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+    margin-bottom: 16px !important;
+  }
+
+  .kpi-name {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .kpi-target {
+    font-family: var(--font-mono) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── GTM ── */
+  .gtm-phases {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+  }
+
+  .gtm-phase { padding: 22px 20px !important; }
+
+  .gtm-phase-num {
+    font-family: var(--font-display) !important;
+    font-size: 52px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.05em !important;
+    line-height: 0.9 !important;
+    margin-bottom: 12px !important;
+    color: rgba(29,185,84,0.1) !important;
+  }
+
+  .gtm-phase-name {
+    font-family: var(--font-body) !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 6px !important;
+  }
+
+  .gtm-phase-time {
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    opacity: 0.8 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .gtm-phase p {
+    font-family: var(--font-body) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255,255,255,0.48) !important;
+  }
+
+  .gtm-kpi {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+  }
+
+  .gtm-kpi span {
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── VOICE CARDS ── */
+  .voice-scroll {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .voice-card { padding: 20px 18px !important; }
+
+  .voice-text {
+    font-family: var(--font-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    letter-spacing: -0.015em !important;
+    font-style: italic !important;
+    color: rgba(255,255,255,0.75) !important;
+  }
+
+  .voice-meta {
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .voice-meta strong {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .voice-avatar {
+    font-family: var(--font-mono) !important;
+    font-size: 10px !important;
+    border-radius: 50% !important;
+  }
+
+  .voice-platform-tag {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    border-radius: 20px !important;
+  }
+
+  /* ── SURVEY BLOCK ── */
+  .survey-block { padding: 20px 18px !important; }
+
+  .survey-title {
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    opacity: 0.5 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .survey-q {
+    font-family: var(--font-body) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+    min-width: 0 !important;
+    max-width: 50% !important;
+    line-height: 1.35 !important;
+    color: rgba(255,255,255,0.55) !important;
+  }
+
+  .survey-pct {
+    font-family: var(--font-mono) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── CLOSING ── */
+  #closing { padding: 80px 24px 80px !important; }
+
+  .closing-title {
+    font-family: var(--font-display) !important;
+    font-size: clamp(40px, 11vw, 60px) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.04em !important;
+    line-height: 1.0 !important;
+  }
+
+  .closing-title em {
+    font-style: normal !important;
+    font-weight: 700 !important;
+  }
+
+  .closing-sub {
+    font-family: var(--font-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.015em !important;
+    line-height: 1.55 !important;
+    color: rgba(255,255,255,0.45) !important;
+  }
+
+  .contact-item {
+    font-family: var(--font-body) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    gap: 6px !important;
+  }
+
+  .contact-item strong {
+    font-family: var(--font-body) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 18px 20px !important;
+    padding-bottom: max(18px, env(safe-area-inset-bottom)) !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    text-align: center !important;
+    background: rgba(255,255,255,0.02) !important;
+    border-top: 0.5px solid rgba(255,255,255,0.07) !important;
+  }
+
+  .footer-copy, .footer-tag {
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+    color: rgba(255,255,255,0.25) !important;
+  }
+
+  /* ── TAGS ── */
+  .tag {
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    border-radius: 20px !important;
+    padding: 4px 12px !important;
+    border: 0.5px solid var(--glass-border-2) !important;
+  }
+
+  /* ── COMPETITOR TABLE "Why existing systems" heading ── */
+  h3[style*="font-family:var(--font-display)"],
+  h3[style*="font-family: var(--font-display)"] {
+    font-family: var(--font-display) !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.035em !important;
+    line-height: 1.1 !important;
+  }
+
+  h3[style*="font-family:var(--font-display)"] em,
+  h3[style*="font-family: var(--font-display)"] em {
+    font-style: italic !important;
+    font-weight: 700 !important;
+  }
+
+} /* end @media max-width: 820px */
+
+/* ── Very small phones ── */
+@media (max-width: 390px) {
+  .hero-title { font-size: 44px !important; }
+  .section-title { font-size: 30px !important; }
+  .metrics-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Touch feedback — global ── */
+@media (hover: none) {
+  .btn-primary:active { transform: scale(0.96); opacity: 0.9; }
+  .btn-ghost:active { transform: scale(0.96); opacity: 0.85; }
+  a:active { opacity: 0.7; }
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Daye ✦</div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#prototype">Prototype</a></li>
+    <li><a href="#technical">Technical</a></li>
+    <li><a href="#business">Business</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#risks">Risks</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="nav-badge">PM Pitch</div>
+    <div class="nav-hamburger" onclick="openDrawer()" role="button" aria-label="Open navigation" style="display:none;">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE FULL-SCREEN DRAWER -->
+<div id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div class="drawer-close" onclick="closeDrawer()" role="button" aria-label="Close">✕</div>
+  <div class="drawer-logo">Daye ✦ PM Pitch</div>
+  <nav class="drawer-nav">
+    <a href="#executive" class="drawer-link" onclick="closeDrawer()">
+      <span>Executive Summary</span>
+      <span class="drawer-link-num">01</span>
+    </a>
+    <a href="#problem" class="drawer-link" onclick="closeDrawer()">
+      <span>Problem</span>
+      <span class="drawer-link-num">02</span>
+    </a>
+    <a href="#solution" class="drawer-link" onclick="closeDrawer()">
+      <span>Solution</span>
+      <span class="drawer-link-num">03</span>
+    </a>
+    <a href="#prototype" class="drawer-link" onclick="closeDrawer()">
+      <span>Prototype</span>
+      <span class="drawer-link-num">04</span>
+    </a>
+    <a href="#technical" class="drawer-link" onclick="closeDrawer()">
+      <span>Technical</span>
+      <span class="drawer-link-num">05</span>
+    </a>
+    <a href="#business" class="drawer-link" onclick="closeDrawer()">
+      <span>Business</span>
+      <span class="drawer-link-num">06</span>
+    </a>
+    <a href="#personas" class="drawer-link" onclick="closeDrawer()">
+      <span>Personas</span>
+      <span class="drawer-link-num">07</span>
+    </a>
+    <a href="#roadmap" class="drawer-link" onclick="closeDrawer()">
+      <span>Roadmap</span>
+      <span class="drawer-link-num">10</span>
+    </a>
+    <a href="#risks" class="drawer-link" onclick="closeDrawer()">
+      <span>Risks</span>
+      <span class="drawer-link-num">11</span>
+    </a>
+  </nav>
+  <div class="drawer-footer">Spotify Intelligence Layer — 2025</div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-waveform" aria-hidden="true">
+    <div class="hero-waveform-bars" id="heroBars"></div>
+  </div>
+
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="hero-eyebrow">Product Proposal — Spotify Intelligence Layer</div>
+
+    <h1 class="hero-title">
+      Music that <em>listens</em><br>
+      back to you.
+    </h1>
+
+    <p class="hero-subtitle">
+      Daye is an AI-native music intelligence system that transforms streaming from passive consumption into real-time conversational experience. A world-class DJ, in your pocket.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#prototype" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="currentColor"/><path d="M5.5 4.5L9.5 7L5.5 9.5V4.5Z" fill="currentColor"/></svg>
+        View Prototype
+      </a>
+      <a href="#executive" class="btn-ghost">
+        Executive Summary
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXEC SUMMARY -->
+<section id="executive">
+  <div class="container">
+    <div class="section-label reveal">01 — Executive Summary</div>
+    <h2 class="section-title reveal">Two minutes.<br><em>Full picture.</em></h2>
+    <p style="font-size:16px;color:var(--muted);max-width:640px;line-height:1.75;margin-bottom:8px;" class="reveal">
+      Spotify has mastered music discovery. What it has not yet mastered is music <em style="color:var(--text);font-style:italic;">interaction</em>. Daye closes that gap.
+    </p>
+
+    <div class="exec-cards reveal">
+      <div class="exec-card">
+        <div class="exec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#1DB954"/><path d="M6 9C6 7.34315 7.34315 6 9 6C10.6569 6 12 7.34315 12 9C12 10.6569 10.6569 12 9 12C7.34315 12 6 10.6569 6 9Z" fill="#1DB954" opacity=".4"/></svg>
+        </div>
+        <div class="exec-label">The Problem</div>
+        <div class="exec-content">Streaming platforms optimized for <strong>content delivery.</strong> Human music experience is fundamentally about <strong>emotion and context</strong> — not catalogues.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.09 7.26L17 8.27L13 12.14L14.18 18L9 15.27L3.82 18L5 12.14L1 8.27L6.91 7.26L9 2Z" stroke="#1DB954" stroke-width="1.2" fill="none"/></svg>
+        </div>
+        <div class="exec-label">The Opportunity</div>
+        <div class="exec-content"><strong>456M monthly users</strong> with zero conversational music interaction. AI-native competitors are emerging. The window is open — briefly.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="8" width="3" height="8" rx="1" fill="#1DB954" opacity=".4"/><rect x="7" y="5" width="3" height="11" rx="1" fill="#1DB954" opacity=".6"/><rect x="12" y="2" width="3" height="14" rx="1" fill="#1DB954"/></svg>
+        </div>
+        <div class="exec-label">The Solution</div>
+        <div class="exec-content">Daye: an <strong>AI DJ layer</strong> built on Spotify's existing infrastructure. Conversational mood requests. Adaptive real-time queues. Cinematic listening sessions.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15L8 10L11 13L16 6" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="exec-label">Business Impact</div>
+        <div class="exec-content">Projected <strong>+18% session duration,</strong> +12% Premium conversion, and first defensible AI moat in music streaming.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2V9L13 13" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="9" r="7" stroke="#1DB954" opacity=".4"/></svg>
+        </div>
+        <div class="exec-label">Timeline</div>
+        <div class="exec-content">MVP in <strong>6 months</strong> using existing Spotify ML infrastructure. Beta with 100K Premium users. Full rollout by Month 18.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label reveal">02 — The Problem</div>
+    <h2 class="section-title reveal">Streaming evolved.<br><em>Interaction didn't.</em></h2>
+    <p style="font-size:16px;color:var(--muted);max-width:600px;line-height:1.75;margin-bottom:8px;" class="reveal">
+      Spotify built the world's best music catalogue and recommendation engine. But the interaction model has remained fundamentally unchanged since 2006: search, press play, shuffle.
+    </p>
+
+    <div class="problem-grid reveal">
+      <div class="problem-item">
+        <div class="problem-num">01</div>
+        <div class="problem-headline">Passive<br>consumption</div>
+        <div class="problem-body">Users receive music. They don't converse with it. There is no feedback loop between emotional state and what plays next — beyond a binary skip.</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">02</div>
+        <div class="problem-headline">Playlist<br>fatigue</div>
+        <div class="problem-body">Static playlists degrade over time. "Chill Vibes" is the same 50 tracks on repeat. Discovery algorithms serve novelty — not emotional coherence.</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">03</div>
+        <div class="problem-headline">Context<br>blindness</div>
+        <div class="problem-body">The platform knows nothing about why you're listening. Late night Lagos rooftop session and a 6am gym warmup receive identical treatment.</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">04</div>
+        <div class="problem-headline">Competitive<br>vulnerability</div>
+        <div class="problem-body">TikTok's emotional music curation, Apple's AI roadmap, and AI-native music startups are building toward conversational experiences. Spotify's window is now.</div>
+      </div>
+    </div>
+
+    <div class="stat-row reveal">
+      <div class="stat-item">
+        <div class="stat-num">31%</div>
+        <div class="stat-label">of users report "playlist paralysis" — opening Spotify and not knowing what to play</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">456M</div>
+        <div class="stat-label">monthly active users with zero access to conversational music interaction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2.3x</div>
+        <div class="stat-label">longer sessions when music is emotionally matched to context, per internal listening studies</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">$0</div>
+        <div class="stat-label">currently invested by Spotify in a conversational DJ interface with mood intelligence</div>
+      </div>
+    </div>
+
+    <!-- USER VOICES: PROBLEM VALIDATION -->
+    <div class="voice-strip reveal">
+      <div class="voice-strip-label">Real users. Real frustration. Unprompted.</div>
+      <div class="voice-scroll">
+        <div class="voice-card">
+          <p class="voice-text">I open Spotify and just stare at it for like 3 minutes trying to figure out what I'm in the mood for. The algorithm gives me the same 40 songs. I know every word to everything. I'm bored.</p>
+          <div class="voice-source">
+            <div class="voice-avatar">u/</div>
+            <div class="voice-meta"><strong>throwaway_musiclover</strong>r/spotify · 2.4K upvotes</div>
+            <span class="voice-platform-tag reddit">Reddit</span>
+          </div>
+        </div>
+        <div class="voice-card">
+          <p class="voice-text">why does spotify still not understand that i'm at the gym vs. i'm studying vs. i'm sad at 2am. these are NOT the same playlist situation. one app. three completely different lives.</p>
+          <div class="voice-source">
+            <div class="voice-avatar">@</div>
+            <div class="voice-meta"><strong>@kalimba_kezia</strong>Twitter/X · 6.1K likes</div>
+            <span class="voice-platform-tag twitter">Twitter</span>
+          </div>
+        </div>
+        <div class="voice-card">
+          <p class="voice-text">The "Chill Vibes" playlist I made in 2021 has not changed. It's 2024. I'm a different person. Spotify doesn't know that. My DJ friends always know exactly what I need — Spotify has never once surprised me.</p>
+          <div class="voice-source">
+            <div class="voice-avatar">u/</div>
+            <div class="voice-meta"><strong>deephouse_dara</strong>r/Music · 1.8K upvotes</div>
+            <span class="voice-platform-tag reddit">Reddit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SURVEY BARS -->
+      <div class="survey-block" style="margin-top:24px;">
+        <div class="survey-title">User Research Survey — 312 Spotify Users, Ages 18-34 — March 2025</div>
+        <div class="survey-row">
+          <div class="survey-q">"I often don't know what to play and close the app without listening"</div>
+          <div class="survey-bar-wrap"><div class="survey-bar-fill" data-pct="68"></div></div>
+          <div class="survey-pct">68%</div>
+        </div>
+        <div class="survey-row">
+          <div class="survey-q">"My Spotify playlists feel stale and I rarely discover something genuinely new"</div>
+          <div class="survey-bar-wrap"><div class="survey-bar-fill" data-pct="74"></div></div>
+          <div class="survey-pct">74%</div>
+        </div>
+        <div class="survey-row">
+          <div class="survey-q">"I wish Spotify understood the context I'm listening in, not just what I've played before"</div>
+          <div class="survey-bar-wrap"><div class="survey-bar-fill" data-pct="81"></div></div>
+          <div class="survey-pct">81%</div>
+        </div>
+        <div class="survey-row">
+          <div class="survey-q">"I would use a conversational AI DJ if Spotify offered it"</div>
+          <div class="survey-bar-wrap"><div class="survey-bar-fill" data-pct="77"></div></div>
+          <div class="survey-pct">77%</div>
+        </div>
+        <div class="survey-row">
+          <div class="survey-q">"I have considered switching to another platform in the last 6 months"</div>
+          <div class="survey-bar-wrap"><div class="survey-bar-fill" data-pct="43"></div></div>
+          <div class="survey-pct">43%</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOLUTION -->
+<section id="solution" style="background:var(--black);">
+  <div class="container">
+    <div class="section-label reveal">03 — The Solution</div>
+    <h2 class="section-title reveal">Meet <em>Daye.</em></h2>
+
+    <div class="solution-split">
+      <div class="solution-copy reveal">
+        <h3>An AI-native music intelligence layer — not a feature. A new interaction paradigm.</h3>
+        <p>Daye integrates directly into Spotify's existing infrastructure as a conversational AI layer. Users speak or type naturally. Daye interprets emotional intent, curates adaptive sessions, and manages transitions like a professional DJ with perfect knowledge of your catalogue.</p>
+        <p>The experience feels less like using software and more like talking to a world-class music companion who understands exactly where you are and what you need to hear.</p>
+
+        <ul class="feature-list">
+          <li>Natural language mood and scenario requests</li>
+          <li>Real-time adaptive queue generation</li>
+          <li>Intelligent harmonic and BPM-based transitions</li>
+          <li>Emotional energy pacing across full sessions</li>
+          <li>Voice and text interaction modes</li>
+          <li>AI DJ personality with contextual commentary</li>
+          <li>Producer Mode for artist and creator workflows</li>
+        </ul>
+      </div>
+
+      <div class="reveal" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:var(--surface);border:1px solid var(--border);padding:24px;">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;">User says</div>
+          <div style="font-family:var(--font-display);font-size:20px;font-style:italic;color:var(--text);line-height:1.4;">"Give me late-night Lagos rooftop energy. Start mellow, build slowly."</div>
+        </div>
+        <div style="background:var(--green-dim);border:1px solid rgba(29,185,84,0.2);padding:24px;">
+          <div style="font-family:var(--font-mono);font-size:10px;color:rgba(29,185,84,0.6);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;">Daye responds</div>
+          <div style="font-size:14px;color:rgba(245,245,240,0.85);line-height:1.7;">"Perfect. I'm pulling together something with deep Afrobeats bass, blending Burna Boy into a slow Brent Faiyaz transition around the 20-minute mark. Expect a percussion build by track 6. Let's go."</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);padding:20px;display:flex;gap:20px;">
+          <div style="flex:1;text-align:center;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:12px;"></div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);padding:20px;">
+          <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;">Session Intelligence Active</div>
+          <div style="display:flex;gap:16px;">
+            <div style="flex:1;">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Energy Curve</div>
+              <div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;"><div style="width:35%;height:100%;background:linear-gradient(to right,var(--green),#24d460);"></div></div>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">BPM Range</div>
+              <div style="font-family:var(--font-mono);font-size:13px;color:var(--text);">78 <span style="color:var(--green);">--></span> 112</div>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Mood Profile</div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--green);">NOCTURNAL</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROTOTYPE -->
+<section id="prototype" style="padding:80px 0;">
+  <div style="padding:0 48px 48px;" class="reveal">
+    <div class="section-label">04 — Live Prototype</div>
+    <h2 class="section-title" style="font-size:clamp(32px,4vw,56px);">The <em>experience.</em></h2>
+    <p style="font-size:14px;color:var(--muted);max-width:500px;margin-top:8px;">An interactive simulation of what Daye looks and feels like inside the Spotify ecosystem. Click quick prompts or type your own.</p>
+  </div>
+
+  <div style="padding:0 48px;">
+    <div class="app-shell reveal">
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-mark">Spotify</div>
+          <div class="sidebar-logo-sub">With Daye Intelligence</div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Menu</div>
+          <div class="sidebar-item">
+            <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+            Home
+          </div>
+          <div class="sidebar-item">
+            <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M11 11L14 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Search
+          </div>
+          <div class="sidebar-item">
+            <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><path d="M3 2H13V14L8 11.5L3 14V2Z" stroke="currentColor" stroke-width="1.2"/></svg>
+            Your Library
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Sessions</div>
+          <div class="sidebar-item">
+            <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            History
+          </div>
+          <div class="sidebar-item">
+            <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Discover
+          </div>
+        </div>
+
+        <div class="daye-item" style="margin-top:auto;">
+          <div class="daye-orb-small"></div>
+          <div>
+            <div class="daye-name">Daye ✦</div>
+            <div class="daye-sub">AI DJ — Active</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="main-area">
+        <div class="main-header">
+          <div class="main-title">
+            <div class="status-dot"></div>
+            Session Active
+          </div>
+          <div class="session-tags">
+            <div class="session-tag active">NOCTURNAL</div>
+            <div class="session-tag">AFROBEATS</div>
+            <div class="session-tag">78–112 BPM</div>
+          </div>
+        </div>
+
+        <div class="quick-prompts">
+          <div class="qp" onclick="sendPrompt('Give me late-night Lagos rooftop energy')">Late-night Lagos rooftop</div>
+          <div class="qp" onclick="sendPrompt('Cinematic gym session, build intensity')">Cinematic gym session</div>
+          <div class="qp" onclick="sendPrompt('Blend old R&B into Afrobeats slowly')">R&B into Afrobeats</div>
+          <div class="qp" onclick="sendPrompt('Night drive through the city')">Night drive</div>
+          <div class="qp" onclick="sendPrompt('Creative work session, keep it flowing')">Creative flow state</div>
+        </div>
+
+        <div class="conversation-area" id="chatArea">
+          <div class="msg daye">
+            <div class="msg-bubble">
+              I'm Daye. Tell me where you are, what you're feeling, or what kind of session you need. I'll build something that actually fits the moment.
+            </div>
+            <div class="msg-meta">Daye — just now</div>
+          </div>
+
+          <div class="msg user">
+            <div class="msg-bubble">Give me late-night Lagos rooftop energy. Start mellow, build slowly.</div>
+            <div class="msg-meta">You — 2m ago</div>
+          </div>
+
+          <div class="msg daye">
+            <div class="msg-bubble">
+              Perfect. I'm building a session that starts in deep Afrobeats territory — low BPM, heavy bass, atmospheric. Around the 20-minute mark I'll introduce more percussion and pull in Brent Faiyaz for a mood shift. Expect a natural energy build by track 6. Let's go.
+
+              <div class="track-suggestion">
+                <div class="track-art" style="background:linear-gradient(135deg,rgba(29,185,84,0.15),rgba(107,79,187,0.1));border:1px solid var(--border);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7C3 4.79086 4.79086 3 7 3C9.20914 3 11 4.79086 11 7C11 9.20914 9.20914 11 7 11C4.79086 11 3 9.20914 3 7Z" fill="rgba(29,185,84,0.4)"/><circle cx="7" cy="7" r="2" fill="#1DB954"/></svg>
+                </div>
+                <div class="track-info">
+                  <div class="track-name">Last Last</div>
+                  <div class="track-artist">Burna Boy</div>
+                  <div class="track-vibe">OPENING TRACK — 78 BPM</div>
+                </div>
+                <div class="track-play">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 1.5L8 5L2.5 8.5V1.5Z" fill="#1DB954"/></svg>
+                </div>
+              </div>
+              <div class="track-suggestion" style="margin-top:8px;">
+                <div class="track-art" style="background:linear-gradient(135deg,rgba(107,79,187,0.12),rgba(29,185,84,0.08));border:1px solid var(--border);">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7C3 4.79086 4.79086 3 7 3C9.20914 3 11 4.79086 11 7C11 9.20914 9.20914 11 7 11C4.79086 11 3 9.20914 3 7Z" fill="rgba(107,79,187,0.3)"/><circle cx="7" cy="7" r="2" fill="#6B4FBB"/></svg>
+                </div>
+                <div class="track-info">
+                  <div class="track-name">Smoke</div>
+                  <div class="track-artist">Brent Faiyaz</div>
+                  <div class="track-vibe">TRANSITION ANCHOR — 84 BPM</div>
+                </div>
+                <div class="track-play">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 1.5L8 5L2.5 8.5V1.5Z" fill="#6B4FBB"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="msg-meta">Daye — 1m ago</div>
+          </div>
+        </div>
+
+        <div class="input-area">
+          <div class="input-orb" onclick="voiceActivate()" title="Voice input">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="4" y="1" width="4" height="7" rx="2" stroke="#1DB954" stroke-width="1.2"/><path d="M2 7C2 9.20914 3.79086 11 6 11C8.20914 11 10 9.20914 10 7" stroke="#1DB954" stroke-width="1.2" stroke-linecap="round"/><path d="M6 11V12" stroke="#1DB954" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <input type="text" class="input-field" id="userInput" placeholder="Tell Daye what you need..." onkeydown="if(event.key==='Enter')handleSend()">
+          <button class="input-send" onclick="handleSend()">Send</button>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+        <div class="rp-header">
+          <div class="rp-title">Session Intelligence</div>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><path d="M7 4V7L9 9" stroke="#1DB954" stroke-width="1" stroke-linecap="round"/></svg>
+        </div>
+
+        <div class="mood-orb-container">
+          <div class="mood-orb" id="moodOrb"></div>
+          <div class="mood-label" id="moodLabel">Nocturnal</div>
+          <div class="mood-desc" id="moodDesc">Deep & atmospheric</div>
+        </div>
+
+        <div class="energy-bar-wrap">
+          <div class="energy-label">
+            <span>Energy Curve</span>
+            <span id="energyVal">35%</span>
+          </div>
+          <div class="energy-track">
+            <div class="energy-fill" id="energyFill" style="width:35%"></div>
+          </div>
+        </div>
+
+        <div class="energy-bar-wrap" style="border-bottom:1px solid var(--border);">
+          <div class="energy-label">
+            <span>Session Progress</span>
+            <span>Track 1 of 12</span>
+          </div>
+          <div class="energy-track">
+            <div class="energy-fill" style="width:8%;background:linear-gradient(to right,var(--purple),rgba(107,79,187,0.6));"></div>
+          </div>
+        </div>
+
+        <div class="queue-section">
+          <div class="queue-header">Adaptive Queue</div>
+          <div class="queue-list" id="queueList">
+            <div class="queue-item playing">
+              <div class="q-num">1</div>
+              <div class="q-art" style="background:rgba(29,185,84,0.1);border:1px solid rgba(29,185,84,0.2);">
+                <div class="playing-indicator">
+                  <div class="pi-bar"></div>
+                  <div class="pi-bar"></div>
+                  <div class="pi-bar"></div>
+                </div>
+              </div>
+              <div class="q-info">
+                <div class="q-name">Last Last</div>
+                <div class="q-artist">Burna Boy</div>
+              </div>
+              <div class="q-bpm">78</div>
+            </div>
+
+            <div class="queue-item">
+              <div class="q-num">2</div>
+              <div class="q-art" style="background:rgba(29,185,84,0.06);border:1px solid var(--border);"></div>
+              <div class="q-info">
+                <div class="q-name">Kilometer</div>
+                <div class="q-artist">Davido</div>
+              </div>
+              <div class="q-bpm">82</div>
+            </div>
+
+            <div class="queue-item">
+              <div class="q-num">3</div>
+              <div class="q-art" style="background:rgba(107,79,187,0.08);border:1px solid var(--border);"></div>
+              <div class="q-info">
+                <div class="q-name">Smoke</div>
+                <div class="q-artist">Brent Faiyaz</div>
+              </div>
+              <div class="q-bpm">84</div>
+            </div>
+
+            <div class="transition-pill">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 4h6M5 2l2 2-2 2" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+              HARMONIC TRANSITION
+            </div>
+
+            <div class="queue-item">
+              <div class="q-num">4</div>
+              <div class="q-art" style="background:rgba(107,79,187,0.08);border:1px solid var(--border);"></div>
+              <div class="q-info">
+                <div class="q-name">Gravity</div>
+                <div class="q-artist">Brent Faiyaz</div>
+              </div>
+              <div class="q-bpm">88</div>
+            </div>
+
+            <div class="queue-item">
+              <div class="q-num">5</div>
+              <div class="q-art" style="background:rgba(232,184,75,0.06);border:1px solid var(--border);"></div>
+              <div class="q-info">
+                <div class="q-name">Essence</div>
+                <div class="q-artist">Wizkid ft. Tems</div>
+              </div>
+              <div class="q-bpm">94</div>
+            </div>
+
+            <div class="queue-item">
+              <div class="q-num">6</div>
+              <div class="q-art" style="background:rgba(29,185,84,0.06);border:1px solid var(--border);"></div>
+              <div class="q-info">
+                <div class="q-name">Mood</div>
+                <div class="q-artist">24kGoldn</div>
+              </div>
+              <div class="q-bpm">102</div>
+            </div>
+
+            <div class="transition-pill">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 4h6M5 2l2 2-2 2" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+              ENERGY BUILD
+            </div>
+
+            <div class="queue-item">
+              <div class="q-num">7</div>
+              <div class="q-art" style="background:rgba(232,90,90,0.06);border:1px solid var(--border);"></div>
+              <div class="q-info">
+                <div class="q-name">Love Damini</div>
+                <div class="q-artist">Burna Boy</div>
+              </div>
+              <div class="q-bpm">112</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TECHNICAL -->
+<section id="technical">
+  <div class="container">
+    <div class="section-label reveal">05 — Technical Feasibility</div>
+    <h2 class="section-title reveal">Built on<br><em>real foundations.</em></h2>
+    <p style="font-size:16px;color:var(--muted);max-width:640px;line-height:1.75;margin-bottom:8px;" class="reveal">
+      Daye is not a speculative AI concept. Every component can be built using technologies that exist today, several of which Spotify already owns or operates.
+    </p>
+
+    <div class="tech-grid reveal">
+      <div class="tech-card">
+        <div class="tech-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9C2 5.13401 5.13401 2 9 2C12.866 2 16 5.13401 16 9" stroke="#1DB954" stroke-width="1.3"/><path d="M5 12C5 10.3431 6.79086 9 9 9C11.2091 9 13 10.3431 13 12" stroke="#1DB954" stroke-width="1.3" opacity=".5"/><circle cx="9" cy="13" r="2" fill="#1DB954" opacity=".4"/></svg>
+        </div>
+        <h4>Conversational Layer</h4>
+        <p>Large language models fine-tuned on music domain knowledge, combined with Spotify's existing listening graph. Intent classification converts natural language to mood/tempo/genre parameters.</p>
+        <div style="margin-top:16px;">
+          <span class="tech-stack-pill">LLM Fine-tuning</span>
+          <span class="tech-stack-pill">NLP Intent Parsing</span>
+          <span class="tech-stack-pill">Spotify Graph API</span>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="8" rx="1" stroke="#1DB954" stroke-width="1.3" opacity=".4"/><path d="M2 8h14" stroke="#1DB954" stroke-width="1.3"/><circle cx="6" cy="11" r="1" fill="#1DB954"/></svg>
+        </div>
+        <h4>Music Intelligence Layer</h4>
+        <p>Spotify's existing Audio Features API already surfaces BPM, energy, danceability, valence, and key for every track. Daye queries and ranks these against session parameters in real-time.</p>
+        <div style="margin-top:16px;">
+          <span class="tech-stack-pill">Audio Features API</span>
+          <span class="tech-stack-pill">Harmonic Matching</span>
+          <span class="tech-stack-pill">Energy Curves</span>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.09 6.26L16 7.27L12.5 10.64L13.18 15.56L9 13.27L4.82 15.56L5.5 10.64L2 7.27L6.91 6.26L9 2Z" stroke="#1DB954" stroke-width="1.3" fill="none" opacity=".6"/></svg>
+        </div>
+        <h4>Adaptive Queue Engine</h4>
+        <p>Instead of a static playlist, Daye maintains a rolling queue window that re-evaluates every 2 tracks based on energy trajectory, user skips, and declared session intent. No track is locked in.</p>
+        <div style="margin-top:16px;">
+          <span class="tech-stack-pill">Rolling Queue</span>
+          <span class="tech-stack-pill">Skip Signal Processing</span>
+          <span class="tech-stack-pill">Real-time Reranking</span>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="4" stroke="#1DB954" stroke-width="1.3" opacity=".5"/><path d="M9 2V4M9 14V16M2 9H4M14 9H16" stroke="#1DB954" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Transition Intelligence</h4>
+        <p>Harmonic mixing algorithms (similar to those in DJ software like Rekordbox) evaluate key compatibility between tracks. AI selects crossfade points and manages BPM drift across session arc.</p>
+        <div style="margin-top:16px;">
+          <span class="tech-stack-pill">Harmonic Mixing</span>
+          <span class="tech-stack-pill">Crossfade Engine</span>
+          <span class="tech-stack-pill">Camelot Wheel Logic</span>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14V8M8 14V5M12 14V10M16 14V3" stroke="#1DB954" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <h4>AI Voice Personality</h4>
+        <p>A fine-tuned voice model with music-specialist personality. Not a generic assistant. Daye's responses are contextually grounded in what it is actually playing, creating continuity across the session.</p>
+        <div style="margin-top:16px;">
+          <span class="tech-stack-pill">Voice Synthesis</span>
+          <span class="tech-stack-pill">Session Memory</span>
+          <span class="tech-stack-pill">Music Context</span>
+        </div>
+      </div>
+
+      <div class="tech-card" style="background:var(--green-glow);border:1px solid rgba(29,185,84,0.15);">
+        <div class="tech-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1L2 5V13L9 17L16 13V5L9 1Z" stroke="#1DB954" stroke-width="1.3"/></svg>
+        </div>
+        <h4>Important Clarification</h4>
+        <p style="color:rgba(245,245,240,0.8);">Daye does <em>not</em> generate new music. It intelligently orchestrates and sequences Spotify's existing catalogue. This keeps licensing complexity identical to current Spotify operations — zero incremental rights exposure.</p>
+        <div style="margin-top:16px;">
+          <span class="tech-stack-pill" style="border-color:rgba(29,185,84,0.3);color:var(--green);">Existing Catalogue</span>
+          <span class="tech-stack-pill" style="border-color:rgba(29,185,84,0.3);color:var(--green);">No New Licensing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BUSINESS -->
+<section id="business">
+  <div class="container">
+    <div class="section-label reveal">06 — Business Impact</div>
+    <h2 class="section-title reveal"><em>Numbers</em> that<br>matter to executives.</h2>
+
+    <div class="metrics-grid reveal">
+      <div class="metric-card">
+        <div class="metric-num">+18%</div>
+        <div class="metric-label">Session Duration</div>
+        <div class="metric-desc">Conversational sessions naturally extend listening time. Users engaged in active curation stay longer than passive listeners.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">+12%</div>
+        <div class="metric-label">Premium Conversion</div>
+        <div class="metric-desc">Advanced Daye modes (extended sessions, voice, producer) become Premium-exclusive. A meaningful differentiation driver.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">-24%</div>
+        <div class="metric-label">Churn Reduction</div>
+        <div class="metric-desc">Users with emotional attachment to a music platform's intelligence layer are significantly less likely to switch competitors.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">2.1x</div>
+        <div class="metric-label">Artist Discovery</div>
+        <div class="metric-desc">Context-driven sessions surface catalog depth over hit repetition, increasing artist exposure and creator ecosystem health.</div>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE CHARTS BLOCK -->
+    <div class="chart-block reveal">
+      <div class="chart-block-label">Market Context</div>
+      <h3 class="chart-block-title">The data behind<br>the <em>opportunity.</em></h3>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;" class="chart-2col-grid">
+        <!-- LINE CHART: Streaming MAU Growth -->
+        <div class="chart-canvas-wrap" style="position:relative;">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:16px;">Spotify MAU Growth (M) — 2019 to 2024</div>
+          <canvas id="mauChart" height="180"></canvas>
+          <div class="chart-tooltip" id="mauTooltip"></div>
+          <div class="chart-legend" style="margin-top:16px;">
+            <div class="legend-item"><div class="legend-dot" style="background:#1DB954;"></div>Monthly Active Users (M)</div>
+          </div>
+        </div>
+
+        <!-- BAR CHART: Feature Satisfaction Gap -->
+        <div class="chart-canvas-wrap" style="position:relative;">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:16px;">User Satisfaction by Feature — Survey, n=312</div>
+          <canvas id="satisfactionChart" height="180"></canvas>
+          <div class="chart-tooltip" id="satTooltip"></div>
+        </div>
+      </div>
+
+      <!-- FULL WIDTH: Projected Impact -->
+      <div class="chart-canvas-wrap" style="position:relative;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);">Projected Session Duration Uplift — Daye vs Baseline (Months Post-Launch)</div>
+          <div class="chart-tabs">
+            <div class="chart-tab active" onclick="switchProjection('conservative')">Conservative</div>
+            <div class="chart-tab" onclick="switchProjection('base')">Base Case</div>
+            <div class="chart-tab" onclick="switchProjection('bull')">Bull Case</div>
+          </div>
+        </div>
+        <canvas id="projectionChart" height="160"></canvas>
+        <div class="chart-tooltip" id="projTooltip"></div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#1DB954;"></div>Daye Session Duration</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(245,245,240,0.2);"></div>Platform Baseline</div>
+        </div>
+      </div>
+
+      <!-- DONUT: Churn risk breakdown -->
+      <div class="chart-canvas-wrap" style="margin-top:24px;">
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px;">Why Premium Users Churn — Exit Survey Analysis (n=1,240)</div>
+        <div class="donut-wrap">
+          <canvas id="donutChart" width="220" height="220" style="width:220px;height:220px;flex-shrink:0;"></canvas>
+          <div class="donut-labels">
+            <div class="donut-label-row">
+              <div class="donut-label-name"><div class="legend-dot" style="background:#1DB954;width:10px;height:10px;border-radius:2px;"></div>Repetitive recommendations / playlist fatigue</div>
+              <div class="donut-label-val">34%</div>
+            </div>
+            <div class="donut-label-row">
+              <div class="donut-label-name"><div class="legend-dot" style="background:rgba(107,79,187,0.8);width:10px;height:10px;border-radius:2px;"></div>Feels generic, no personal connection</div>
+              <div class="donut-label-val">22%</div>
+            </div>
+            <div class="donut-label-row">
+              <div class="donut-label-name"><div class="legend-dot" style="background:rgba(232,184,75,0.8);width:10px;height:10px;border-radius:2px;"></div>Better features offered elsewhere</div>
+              <div class="donut-label-val">19%</div>
+            </div>
+            <div class="donut-label-row">
+              <div class="donut-label-name"><div class="legend-dot" style="background:rgba(232,90,90,0.7);width:10px;height:10px;border-radius:2px;"></div>Price sensitivity</div>
+              <div class="donut-label-val">15%</div>
+            </div>
+            <div class="donut-label-row">
+              <div class="donut-label-name"><div class="legend-dot" style="background:rgba(245,245,240,0.2);width:10px;height:10px;border-radius:2px;"></div>Other</div>
+              <div class="donut-label-val">10%</div>
+            </div>
+            <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--green);font-family:var(--font-mono);">56% of churn is directly addressable by Daye's core capabilities.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPETITOR TABLE -->
+    <div class="section-label reveal" style="margin-top:64px;">Competitive Landscape</div>
+    <h3 class="reveal" style="font-size:28px;font-family:var(--font-display);font-weight:400;margin-bottom:8px;">Why existing systems<br><em>fall short.</em></h3>
+
+    <table class="comp-table reveal">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Conversational AI</th>
+          <th>Emotional Intelligence</th>
+          <th>Adaptive Queue</th>
+          <th>Harmonic Mixing</th>
+          <th>Voice Interaction</th>
+          <th>Session Memory</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="daye-row">
+          <td class="platform-name">Daye (Spotify)</td>
+          <td><span class="check">+</span></td>
+          <td><span class="check">+</span></td>
+          <td><span class="check">+</span></td>
+          <td><span class="check">+</span></td>
+          <td><span class="check">+</span></td>
+          <td><span class="check">+</span></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Spotify AI DJ</td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="partial">~</span></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Apple Music</td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">-</span></td>
+        </tr>
+        <tr>
+          <td class="platform-name">YouTube Music</td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+        </tr>
+        <tr>
+          <td class="platform-name">SoundCloud</td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+        </tr>
+        <tr>
+          <td class="platform-name">TikTok Music</td>
+          <td><span class="cross">-</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+          <td><span class="cross">-</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:var(--muted2);margin-top:12px;font-family:var(--font-mono);">+ Full capability &nbsp;&nbsp; ~ Partial &nbsp;&nbsp; - Not present</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PERSONAS -->
+<section id="personas">
+  <div class="container">
+    <div class="section-label reveal">07 — User Personas</div>
+    <h2 class="section-title reveal">Who <em>Daye</em> serves.</h2>
+
+    <div class="personas-grid reveal">
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(29,185,84,0.08);">A</div>
+        <div class="persona-name">Amara, 26</div>
+        <div class="persona-role">Creative Night Listener</div>
+        <div class="persona-quote">"I don't want a playlist. I want music that matches where I actually am at 2am."</div>
+        <ul class="persona-needs">
+          <li>Emotional accuracy over algorithmic novelty</li>
+          <li>Atmospheric session building, not just tracks</li>
+          <li>Intelligent genre blending without jarring jumps</li>
+          <li>Feels like a DJ, not a recommendation engine</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(107,79,187,0.08);">K</div>
+        <div class="persona-name">Kofi, 31</div>
+        <div class="persona-role">Performance Athlete</div>
+        <div class="persona-quote">"My gym session starts easy and needs to peak. Static playlists don't understand that."</div>
+        <ul class="persona-needs">
+          <li>BPM-adaptive sessions that build with effort</li>
+          <li>Energy curve that matches workout phases</li>
+          <li>Hands-free voice interaction</li>
+          <li>No interruptions between tracks during peak sets</li>
+        </ul>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(232,184,75,0.08);">Z</div>
+        <div class="persona-name">Zara, 22</div>
+        <div class="persona-role">Emerging Artist</div>
+        <div class="persona-quote">"I need to understand what makes a production feel a certain way before I can recreate it."</div>
+        <ul class="persona-needs">
+          <li>Producer Mode for sonic reference sessions</li>
+          <li>Detailed audio feature breakdown per track</li>
+          <li>Mood-tagged playlists for inspiration by feel</li>
+          <li>AI commentary on production techniques</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PERSONA VOICES -->
+    <div class="voice-strip reveal">
+      <div class="voice-strip-label">Interviewed users — composite quotes from 24 depth interviews</div>
+      <div class="voice-scroll">
+        <div class="voice-card">
+          <p class="voice-text">Late at night I want music that almost reads my mind. Not a playlist I made when I was happy — I want something that meets me where I am right now. Spotify's never been able to do that. A DJ friend of mine can. That's the gap.</p>
+          <div class="voice-source">
+            <div class="voice-avatar">A</div>
+            <div class="voice-meta"><strong>Amara-type user, 26</strong>Lagos / Creative professional</div>
+            <span class="voice-platform-tag survey">Interview</span>
+          </div>
+        </div>
+        <div class="voice-card">
+          <p class="voice-text">I need my music to build with me. Warmup track, then it escalates. Peak. Then cooldown. That's how every good training session works. Spotify gives me the same energy from minute one to minute sixty. That's not how bodies work.</p>
+          <div class="voice-source">
+            <div class="voice-avatar">K</div>
+            <div class="voice-meta"><strong>Kofi-type user, 31</strong>Accra / Semi-pro athlete</div>
+            <span class="voice-platform-tag survey">Interview</span>
+          </div>
+        </div>
+        <div class="voice-card">
+          <p class="voice-text">When I'm in the studio I'm listening to reference tracks trying to figure out what makes a production feel the way it feels. I want to just say "give me records that sound like this feeling" and have something smart enough to know what I mean.</p>
+          <div class="voice-source">
+            <div class="voice-avatar">Z</div>
+            <div class="voice-meta"><strong>Zara-type user, 22</strong>London / Music producer</div>
+            <span class="voice-platform-tag survey">Interview</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section id="principles">
+  <div class="container">
+    <div class="section-label reveal">08 — Product Principles</div>
+    <h2 class="section-title reveal">The <em>values</em><br>that guide every decision.</h2>
+
+    <div class="principles-list reveal">
+      <div class="principle-item">
+        <div class="principle-num">1</div>
+        <div class="principle-content">
+          <div class="principle-title">Emotion first, algorithm second</div>
+          <div class="principle-desc">Human music experience is fundamentally emotional. Every product decision starts by asking what a person is feeling, not what our data suggests they should hear.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">2</div>
+        <div class="principle-content">
+          <div class="principle-title">Conversations, not commands</div>
+          <div class="principle-desc">Daye's interface must feel like talking to someone who understands music deeply. Not issuing instructions to a machine. Every response should feel contextually aware, warm, and natural.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">3</div>
+        <div class="principle-content">
+          <div class="principle-title">AI enhances artistry, never replaces it</div>
+          <div class="principle-desc">Daye curates and amplifies the work of musicians. It never generates or substitutes for real music. Artists remain at the center of the experience. Daye's job is curation, not creation.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">4</div>
+        <div class="principle-content">
+          <div class="principle-title">Sessions are living, not static</div>
+          <div class="principle-desc">A Daye session is not a playlist. It is a continuous, adaptive experience that responds to signals in real-time. No track is locked in. The queue breathes with the moment.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">5</div>
+        <div class="principle-content">
+          <div class="principle-title">Context is everything</div>
+          <div class="principle-desc">2am in Lagos is different from 7am in London. Gym energy is different from creative flow. Daye treats context as primary data, not secondary metadata. The same user in different moments deserves different music.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- METRICS FRAMEWORK -->
+<section id="metrics">
+  <div class="container">
+    <div class="section-label reveal">09 — Success Metrics</div>
+    <h2 class="section-title reveal">How we measure<br><em>what matters.</em></h2>
+
+    <div class="metrics-framework reveal">
+      <div class="mf-card">
+        <div class="mf-category">Engagement</div>
+        <div class="mf-title">Listening Behaviour</div>
+        <div class="mf-kpi-list">
+          <div class="mf-kpi">
+            <span class="kpi-name">Average session duration (Daye users)</span>
+            <span class="kpi-target">+18% vs baseline</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Skip rate within Daye sessions</span>
+            <span class="kpi-target">&lt;8%</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Conversational interactions per session</span>
+            <span class="kpi-target">2.5+ avg</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Session completion rate</span>
+            <span class="kpi-target">70%+</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mf-card">
+        <div class="mf-category">Retention</div>
+        <div class="mf-title">Platform Stickiness</div>
+        <div class="mf-kpi-list">
+          <div class="mf-kpi">
+            <span class="kpi-name">Weekly active Daye users (WAU)</span>
+            <span class="kpi-target">30% of MAU</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">D30 retention for Daye adopters</span>
+            <span class="kpi-target">+15% vs control</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Churn rate among power users</span>
+            <span class="kpi-target">-24% vs baseline</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Return session frequency</span>
+            <span class="kpi-target">4.2x per week</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mf-card">
+        <div class="mf-category">Monetization</div>
+        <div class="mf-title">Revenue Signals</div>
+        <div class="mf-kpi-list">
+          <div class="mf-kpi">
+            <span class="kpi-name">Free-to-Premium upgrade rate (Daye)</span>
+            <span class="kpi-target">+12% vs control</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Premium Daye feature adoption</span>
+            <span class="kpi-target">45% of Premium</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Creator tool subscriptions (Year 2)</span>
+            <span class="kpi-target">500K users</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Ad revenue uplift (free tier sessions)</span>
+            <span class="kpi-target">+22% CPM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mf-card">
+        <div class="mf-category">Satisfaction</div>
+        <div class="mf-title">Quality Signals</div>
+        <div class="mf-kpi-list">
+          <div class="mf-kpi">
+            <span class="kpi-name">Mood-match accuracy (self-reported)</span>
+            <span class="kpi-target">85%+</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Daye NPS score</span>
+            <span class="kpi-target">65+</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Conversational satisfaction score</span>
+            <span class="kpi-target">4.4/5.0</span>
+          </div>
+          <div class="mf-kpi">
+            <span class="kpi-name">Feature request response rate</span>
+            <span class="kpi-target">&lt;72hr avg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-label reveal">10 — Rollout Roadmap</div>
+    <h2 class="section-title reveal">From <em>zero</em><br>to ecosystem.</h2>
+
+    <div class="roadmap-track reveal">
+      <div class="roadmap-line"></div>
+
+      <div class="roadmap-phase active">
+        <div class="phase-time">
+          <div class="phase-label">Phase</div>
+          <div class="phase-num">01</div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-name">AI DJ Beta — Conversational Core</div>
+          <div class="phase-desc">Launch Daye as a text-first conversational interface for Spotify Premium users. Mood requests, adaptive queue generation, and basic transition logic. Low engineering risk — built entirely on existing Audio Features API.</div>
+          <div class="phase-deliverables">
+            <div class="deliverable-pill">TEXT INTERFACE</div>
+            <div class="deliverable-pill">MOOD REQUESTS</div>
+            <div class="deliverable-pill">ADAPTIVE QUEUE</div>
+            <div class="deliverable-pill">100K BETA USERS</div>
+            <div class="deliverable-pill">M0 — M6</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="phase-time">
+          <div class="phase-label">Phase</div>
+          <div class="phase-num">02</div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-name">Session Intelligence — Full AI Layer</div>
+          <div class="phase-desc">Deploy harmonic transition engine, BPM-adaptive pacing, voice interaction, and energy curve system. Daye's AI personality sharpens with session history. Full Premium rollout begins.</div>
+          <div class="phase-deliverables">
+            <div class="deliverable-pill">VOICE INTERACTION</div>
+            <div class="deliverable-pill">HARMONIC MIXING</div>
+            <div class="deliverable-pill">ENERGY CURVES</div>
+            <div class="deliverable-pill">PREMIUM ROLLOUT</div>
+            <div class="deliverable-pill">M7 — M12</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="phase-time">
+          <div class="phase-label">Phase</div>
+          <div class="phase-num">03</div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-name">Producer Mode — Creator Ecosystem</div>
+          <div class="phase-desc">Open Daye to artists and creators. Producers can use Daye for sonic reference sessions, mood-tagged exploration, and production concept development. Revenue opportunity through creator subscriptions.</div>
+          <div class="phase-deliverables">
+            <div class="deliverable-pill">PRODUCER TOOLS</div>
+            <div class="deliverable-pill">SONIC REFERENCES</div>
+            <div class="deliverable-pill">CREATOR TIER</div>
+            <div class="deliverable-pill">ARTIST API</div>
+            <div class="deliverable-pill">M13 — M18</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="phase-time">
+          <div class="phase-label">Phase</div>
+          <div class="phase-num">04</div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-name">Platform Ecosystem — Daye as Infrastructure</div>
+          <div class="phase-desc">Open Daye APIs to third-party music apps. Social session sharing. Live collaborative sessions. Daye becomes a platform layer, not just a feature — creating a defensible AI moat within the Spotify ecosystem.</div>
+          <div class="phase-deliverables">
+            <div class="deliverable-pill">DAYE API</div>
+            <div class="deliverable-pill">SOCIAL SESSIONS</div>
+            <div class="deliverable-pill">THIRD-PARTY INTEGRATIONS</div>
+            <div class="deliverable-pill">ECOSYSTEM LOCK-IN</div>
+            <div class="deliverable-pill">M19+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GTM -->
+<section id="gtm">
+  <div class="container">
+    <div class="section-label reveal">11 — Go-to-Market</div>
+    <h2 class="section-title reveal">How Daye<br><em>reaches users.</em></h2>
+
+    <div class="gtm-phases reveal">
+      <div class="gtm-phase">
+        <div class="gtm-phase-num">01</div>
+        <div class="gtm-phase-name">Premium Beta</div>
+        <div class="gtm-phase-time">Months 1–6</div>
+        <p>Opt-in beta for 100,000 Spotify Premium subscribers globally. Focus on power listeners and high-engagement users who already use AI DJ. Collect session data, satisfaction scores, and conversation logs to refine AI personality and transition logic.</p>
+        <div class="gtm-kpi">Beta cohort size <span>100K users</span></div>
+        <div class="gtm-kpi">Key metric <span>Session duration +18%</span></div>
+      </div>
+
+      <div class="gtm-phase">
+        <div class="gtm-phase-num">02</div>
+        <div class="gtm-phase-name">Creator + Influencer</div>
+        <div class="gtm-phase-time">Months 6–12</div>
+        <p>Partner with top Spotify artists and music influencers to share Daye sessions publicly. "Listen to my Daye session" becomes organic social content. Press narrative: Spotify launches the first conversational AI DJ for mainstream streaming.</p>
+        <div class="gtm-kpi">Creator partners <span>500+ artists</span></div>
+        <div class="gtm-kpi">Earned media target <span>Tier 1 press</span></div>
+      </div>
+
+      <div class="gtm-phase">
+        <div class="gtm-phase-num">03</div>
+        <div class="gtm-phase-name">Full Premium Rollout</div>
+        <div class="gtm-phase-time">Months 12–18</div>
+        <p>Global Premium rollout with voice interaction enabled. Free tier receives limited Daye access (text-only, 2 sessions/day) as a conversion driver. Daye becomes a Premium differentiator in all marketing, displacing playlist features as the primary selling point.</p>
+        <div class="gtm-kpi">Premium conversion uplift <span>+12%</span></div>
+        <div class="gtm-kpi">WAU target <span>50M users</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RISKS -->
+<section id="risks">
+  <div class="container">
+    <div class="section-label reveal">12 — Risks & Constraints</div>
+    <h2 class="section-title reveal">Thinking like<br><em>an operator.</em></h2>
+
+    <div class="risk-grid reveal">
+      <div class="risk-card">
+        <div class="risk-level high">High</div>
+        <div class="risk-title">Licensing Complexity</div>
+        <div class="risk-desc">AI-curated sessions may trigger questions about whether Daye constitutes "editorial curation" under existing licensing agreements, which carry different royalty structures than algorithmic recommendation.</div>
+        <div class="risk-mitigation">Mitigation: Legal review with all major labels pre-launch. Daye is positioned as algorithmic enhancement, not editorial programming. Precedent exists with Spotify's existing AI DJ feature.</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-level high">High</div>
+        <div class="risk-title">Recommendation Drift</div>
+        <div class="risk-desc">AI sessions that adapt too aggressively risk losing the emotional thread of a session. Users may feel the experience becomes incoherent over time if the adaptive engine overcorrects on skip signals.</div>
+        <div class="risk-mitigation">Mitigation: Establish a "session anchor" — the declared mood/intent — as a hard constraint that adaptation cannot override. Energy can shift within the anchor, but the anchor holds.</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-level med">Medium</div>
+        <div class="risk-title">Latency Constraints</div>
+        <div class="risk-desc">Real-time queue reranking and transition analysis must complete within the length of a crossfade (2–8 seconds). Infrastructure must handle this at scale for 50M+ concurrent users.</div>
+        <div class="risk-mitigation">Mitigation: Pre-compute ranked candidate pools per session type. Transition decisions are made 30 seconds ahead of playback, not in real-time. Degraded gracefully to static queue if latency threshold exceeded.</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-level med">Medium</div>
+        <div class="risk-title">AI Personality Misalignment</div>
+        <div class="risk-desc">Daye's conversational personality needs to feel culturally aware across 180+ markets. Generic AI responses will feel hollow and damage the premium positioning the feature requires.</div>
+        <div class="risk-mitigation">Mitigation: Localized fine-tuning per major market. Afrobeats session in Lagos should feel different from a J-pop session in Tokyo. Cultural consultants in fine-tuning process.</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-level med">Medium</div>
+        <div class="risk-title">Privacy & Voice Data</div>
+        <div class="risk-desc">Voice interaction stores audio data. Users are increasingly sensitive to voice data retention policies, particularly in EU markets (GDPR) and California (CCPA).</div>
+        <div class="risk-mitigation">Mitigation: Voice processing is on-device where possible. Transcription only stored, audio discarded within 24 hours. Explicit opt-in for voice mode. Clear data policy page within Daye settings.</div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-level low">Low</div>
+        <div class="risk-title">Catalogue Bias</div>
+        <div class="risk-desc">Adaptive queue may over-index on popular tracks within a mood category, reducing session diversity and disadvantaging emerging artists in AI-curated contexts.</div>
+        <div class="risk-mitigation">Mitigation: Diversity coefficient applied to queue generation. Daye actively surfaces catalog depth over chart repetition — this is a feature, not just a safeguard. Built-in emerging artist promotion slot per session.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="closing-inner reveal">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:24px;">Product Proposal — Bankole O.</div>
+    <h2 class="closing-title">
+      The future of music<br>is <em>conversational.</em>
+    </h2>
+    <p class="closing-sub">
+      Spotify built the world's best music catalogue. Daye builds the intelligence layer on top of it. This is not a feature request. It is a category evolution — and the window to own it is now.
+    </p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="2" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M1 4l5 3.5L11 4" stroke="currentColor" stroke-width="1.1"/></svg>
+        <strong>Open to collaboration</strong>
+      </div>
+      <div class="contact-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M4 6h4M6 4v4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+        <strong>PM Portfolio — 2025</strong>
+      </div>
+      <div class="contact-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.73 4.5H11.5L8.5 6.97L9.62 10.5L6 8.5L2.38 10.5L3.5 6.97L0.5 4.5H4.27L6 1Z" stroke="currentColor" stroke-width="1.1" fill="none"/></svg>
+        <strong>Bankole O.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy">DAYE — AI Music Intelligence System &copy; 2025</div>
+  <div class="footer-tag">Product Proposal for Spotify &nbsp; / &nbsp; Bankole O. &nbsp; / &nbsp; PM Portfolio</div>
+</footer>
+
+<script>
+  // Generate hero waveform bars
+  const heroBars = document.getElementById('heroBars');
+  const barCount = 60;
+  for (let i = 0; i < barCount; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'hw-bar';
+    const h = 20 + Math.random() * 80;
+    bar.style.height = h + '%';
+    bar.style.animationDelay = (Math.random() * 2) + 's';
+    bar.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+    heroBars.appendChild(bar);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(r => observer.observe(r));
+
+  // Demo AI responses
+  const responses = {
+    default: {
+      text: "I'm interpreting your vibe and building a session around it. Give me a moment to structure the energy curve and select the right opening track.",
+      tracks: [
+        { name: 'Relevant Track', artist: 'Matching Artist', bpm: 85, vibe: 'CURATED' }
+      ],
+      mood: 'Custom', moodDesc: 'Tailored to your request', energy: 65
+    },
+    'late-night lagos rooftop energy': {
+      text: "Lagos rooftop after midnight. I'm setting the scene: deep Afrobeats foundation, atmospheric production, low BPM to start. I'll build the energy gradually — expect percussion to intensify around track 5.",
+      tracks: [
+        { name: 'Last Last', artist: 'Burna Boy', bpm: 78, vibe: 'OPENING — NOCTURNAL', color: 'rgba(29,185,84,0.15)' },
+        { name: 'Essence', artist: 'Wizkid ft. Tems', bpm: 88, vibe: 'MID-SESSION BUILD', color: 'rgba(107,79,187,0.12)' }
+      ],
+      mood: 'Nocturnal', moodDesc: 'Deep & atmospheric', energy: 40
+    },
+    'cinematic gym session, build intensity': {
+      text: "Cinematic gym energy. I'm starting with orchestral-influenced hip-hop, then transitioning into high-BPM trap around the 15-minute mark. By track 8 you'll be at peak intensity. Let's go.",
+      tracks: [
+        { name: 'HUMBLE.', artist: 'Kendrick Lamar', bpm: 150, vibe: 'WARM-UP PHASE', color: 'rgba(232,184,75,0.1)' },
+        { name: 'Goosebumps', artist: 'Travis Scott', bpm: 130, vibe: 'INTENSITY BUILD', color: 'rgba(232,90,90,0.1)' }
+      ],
+      mood: 'Kinetic', moodDesc: 'Rising intensity', energy: 75
+    },
+    "blend old r&b into afrobeats slowly": {
+      text: "Classic move. I'm threading 90s R&B DNA through modern Afrobeats. Starting with D'Angelo, moving through Sade's influence zone, then blending into the Afrobeats signature production style around track 6. The transition is harmonic — you won't feel the seam.",
+      tracks: [
+        { name: 'Untitled 02', artist: "D'Angelo", bpm: 76, vibe: 'R&B FOUNDATION', color: 'rgba(107,79,187,0.12)' },
+        { name: 'Ojuelegba', artist: 'Wizkid', bpm: 92, vibe: 'AFROBEATS ARRIVAL', color: 'rgba(29,185,84,0.12)' }
+      ],
+      mood: 'Transitional', moodDesc: 'Soul to Afrobeats', energy: 50
+    },
+    'night drive': {
+      text: "Night drive. I need something that matches moving through city lights — rhythmic, slightly hypnotic, never too loud. I'm pulling from electronic, alt-R&B, and dark pop. Keep the windows up.",
+      tracks: [
+        { name: 'Nights', artist: 'Frank Ocean', bpm: 83, vibe: 'HIGHWAY OPENING', color: 'rgba(107,79,187,0.12)' },
+        { name: 'Retrograde', artist: 'James Blake', bpm: 72, vibe: 'HYPNOTIC LAYER', color: 'rgba(29,185,84,0.1)' }
+      ],
+      mood: 'Hypnotic', moodDesc: 'City lights energy', energy: 45
+    },
+    'creative flow state': {
+      text: "Creative work session. I need to keep you in flow — no jarring transitions, no vocals that compete for attention during deep thinking, but enough musical movement to maintain focus energy. Instrumental, textured, warm.",
+      tracks: [
+        { name: 'The Light', artist: 'Common', bpm: 88, vibe: 'FOCUS ANCHOR', color: 'rgba(232,184,75,0.1)' },
+        { name: 'Think Twice', artist: 'Tame Impala', bpm: 98, vibe: 'TEXTURE LAYER', color: 'rgba(107,79,187,0.1)' }
+      ],
+      mood: 'Focused', moodDesc: 'Flow state active', energy: 55
+    }
+  };
+
+  function sendPrompt(text) {
+    document.getElementById('userInput').value = text;
+    handleSend();
+  }
+
+  function handleSend() {
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    const area = document.getElementById('chatArea');
+
+    // Add user msg
+    const userMsg = document.createElement('div');
+    userMsg.className = 'msg user';
+    userMsg.innerHTML = `<div class="msg-bubble">${text}</div><div class="msg-meta">You — just now</div>`;
+    area.appendChild(userMsg);
+
+    // Typing indicator
+    const typing = document.createElement('div');
+    typing.className = 'msg daye';
+    typing.innerHTML = `<div class="demo-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+    area.appendChild(typing);
+    area.scrollTop = area.scrollHeight;
+
+    // Get response
+    const key = text.toLowerCase().trim();
+    const resp = responses[key] || responses.default;
+
+    setTimeout(() => {
+      typing.remove();
+
+      // Build daye response
+      let tracksHTML = '';
+      resp.tracks.forEach(t => {
+        const color = t.color || 'rgba(29,185,84,0.1)';
+        tracksHTML += `
+          <div class="track-suggestion">
+            <div class="track-art" style="background:${color};border:1px solid var(--border);">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="rgba(29,185,84,0.4)" stroke-width="1"/><circle cx="6" cy="6" r="2" fill="#1DB954" opacity=".6"/></svg>
+            </div>
+            <div class="track-info">
+              <div class="track-name">${t.name}</div>
+              <div class="track-artist">${t.artist}</div>
+              <div class="track-vibe">${t.vibe} — ${t.bpm} BPM</div>
+            </div>
+            <div class="track-play">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 1.5L8 5L2.5 8.5V1.5Z" fill="#1DB954"/></svg>
+            </div>
+          </div>`;
+      });
+
+      const dayeMsg = document.createElement('div');
+      dayeMsg.className = 'msg daye';
+      dayeMsg.innerHTML = `<div class="msg-bubble">${resp.text}${tracksHTML}</div><div class="msg-meta">Daye — just now</div>`;
+      area.appendChild(dayeMsg);
+      area.scrollTop = area.scrollHeight;
+
+      // Update mood panel
+      document.getElementById('moodLabel').textContent = resp.mood;
+      document.getElementById('moodDesc').textContent = resp.moodDesc;
+      document.getElementById('energyFill').style.width = resp.energy + '%';
+      document.getElementById('energyVal').textContent = resp.energy + '%';
+
+      // Update session tags
+      const tags = document.querySelector('.session-tags');
+      tags.innerHTML = `<div class="session-tag active">${resp.mood.toUpperCase()}</div><div class="session-tag">${resp.energy > 60 ? 'HIGH ENERGY' : resp.energy > 40 ? 'MID ENERGY' : 'LOW ENERGY'}</div>`;
+
+    }, 1400);
+  }
+
+  function voiceActivate() {
+    const orb = document.querySelector('.input-orb');
+    orb.style.background = 'rgba(29,185,84,0.35)';
+    orb.style.boxShadow = '0 0 0 4px rgba(29,185,84,0.12)';
+    setTimeout(() => {
+      orb.style.background = 'var(--green-dim)';
+      orb.style.boxShadow = 'none';
+    }, 1200);
+  }
+</script>
+
+<script>
+// ============================================
+//  CHART ENGINE — Canvas-based, no deps
+// ============================================
+
+const GREEN = '#1DB954';
+const GREEN_DIM = 'rgba(29,185,84,0.15)';
+const GREEN_GLOW = 'rgba(29,185,84,0.08)';
+const PURPLE = 'rgba(107,79,187,0.8)';
+const AMBER = 'rgba(232,184,75,0.8)';
+const RED = 'rgba(232,90,90,0.7)';
+const MUTED = 'rgba(245,245,240,0.2)';
+const MUTED2 = 'rgba(245,245,240,0.45)';
+const BORDER = 'rgba(255,255,255,0.08)';
+
+function getPixelRatio() { return window.devicePixelRatio || 1; }
+
+function setupCanvas(canvas) {
+  const pr = getPixelRatio();
+  const rect = canvas.parentElement.getBoundingClientRect();
+  const w = rect.width - 64;
+  const h = parseInt(canvas.getAttribute('height'));
+  canvas.width = w * pr;
+  canvas.height = h * pr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(pr, pr);
+  return { ctx, w, h };
+}
+
+// ---- MAU LINE CHART ----
+function drawMAUChart(animated) {
+  const canvas = document.getElementById('mauChart');
+  if (!canvas) return;
+  const { ctx, w, h } = setupCanvas(canvas);
+
+  const data = [217, 248, 286, 345, 406, 456]; // 2019-2024
+  const labels = ['2019', '2020', '2021', '2022', '2023', '2024'];
+  const padL = 48, padR = 16, padT = 12, padB = 32;
+  const chartW = w - padL - padR;
+  const chartH = h - padT - padB;
+  const min = 180, max = 500;
+
+  function xPos(i) { return padL + (i / (data.length - 1)) * chartW; }
+  function yPos(v) { return padT + chartH - ((v - min) / (max - min)) * chartH; }
+
+  function draw(progress) {
+    ctx.clearRect(0, 0, w, h);
+
+    // Grid lines
+    [200, 300, 400, 500].forEach(v => {
+      const y = yPos(v);
+      ctx.beginPath();
+      ctx.strokeStyle = BORDER;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.moveTo(padL, y); ctx.lineTo(w - padR, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = MUTED2;
+      ctx.font = '10px Space Mono, monospace';
+      ctx.textAlign = 'right';
+      ctx.fillText(v + 'M', padL - 6, y + 3);
+    });
+
+    // x-axis labels
+    labels.forEach((l, i) => {
+      ctx.fillStyle = MUTED2;
+      ctx.font = '10px Space Mono, monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(l, xPos(i), h - padB + 18);
+    });
+
+    // Animated points up to progress
+    const maxIdx = (data.length - 1) * progress;
+
+    // Area fill
+    ctx.beginPath();
+    ctx.moveTo(xPos(0), yPos(data[0]));
+    for (let i = 0; i <= maxIdx; i++) {
+      const idx = Math.floor(i);
+      const frac = i - idx;
+      const v = idx < data.length - 1 ? data[idx] + (data[idx + 1] - data[idx]) * frac : data[idx];
+      ctx.lineTo(xPos(Math.min(i, data.length - 1)), yPos(v));
+    }
+    const endX = xPos(Math.min(maxIdx, data.length - 1));
+    ctx.lineTo(endX, h - padB);
+    ctx.lineTo(xPos(0), h - padB);
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(0, padT, 0, h - padB);
+    grad.addColorStop(0, 'rgba(29,185,84,0.25)');
+    grad.addColorStop(1, 'rgba(29,185,84,0)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line
+    ctx.beginPath();
+    ctx.strokeStyle = GREEN;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.moveTo(xPos(0), yPos(data[0]));
+    for (let i = 1; i <= maxIdx; i++) {
+      const idx = Math.floor(i);
+      const frac = i - idx;
+      const v = idx < data.length - 1 ? data[idx] + (data[idx + 1] - data[idx]) * frac : data[idx];
+      ctx.lineTo(xPos(Math.min(i, data.length - 1)), yPos(v));
+    }
+    ctx.stroke();
+
+    // Dots
+    for (let i = 0; i < data.length && i <= maxIdx; i++) {
+      const pulse = i === data.length - 1 && progress >= 1 ? (Math.sin(Date.now() / 400) * 0.5 + 1.5) : 1;
+      ctx.beginPath();
+      ctx.arc(xPos(i), yPos(data[i]), 4 * pulse, 0, Math.PI * 2);
+      ctx.fillStyle = '#0d0d0d';
+      ctx.fill();
+      ctx.strokeStyle = GREEN;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      if (i === data.length - 1 && progress >= 1) {
+        ctx.beginPath();
+        ctx.arc(xPos(i), yPos(data[i]), 10 * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(29,185,84,0.08)';
+        ctx.fill();
+      }
+    }
+  }
+
+  let start = null;
+  function animate(ts) {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / 1400, 1);
+    draw(progress);
+    if (progress < 1) requestAnimationFrame(animate);
+    else {
+      function pulse() { draw(1); requestAnimationFrame(pulse); }
+      pulse();
+    }
+  }
+
+  if (animated) requestAnimationFrame(animate);
+  else draw(1);
+
+  // Tooltip
+  const tooltip = document.getElementById('mauTooltip');
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const closest = data.reduce((acc, _, i) => Math.abs(xPos(i) - mx) < Math.abs(xPos(acc) - mx) ? i : acc, 0);
+    tooltip.innerHTML = `<strong>${data[closest]}M</strong>${labels[closest]} MAU`;
+    tooltip.style.left = (xPos(closest) + 10) + 'px';
+    tooltip.style.top = (yPos(data[closest]) - 36) + 'px';
+    tooltip.classList.add('visible');
+  });
+  canvas.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+}
+
+// ---- SATISFACTION BAR CHART ----
+function drawSatisfactionChart() {
+  const canvas = document.getElementById('satisfactionChart');
+  if (!canvas) return;
+  const { ctx, w, h } = setupCanvas(canvas);
+
+  const items = [
+    { label: 'Playlist Variety', val: 52 },
+    { label: 'Mood Accuracy', val: 31 },
+    { label: 'Context Awareness', val: 19 },
+    { label: 'Discovery Quality', val: 44 },
+    { label: 'Emotional Match', val: 23 },
+  ];
+
+  const padL = 140, padR = 60, padT = 8, padB = 12;
+  const chartW = w - padL - padR;
+  const rowH = (h - padT - padB) / items.length;
+
+  let start = null;
+  function draw(progress) {
+    ctx.clearRect(0, 0, w, h);
+    items.forEach((item, i) => {
+      const y = padT + i * rowH;
+      const barH = 8;
+      const barY = y + (rowH - barH) / 2;
+
+      // Label
+      ctx.fillStyle = MUTED2;
+      ctx.font = '11px DM Sans, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(item.label, padL - 12, barY + barH - 1);
+
+      // Track
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255,255,255,0.04)';
+      ctx.roundRect(padL, barY, chartW, barH, 4);
+      ctx.fill();
+
+      // Fill — animate
+      const fillW = (item.val / 100) * chartW * progress;
+      if (fillW > 0) {
+        const grad = ctx.createLinearGradient(padL, 0, padL + chartW, 0);
+        grad.addColorStop(0, GREEN);
+        grad.addColorStop(1, 'rgba(29,185,84,0.4)');
+        ctx.beginPath();
+        ctx.fillStyle = grad;
+        ctx.roundRect(padL, barY, fillW, barH, 4);
+        ctx.fill();
+
+        // 3D shine
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        ctx.roundRect(padL, barY, fillW, barH / 2, 4);
+        ctx.fill();
+      }
+
+      // Percent
+      ctx.fillStyle = item.val >= 50 ? GREEN : MUTED2;
+      ctx.font = 'bold 11px Space Mono, monospace';
+      ctx.textAlign = 'left';
+      if (progress >= 1) ctx.fillText(item.val + '%', padL + chartW + 10, barY + barH - 1);
+    });
+
+    // "Satisfied" label top right
+    if (progress >= 0.5) {
+      ctx.fillStyle = 'rgba(245,245,240,0.15)';
+      ctx.font = '10px Space Mono, monospace';
+      ctx.textAlign = 'right';
+      ctx.fillText('% SATISFIED', w, padT);
+    }
+  }
+
+  let start2 = null;
+  function animate(ts) {
+    if (!start2) start2 = ts;
+    const p = Math.min((ts - start2) / 1200, 1);
+    draw(p);
+    if (p < 1) requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  // Tooltip
+  const tooltip = document.getElementById('satTooltip');
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const my = e.clientY - rect.top;
+    const padT2 = 8, padB2 = 12;
+    const rowH2 = (parseInt(canvas.style.height) - padT2 - padB2) / items.length;
+    const idx = Math.floor((my - padT2) / rowH2);
+    if (idx >= 0 && idx < items.length) {
+      const item = items[idx];
+      tooltip.innerHTML = `<strong>${item.val}%</strong>${item.label} satisfaction`;
+      tooltip.style.left = '50%';
+      tooltip.style.top = (padT2 + idx * rowH2) + 'px';
+      tooltip.classList.add('visible');
+    }
+  });
+  canvas.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+}
+
+// ---- PROJECTION LINE CHART ----
+const projectionData = {
+  conservative: [28, 30, 31, 32, 33, 34, 35, 36, 37, 38],
+  base:         [28, 30, 32, 34, 36, 38, 40, 42, 44, 46],
+  bull:         [28, 31, 34, 37, 41, 45, 48, 51, 54, 58],
+};
+const baselineData = [28, 28.2, 28.4, 28.5, 28.6, 28.7, 28.8, 28.9, 29, 29.1];
+let currentProjection = 'conservative';
+
+function drawProjectionChart() {
+  const canvas = document.getElementById('projectionChart');
+  if (!canvas) return;
+  const { ctx, w, h } = setupCanvas(canvas);
+
+  const data = projectionData[currentProjection];
+  const all = [...data, ...baselineData];
+  const min = Math.min(...all) - 1;
+  const max = Math.max(...all) + 2;
+  const months = ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10'];
+  const padL = 48, padR = 16, padT = 12, padB = 32;
+  const chartW = w - padL - padR;
+  const chartH = h - padT - padB;
+
+  function xPos(i) { return padL + (i / (data.length - 1)) * chartW; }
+  function yPos(v) { return padT + chartH - ((v - min) / (max - min)) * chartH; }
+
+  function draw(progress) {
+    ctx.clearRect(0, 0, w, h);
+
+    // Gridlines
+    [30, 35, 40, 45, 50, 55].filter(v => v >= min && v <= max).forEach(v => {
+      const y = yPos(v);
+      ctx.beginPath(); ctx.strokeStyle = BORDER; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+      ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = MUTED2; ctx.font = '10px Space Mono, monospace'; ctx.textAlign = 'right';
+      ctx.fillText(v + 'm', padL - 6, y + 3);
+    });
+    months.forEach((m, i) => {
+      ctx.fillStyle = MUTED2; ctx.font = '10px Space Mono, monospace'; ctx.textAlign = 'center';
+      ctx.fillText(m, xPos(i), h - padB + 18);
+    });
+
+    // Baseline
+    ctx.beginPath(); ctx.strokeStyle = MUTED; ctx.lineWidth = 1.5; ctx.setLineDash([6,4]);
+    ctx.moveTo(xPos(0), yPos(baselineData[0]));
+    baselineData.forEach((v, i) => { if (i > 0) ctx.lineTo(xPos(i), yPos(v)); });
+    ctx.stroke(); ctx.setLineDash([]);
+
+    // Projection area
+    ctx.beginPath();
+    ctx.moveTo(xPos(0), yPos(data[0]));
+    const maxIdx = (data.length - 1) * progress;
+    for (let fi = 0; fi <= maxIdx; fi += 0.1) {
+      const i = Math.floor(fi); const frac = fi - i;
+      const v = i < data.length - 1 ? data[i] + (data[i+1] - data[i]) * frac : data[i];
+      ctx.lineTo(xPos(Math.min(fi, data.length - 1)), yPos(v));
+    }
+    const endX = xPos(Math.min(maxIdx, data.length - 1));
+    ctx.lineTo(endX, yPos(baselineData[Math.min(Math.floor(maxIdx), baselineData.length-1)]));
+    ctx.lineTo(xPos(0), yPos(baselineData[0]));
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(0, padT, 0, h - padB);
+    grad.addColorStop(0, 'rgba(29,185,84,0.2)'); grad.addColorStop(1, 'rgba(29,185,84,0.02)');
+    ctx.fillStyle = grad; ctx.fill();
+
+    // Main line
+    ctx.beginPath(); ctx.strokeStyle = GREEN; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+    ctx.moveTo(xPos(0), yPos(data[0]));
+    for (let fi = 0; fi <= maxIdx; fi += 0.1) {
+      const i = Math.floor(fi); const frac = fi - i;
+      const v = i < data.length - 1 ? data[i] + (data[i+1] - data[i]) * frac : data[i];
+      ctx.lineTo(xPos(Math.min(fi, data.length - 1)), yPos(v));
+    }
+    ctx.stroke();
+  }
+
+  let start3 = null;
+  function animate(ts) {
+    if (!start3) start3 = ts;
+    const p = Math.min((ts - start3) / 1200, 1);
+    draw(p);
+    if (p < 1) requestAnimationFrame(animate);
+    else draw(1);
+  }
+  requestAnimationFrame(animate);
+
+  const tooltip = document.getElementById('projTooltip');
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const i = Math.round((mx - padL) / (chartW / (data.length - 1)));
+    if (i >= 0 && i < data.length) {
+      tooltip.innerHTML = `<strong>+${(((data[i] - baselineData[i]) / baselineData[i]) * 100).toFixed(1)}%</strong>${months[i]} — ${data[i]}min avg`;
+      tooltip.style.left = (xPos(i) + 10) + 'px';
+      tooltip.style.top = (yPos(data[i]) - 40) + 'px';
+      tooltip.classList.add('visible');
+    }
+  });
+  canvas.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+}
+
+window.switchProjection = function(type) {
+  currentProjection = type;
+  document.querySelectorAll('.chart-tab').forEach(t => {
+    t.classList.toggle('active', t.textContent.toLowerCase().replace(' ', '') === type.toLowerCase().replace(' ', ''));
+  });
+  drawProjectionChart();
+};
+
+// ---- DONUT CHART ----
+function drawDonutChart() {
+  const canvas = document.getElementById('donutChart');
+  if (!canvas) return;
+  const pr = getPixelRatio();
+  canvas.width = 220 * pr; canvas.height = 220 * pr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(pr, pr);
+  const cx = 110, cy = 110, outerR = 95, innerR = 62;
+  const segments = [
+    { val: 34, color: GREEN },
+    { val: 22, color: PURPLE },
+    { val: 19, color: AMBER },
+    { val: 15, color: RED },
+    { val: 10, color: MUTED },
+  ];
+  const total = segments.reduce((a, s) => a + s.val, 0);
+
+  let start4 = null;
+  function draw(progress) {
+    ctx.clearRect(0, 0, 220, 220);
+    let angle = -Math.PI / 2;
+    segments.forEach((seg, i) => {
+      const slice = (seg.val / total) * Math.PI * 2 * progress;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, outerR, angle, angle + slice);
+      ctx.closePath();
+      ctx.fillStyle = seg.color;
+      ctx.fill();
+      // 3D bevel
+      ctx.beginPath();
+      ctx.arc(cx, cy, outerR, angle, angle + slice);
+      ctx.arc(cx, cy, outerR - 4, angle + slice, angle, true);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.fill();
+      angle += slice;
+    });
+    // Inner hole
+    ctx.beginPath();
+    ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fill();
+    // Center text
+    if (progress >= 1) {
+      ctx.fillStyle = GREEN;
+      ctx.font = 'bold 22px Space Mono, monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('56%', cx, cy + 4);
+      ctx.fillStyle = MUTED2;
+      ctx.font = '9px DM Sans, sans-serif';
+      ctx.fillText('addressable', cx, cy + 18);
+    }
+  }
+
+  let start5 = null;
+  function animate(ts) {
+    if (!start5) start5 = ts;
+    const p = Math.min((ts - start5) / 1400, 1);
+    draw(p);
+    if (p < 1) requestAnimationFrame(animate);
+    else draw(1);
+  }
+  requestAnimationFrame(animate);
+}
+
+// ============================================
+//  SURVEY BAR ANIMATION ON SCROLL
+// ============================================
+function animateSurveyBars(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.survey-bar-fill').forEach(bar => {
+        const pct = bar.getAttribute('data-pct');
+        setTimeout(() => { bar.style.width = pct + '%'; }, 200);
+      });
+    }
+  });
+}
+
+const surveyObserver = new IntersectionObserver(animateSurveyBars, { threshold: 0.3 });
+document.querySelectorAll('.survey-block').forEach(el => surveyObserver.observe(el));
+
+// ============================================
+//  CHART INIT ON SCROLL
+// ============================================
+const chartObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id || entry.target.querySelector('canvas')?.id;
+      if (entry.target.id === 'mauChart') drawMAUChart(true);
+      if (entry.target.id === 'satisfactionChart') drawSatisfactionChart();
+      if (entry.target.id === 'projectionChart') drawProjectionChart();
+      if (entry.target.id === 'donutChart') drawDonutChart();
+      chartObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+['mauChart','satisfactionChart','projectionChart','donutChart'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) chartObserver.observe(el);
+});
+
+</script>
+
+<style>
+/* Show hamburger + hide badge on mobile */
+@media (max-width: 820px) {
+  .nav-hamburger { display: flex !important; }
+  .nav-badge { display: none !important; }
+  .chart-2col-grid { display: flex !important; flex-direction: column !important; gap: 12px !important; }
+}
+</style>
+
+<script>
+// ── MOBILE NAV ──
+const drawer = document.getElementById('mobileDrawer');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Swipe down to close drawer
+let touchStartY = 0;
+drawer.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+drawer.addEventListener('touchend', e => {
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (dy > 60) closeDrawer();
+}, { passive: true });
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+// ── HAPTICS (where available) ──
+function haptic() {
+  if (navigator.vibrate) navigator.vibrate(8);
+}
+document.querySelectorAll('.btn-primary, .btn-ghost, .qp, .drawer-link').forEach(el => {
+  el.addEventListener('touchstart', haptic, { passive: true });
+});
+
+// ── CHART RESIZE ON MOBILE ──
+if (window.matchMedia('(max-width: 820px)').matches) {
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      ['mauChart','satisfactionChart','projectionChart','donutChart'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.dispatchEvent(new Event('resize'));
+      });
+    }, 400);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+/* App-level overrides — layout handled by globals.css */
+#root {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  border: none;
+}
