@@ -8,23 +8,23 @@ gsap.registerPlugin(ScrollTrigger)
 
 const storyLines = [
   'Final year cybersecurity student.',
-  'Shipping SaaS since year two.',
+  'I shipped my first SaaS in year two. Nobody asked me to.',
   'ApeAcademy processes real payments.',
   'Real students. Real assignments.',
-  'Attention to detail is non-negotiable.',
+  'I notice things most PMs miss. That\'s not a flex — it\'s just how I\'m wired.',
   'I think in 4K — photographic product vision.',
-  'Customer psychology is my second language.',
+  'I can tell you why your user abandoned checkout. It\'s rarely what you think.',
   'Been my own PM from day one.',
   'I find problems companies haven\'t named yet.',
   'Then I pitch the solution. Always.',
-  'Cape Town in 3 months.',
+  'Cape Town in 3 months. Actively looking.',
   'Let\'s build something.',
 ]
 
 const stats = [
-  { value: 3, suffix: '', label: 'Products shipped', color: '#0071E3' },
-  { value: 4, suffix: 'K', label: 'Thinking in 4K', color: '#40A0FF' },
-  { value: 5, suffix: '+', label: 'Unsolicited pitches', color: '#0071E3' },
+  { value: 3, suffix: '', label: 'Products live', color: '#0071E3' },
+  { value: 4, suffix: 'K', label: 'I see in 4K', color: '#40A0FF' },
+  { value: 5, suffix: '+', label: 'Pitches sent cold', color: '#0071E3' },
   { value: 2, suffix: '', label: 'Roles targeting', color: '#40A0FF' },
 ]
 
@@ -194,10 +194,10 @@ export default function About() {
               ABOUT THE BUILDER
             </p>
             <p style={{ fontSize: 14, color: 'var(--color-muted)', lineHeight: 1.85, fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-              I have an almost photographic ability to visualise products — I see the full user journey before a single wireframe exists. I call it thinking in 4K. That mental model, combined with a deep understanding of customer psychology, means I build the right features in the right order for the right person.
+              I see the full user journey before a single wireframe exists. When I was designing ApeAcademy's payment flow, I'd already mentally walked 200 students through every edge case before I wrote a line of code. I call it thinking in 4K.
             </p>
             <p style={{ fontSize: 14, color: 'var(--color-muted)', lineHeight: 1.85, fontFamily: 'var(--font-body)', marginTop: 14, fontWeight: 300 }}>
-              I regularly send unsolicited pitches to companies — full product thinking, not feature requests. Everything on this portfolio is updated continuously.
+              I've sent unsolicited product analyses to Spotify, Amazon, and LinkedIn — not to get noticed, but because I genuinely couldn't stop seeing the problems. Everything on this site is work I actually did.
             </p>
           </motion.div>
 

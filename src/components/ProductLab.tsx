@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -66,20 +66,20 @@ const entries: LabEntry[] = [
     status: 'Analysis Complete',
     tagline: "A network of 1 billion people where nobody can find the right signal.",
     problem:
-      'LinkedIn\'s feed is algorithmically optimised for engagement, not relevance. The result: a scroll of corporate announcements, motivational quotes, and "I\'m excited to announce" posts that train users to disengage. Job seekers apply to hundreds of roles and hear nothing. Hiring managers are buried in unqualified applications. The connection model conflates "colleague" with "contact" with "person I met once" — destroying the signal value of a recommendation. The platform has become the professional version of Facebook\'s worst habits.',
+      'LinkedIn\'s feed is algorithmically optimised for engagement, not relevance. The result: a scroll of corporate announcements, motivational quotes, and "I\'m excited to announce" posts that train users to disengage. Job seekers apply to hundreds of roles and hear nothing. Hiring managers are buried in unqualified applications. The connection model conflates "colleague" with "contact" with "person I met once" — destroying the signal value of a recommendation.',
     rootCause:
       'LinkedIn optimises for time-on-platform over professional value delivered. Engagement (likes, comments, shares) as a primary metric incentivises viral emotional content over substantive professional exchange. The job matching algorithm treats skills as keywords, not capabilities. Applications are unverified claims on a PDF — the platform does nothing to validate them before they reach a hiring manager.',
     proposal:
-      'Three interventions: (1) Feed Quality Score — a user-adjustable signal/noise dial that deprioritises engagement-bait and surfaces only content from people you\'ve actually worked with or explicitly follow for professional insight. (2) Verified Skills badges — short async assessments (not tests, but demonstrated work samples) that validate claimed skills before an application is visible to a recruiter. (3) Warm Intro Layer — when applying to a role, surface first and second-degree connections at the company with a one-tap "ask for context" that respects both parties\' time.',
+      'Three interventions: (1) Feed Quality Score — a user-adjustable signal/noise dial that deprioritises engagement-bait and surfaces only content from people you\'ve actually worked with or explicitly follow for professional insight. (2) Verified Skills badges — short async assessments that validate claimed skills before an application reaches a recruiter. (3) Warm Intro Layer — when applying to a role, surface first and second-degree connections at the company with a one-tap "ask for context".',
     impact:
       'Recruiter response rate +35% · Application-to-interview conversion +28% · Feed session satisfaction NPS +22pts',
   },
 ]
 
 const statusColors: Record<LabEntry['status'], { bg: string; text: string; border: string }> = {
-  'Full PRD': { bg: 'rgba(29,185,84,0.12)', text: '#1DB954', border: 'rgba(29,185,84,0.25)' },
-  'Analysis Complete': { bg: 'rgba(0,113,227,0.12)', text: '#0071E3', border: 'rgba(0,113,227,0.25)' },
-  'In Progress': { bg: 'rgba(134,134,139,0.12)', text: '#86868B', border: 'rgba(134,134,139,0.2)' },
+  'Full PRD':         { bg: 'rgba(29,185,84,0.12)',  text: '#1DB954', border: 'rgba(29,185,84,0.25)' },
+  'Analysis Complete':{ bg: 'rgba(0,113,227,0.12)',  text: '#0071E3', border: 'rgba(0,113,227,0.25)' },
+  'In Progress':      { bg: 'rgba(134,134,139,0.12)',text: '#86868B', border: 'rgba(134,134,139,0.2)' },
 }
 
 function ImpactChips({ impact, accentColor }: { impact: string; accentColor: string }) {
@@ -99,7 +99,6 @@ function ImpactChips({ impact, accentColor }: { impact: string; accentColor: str
             fontFamily: 'var(--font-body)',
             fontWeight: 600,
             lineHeight: 1.5,
-            letterSpacing: '0.01em',
           }}
         >
           {chip}
@@ -127,7 +126,7 @@ function ContentBlock({ label, content, accentColor }: { label: string; content:
       </p>
       <p
         style={{
-          fontSize: 13,
+          fontSize: 14,
           color: 'rgba(134,134,139,0.9)',
           lineHeight: 1.85,
           fontFamily: 'var(--font-body)',
@@ -140,235 +139,13 @@ function ContentBlock({ label, content, accentColor }: { label: string; content:
   )
 }
 
-function LabCard({ entry, index }: { entry: LabEntry; index: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-  const sc = statusColors[entry.status]
-
-  return (
-    <motion.article
-      ref={ref}
-      initial={{ opacity: 0, y: 48 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, delay: index * 0.15, ease }}
-      whileHover={{ y: -6, transition: { duration: 0.3, ease } }}
-      style={{
-        borderRadius: 24,
-        border: '1px solid rgba(255,255,255,0.07)',
-        background: 'rgba(255,255,255,0.025)',
-        backdropFilter: 'blur(48px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(48px) saturate(180%)',
-        overflow: 'hidden',
-        position: 'relative',
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.07), 0 40px 100px rgba(0,0,0,0.5)`,
-        transition: 'box-shadow 0.4s ease',
-        cursor: 'default',
-      }}
-    >
-      {/* Brand ambient glow */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '50%',
-          height: '280px',
-          background: `radial-gradient(ellipse at 10% 0%, ${entry.accentColor}16 0%, transparent 65%)`,
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
-
-      {/* Top accent line */}
-      <div
-        style={{
-          height: 2,
-          background: `linear-gradient(90deg, ${entry.accentColor}CC 0%, ${entry.accentColor}40 50%, transparent 80%)`,
-          position: 'relative',
-          zIndex: 1,
-        }}
-      />
-
-      {/* Header */}
-      <div
-        style={{
-          padding: 'clamp(20px,3vw,32px) clamp(20px,3vw,36px) clamp(16px,2.5vw,24px)',
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: 18,
-          position: 'relative',
-          zIndex: 1,
-          flexWrap: 'wrap',
-        }}
-      >
-        {/* Brand icon */}
-        <div
-          style={{
-            width: 54,
-            height: 54,
-            borderRadius: 16,
-            background: entry.iconBg,
-            border: `1px solid ${entry.accentColor}30`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: entry.iconLabel.length > 1 ? 16 : 24,
-            fontWeight: 800,
-            color: entry.accentColor,
-            fontFamily: 'var(--font-display)',
-            flexShrink: 0,
-            boxShadow: `0 0 28px ${entry.accentColor}22`,
-          }}
-        >
-          {entry.iconLabel}
-        </div>
-
-        <div style={{ flex: 1, minWidth: 200 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 5, flexWrap: 'wrap' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(18px,2.5vw,24px)',
-                fontWeight: 800,
-                color: '#F5F5F7',
-                letterSpacing: '-0.025em',
-              }}
-            >
-              {entry.company}
-            </span>
-            <span
-              style={{
-                fontSize: 9,
-                fontWeight: 700,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                padding: '3px 10px',
-                borderRadius: 980,
-                background: sc.bg,
-                color: sc.text,
-                border: `1px solid ${sc.border}`,
-              }}
-            >
-              {entry.status}
-            </span>
-          </div>
-          <p
-            style={{
-              fontSize: 10,
-              color: '#686868',
-              fontFamily: 'var(--font-body)',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              marginBottom: 12,
-            }}
-          >
-            {entry.category}
-          </p>
-          <p
-            style={{
-              fontSize: 'clamp(14px,1.8vw,17px)',
-              fontWeight: 600,
-              fontStyle: 'italic',
-              color: 'rgba(245,245,247,0.82)',
-              fontFamily: 'var(--font-display)',
-              lineHeight: 1.45,
-            }}
-          >
-            "{entry.tagline}"
-          </p>
-        </div>
-      </div>
-
-      {/* Impact strip */}
-      <div
-        style={{
-          padding: '14px clamp(20px,3vw,36px)',
-          borderTop: '1px solid rgba(255,255,255,0.04)',
-          borderBottom: '1px solid rgba(255,255,255,0.04)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 14,
-          flexWrap: 'wrap',
-          background: `${entry.accentColor}06`,
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <span
-          style={{
-            fontSize: 9,
-            fontWeight: 700,
-            color: entry.accentColor,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            fontFamily: 'var(--font-body)',
-            flexShrink: 0,
-            opacity: 0.8,
-          }}
-        >
-          Impact Target
-        </span>
-        <ImpactChips impact={entry.impact} accentColor={entry.accentColor} />
-      </div>
-
-      {/* Content — 2-column horizontal layout */}
-      <div className="lab-content-grid" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Left: Problem + Root Cause */}
-        <div className="lab-content-col">
-          <ContentBlock label="Problem" content={entry.problem} accentColor={entry.accentColor} />
-          <div style={{ height: 28 }} />
-          <ContentBlock label="Root Cause" content={entry.rootCause} accentColor={entry.accentColor} />
-        </div>
-
-        {/* Right: Proposed Solution + CTA */}
-        <div className="lab-content-col lab-content-col-right">
-          <ContentBlock label="Proposed Solution" content={entry.proposal} accentColor={entry.accentColor} />
-          {entry.docUrl && (
-            <a
-              href={entry.docUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 7,
-                marginTop: 24,
-                fontSize: 12,
-                fontWeight: 600,
-                color: entry.accentColor,
-                fontFamily: 'var(--font-display)',
-                textDecoration: 'none',
-                padding: '9px 16px',
-                borderRadius: 10,
-                border: `1px solid ${entry.accentColor}30`,
-                background: `${entry.accentColor}08`,
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = `${entry.accentColor}18`
-                e.currentTarget.style.borderColor = `${entry.accentColor}55`
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = `${entry.accentColor}08`
-                e.currentTarget.style.borderColor = `${entry.accentColor}30`
-              }}
-            >
-              Read full PRD document
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="7" y1="17" x2="17" y2="7" />
-                <polyline points="7 7 17 7 17 17" />
-              </svg>
-            </a>
-          )}
-        </div>
-      </div>
-    </motion.article>
-  )
-}
-
 export default function ProductLab() {
   const headerRef = useRef<HTMLDivElement>(null)
   const headerInView = useInView(headerRef, { once: true, margin: '-60px' })
+  const [activeId, setActiveId] = useState(entries[0].id)
+
+  const active = entries.find(e => e.id === activeId) ?? entries[0]
+  const sc = statusColors[active.status]
 
   return (
     <section
@@ -379,77 +156,313 @@ export default function ProductLab() {
         position: 'relative',
         zIndex: 2,
         borderTop: '1px solid rgba(255,255,255,0.06)',
+        overflow: 'hidden',
       }}
     >
+      {/* Background watermark */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          top: '6%',
+          right: '-2%',
+          fontSize: 'clamp(80px, 18vw, 220px)',
+          fontWeight: 900,
+          fontFamily: 'var(--font-display)',
+          color: '#fff',
+          opacity: 0.018,
+          letterSpacing: '-0.06em',
+          pointerEvents: 'none',
+          whiteSpace: 'nowrap',
+          lineHeight: 1,
+          userSelect: 'none',
+        }}
+      >
+        INTELLIGENCE
+      </div>
+
       {/* Ambient glow */}
       <div
         style={{
           position: 'absolute',
-          top: '8%',
+          top: '10%',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: 900,
-          height: 500,
+          width: 800,
+          height: 400,
           borderRadius: '50%',
-          background: 'radial-gradient(ellipse, rgba(0,113,227,0.06) 0%, transparent 60%)',
+          background: `radial-gradient(ellipse, ${active.accentColor}08 0%, transparent 60%)`,
           pointerEvents: 'none',
+          transition: 'background 0.6s ease',
         }}
       />
 
-      <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto', position: 'relative' }}>
         {/* Header */}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 24 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease }}
-          style={{ marginBottom: 64 }}
+          style={{ marginBottom: 56 }}
         >
           <p className="text-caption" style={{ marginBottom: 16, letterSpacing: '0.22em' }}>
             INTELLIGENCE LAB
           </p>
           <h2
             className="text-section-headline"
-            style={{ color: '#F5F5F7', marginBottom: 20, maxWidth: 700, fontWeight: 800, letterSpacing: '-0.03em' }}
+            style={{ color: '#F5F5F7', marginBottom: 16, maxWidth: 640, fontWeight: 800, letterSpacing: '-0.03em' }}
           >
             How I think about other people's products.
           </h2>
           <p
             style={{
-              fontSize: 17,
+              fontSize: 16,
               color: '#86868B',
               fontFamily: 'var(--font-body)',
-              maxWidth: 560,
+              maxWidth: 520,
               lineHeight: 1.7,
               fontWeight: 300,
             }}
           >
-            Unsolicited analyses — real problems I found, root causes I dug into, solutions I'd ship. No fluff. Just structured thinking, written as if I was already inside the company.
+            Unsolicited analyses I wrote because I couldn't stop seeing the problems. Structured as if I was already inside the company.
           </p>
         </motion.div>
 
-        {/* Stacked full-width cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          {entries.map((entry, i) => (
-            <LabCard key={entry.id} entry={entry} index={i} />
-          ))}
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={headerInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.6, ease }}
+        {/* Tab bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.15, ease }}
           style={{
-            marginTop: 48,
-            fontSize: 11,
-            color: '#38383A',
-            fontFamily: 'var(--font-body)',
-            textAlign: 'center',
-            letterSpacing: '0.04em',
+            display: 'flex',
+            gap: 4,
+            marginBottom: 32,
+            borderBottom: '1px solid rgba(255,255,255,0.08)',
+            paddingBottom: 0,
           }}
         >
-          Unsolicited analyses — not affiliated with or endorsed by these companies.
-        </motion.p>
+          {entries.map((entry) => (
+            <button
+              key={entry.id}
+              onClick={() => setActiveId(entry.id)}
+              style={{
+                padding: '10px 20px',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-display)',
+                fontSize: 14,
+                fontWeight: activeId === entry.id ? 700 : 400,
+                color: activeId === entry.id ? entry.accentColor : '#86868B',
+                borderBottom: activeId === entry.id ? `2px solid ${entry.accentColor}` : '2px solid transparent',
+                marginBottom: -1,
+                transition: 'all 0.2s ease',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              {entry.company}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Animated content panel */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }}
+            transition={{ duration: 0.4, ease }}
+            style={{
+              borderRadius: 24,
+              border: '1px solid rgba(255,255,255,0.07)',
+              background: 'rgba(255,255,255,0.025)',
+              backdropFilter: 'blur(40px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+              overflow: 'hidden',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07), 0 32px 80px rgba(0,0,0,0.4)',
+              position: 'relative',
+            }}
+          >
+            {/* Brand ambient glow */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0, left: 0,
+                width: '45%', height: '260px',
+                background: `radial-gradient(ellipse at 10% 0%, ${active.accentColor}14 0%, transparent 65%)`,
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
+
+            {/* Top accent line */}
+            <div style={{ height: 2, background: `linear-gradient(90deg, ${active.accentColor}CC 0%, ${active.accentColor}30 50%, transparent 80%)` }} />
+
+            {/* Card header */}
+            <div
+              style={{
+                padding: 'clamp(20px,3vw,32px) clamp(20px,3vw,36px)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 18,
+                flexWrap: 'wrap',
+                position: 'relative',
+                zIndex: 1,
+              }}
+            >
+              <div
+                style={{
+                  width: 52, height: 52,
+                  borderRadius: 15,
+                  background: active.iconBg,
+                  border: `1px solid ${active.accentColor}30`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: active.iconLabel.length > 1 ? 16 : 22,
+                  fontWeight: 800,
+                  color: active.accentColor,
+                  fontFamily: 'var(--font-display)',
+                  flexShrink: 0,
+                  boxShadow: `0 0 24px ${active.accentColor}20`,
+                }}
+              >
+                {active.iconLabel}
+              </div>
+
+              <div style={{ flex: 1, minWidth: 200 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4, flexWrap: 'wrap' }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 'clamp(18px,2.8vw,26px)',
+                      fontWeight: 800,
+                      color: '#F5F5F7',
+                      letterSpacing: '-0.025em',
+                    }}
+                  >
+                    {active.company}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 9, fontWeight: 700, letterSpacing: '0.1em',
+                      textTransform: 'uppercase', padding: '3px 10px', borderRadius: 980,
+                      background: sc.bg, color: sc.text, border: `1px solid ${sc.border}`,
+                    }}
+                  >
+                    {active.status}
+                  </span>
+                </div>
+                <p style={{ fontSize: 10, color: '#686868', fontFamily: 'var(--font-body)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 10 }}>
+                  {active.category}
+                </p>
+                <p
+                  style={{
+                    fontSize: 'clamp(14px,1.8vw,17px)',
+                    fontWeight: 600, fontStyle: 'italic',
+                    color: 'rgba(245,245,247,0.82)',
+                    fontFamily: 'var(--font-display)', lineHeight: 1.45,
+                  }}
+                >
+                  "{active.tagline}"
+                </p>
+              </div>
+            </div>
+
+            {/* Impact strip */}
+            <div
+              style={{
+                padding: '12px clamp(20px,3vw,36px)',
+                borderTop: '1px solid rgba(255,255,255,0.04)',
+                borderBottom: '1px solid rgba(255,255,255,0.04)',
+                display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
+                background: `${active.accentColor}06`,
+                position: 'relative', zIndex: 1,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 9, fontWeight: 700, color: active.accentColor,
+                  letterSpacing: '0.18em', textTransform: 'uppercase',
+                  fontFamily: 'var(--font-body)', flexShrink: 0, opacity: 0.8,
+                }}
+              >
+                Impact Target
+              </span>
+              <ImpactChips impact={active.impact} accentColor={active.accentColor} />
+            </div>
+
+            {/* Single-column body — readable on all screen sizes */}
+            <div
+              style={{
+                padding: 'clamp(20px,3vw,32px) clamp(20px,3vw,36px)',
+                display: 'flex', flexDirection: 'column', gap: 28,
+                position: 'relative', zIndex: 1,
+              }}
+            >
+              <ContentBlock label="Problem" content={active.problem} accentColor={active.accentColor} />
+              <ContentBlock label="Root Cause" content={active.rootCause} accentColor={active.accentColor} />
+              <ContentBlock label="Proposed Solution" content={active.proposal} accentColor={active.accentColor} />
+
+              {active.docUrl && (
+                <a
+                  href={active.docUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 7,
+                    fontSize: 13, fontWeight: 600, color: active.accentColor,
+                    fontFamily: 'var(--font-display)', textDecoration: 'none',
+                    padding: '10px 18px', borderRadius: 12,
+                    border: `1px solid ${active.accentColor}30`,
+                    background: `${active.accentColor}08`,
+                    transition: 'all 0.2s ease',
+                    alignSelf: 'flex-start',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = `${active.accentColor}18`; e.currentTarget.style.borderColor = `${active.accentColor}55` }}
+                  onMouseLeave={e => { e.currentTarget.style.background = `${active.accentColor}08`; e.currentTarget.style.borderColor = `${active.accentColor}30` }}
+                >
+                  Read full PRD document
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Closing CTA — links to iPhone / projects section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={headerInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.5, ease }}
+          style={{ marginTop: 40, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}
+        >
+          <p style={{ fontSize: 13, color: '#38383A', fontFamily: 'var(--font-body)', letterSpacing: '0.03em' }}>
+            These are the three I published. I've got more in progress.
+          </p>
+          <a
+            href="#iphone-section"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 13, fontWeight: 600, color: '#0071E3',
+              fontFamily: 'var(--font-display)', textDecoration: 'none',
+              transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            See my projects
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <polyline points="19 12 12 19 5 12" />
+            </svg>
+          </a>
+        </motion.div>
       </div>
     </section>
   )

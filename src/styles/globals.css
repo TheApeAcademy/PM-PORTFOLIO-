@@ -511,13 +511,16 @@ body {
   .lab-grid {
     gap: 16px;
   }
-  .lab-content-grid {
-    grid-template-columns: 1fr;
+  /* Exploring list: stack topic + desc on mobile */
+  .exploring-list-row {
+    grid-template-columns: 28px 1fr;
+    grid-template-rows: auto auto;
   }
-  .lab-content-col-right {
-    border-left: none;
-    border-top: 1px solid rgba(255,255,255,0.04);
-    padding-top: 0;
+  .exploring-list-desc {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 4px;
+    font-size: 12px;
   }
   .ai-tools-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -525,10 +528,6 @@ body {
   }
   .principles-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .exploring-grid {
-    grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
   .daye-mockups-grid {
@@ -545,33 +544,61 @@ body {
   gap: 24px;
 }
 
-/* Lab card horizontal content layout */
-.lab-content-grid {
+/* ─── Currently Exploring — Precision Divider List ─── */
+.exploring-list-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
+  grid-template-columns: 28px 1fr 1fr;
+  gap: 0 clamp(16px, 3vw, 36px);
+  align-items: baseline;
+  padding: clamp(16px, 2.5vw, 22px) 0;
+  cursor: default;
+  transition: background 0.2s ease, border-left 0.2s ease;
+  border-left: 3px solid transparent;
+  padding-left: 4px;
 }
-.lab-content-col {
-  padding: clamp(20px, 3vw, 28px) clamp(20px, 3vw, 36px);
+.exploring-list-row:hover {
+  background: rgba(0, 113, 227, 0.04);
+  border-left-color: #0071E3;
 }
-.lab-content-col-right {
-  border-left: 1px solid rgba(255,255,255,0.04);
+.exploring-list-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-blue-primary);
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.exploring-list-row:hover .exploring-list-num {
+  opacity: 1;
+}
+.exploring-list-topic {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.8vw, 17px);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  transition: color 0.2s ease;
+}
+.exploring-list-row:hover .exploring-list-topic {
+  color: #fff;
+}
+.exploring-list-desc {
+  font-size: 13px;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  font-weight: 300;
 }
 
-/* ─── AI Workflow / How I Work ─── */
+/* ─── AI Workflow / How I Work (kept for fallback) ─── */
 .ai-tools-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 .principles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-/* Currently Exploring grid */
-.exploring-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
