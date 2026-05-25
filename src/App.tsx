@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { useDarkMode } from './hooks/useDarkMode'
+import { useSmoothScroll } from './hooks/useSmoothScroll'
 import DynamicIsland from './components/DynamicIsland'
-import BirdCanvas from './components/BirdCanvas'
+import Scene from './components/canvas/Scene'
 import Hero from './components/Hero'
 import ProfileSection from './components/ProfileSection'
 import About from './components/About'
@@ -14,6 +15,7 @@ import FloatingIPhoneButton from './components/FloatingIPhoneButton'
 import ProductLab from './components/ProductLab'
 import HowIWork from './components/HowIWork'
 import Footer from './components/Footer'
+import MagneticCursor from './components/MagneticCursor'
 
 interface DarkModeCtx {
   isDark: boolean
@@ -26,9 +28,12 @@ function App() {
   const { isDark, toggle } = useDarkMode()
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 280, damping: 30, restDelta: 0.001 })
+  useSmoothScroll()
 
   return (
     <DarkModeContext.Provider value={{ isDark, toggle }}>
+      <MagneticCursor />
+
       {/* Scroll progress bar */}
       <motion.div
         className="scroll-progress-bar"
@@ -39,7 +44,7 @@ function App() {
       <div className="grain-overlay" aria-hidden />
 
       <div style={{ background: 'var(--color-black)', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
-        <BirdCanvas />
+        <Scene />
         <DynamicIsland />
         <main>
           <Hero />

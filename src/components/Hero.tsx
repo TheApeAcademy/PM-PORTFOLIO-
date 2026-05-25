@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import gsap from 'gsap'
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -12,16 +13,45 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.75, ease } },
 }
 
+function WordReveal({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(' ').map((word, i, arr) => (
+        <span
+          key={i}
+          style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}
+        >
+          <span className="hero-word" style={{ display: 'inline-block' }}>
+            {word}
+          </span>
+          {i < arr.length - 1 && ' '}
+        </span>
+      ))}
+    </>
+  )
+}
+
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false)
   const { scrollY } = useScroll()
   const orb1Y = useTransform(scrollY, [0, 600], [0, -80])
   const orb2Y = useTransform(scrollY, [0, 600], [0, -50])
+  const headlineRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const words = document.querySelectorAll<HTMLElement>('.hero-word')
+    if (!words.length) return
+    gsap.fromTo(
+      words,
+      { y: '110%' },
+      { y: '0%', stagger: 0.055, duration: 1.1, ease: 'power4.out', delay: 0.2 }
+    )
   }, [])
 
   return (
@@ -61,7 +91,7 @@ export default function Hero() {
       {/* Background radial glow */}
       <div className="hero-glow" style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
 
-      {/* Parallax orbs — max-width clamped so they never overflow mobile */}
+      {/* Parallax orbs */}
       <motion.div
         style={{
           y: orb1Y,
@@ -148,47 +178,52 @@ export default function Hero() {
           Product · Frontend · Builder
         </motion.p>
 
-        {/* Headline — mixed weights for visual impact */}
-        <motion.h1
-          variants={item}
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(52px, 9vw, 104px)',
-            fontWeight: 300,
-            letterSpacing: '-0.04em',
-            lineHeight: 1.0,
-            color: 'rgba(255,255,255,0.6)',
-            textAlign: 'center',
-            marginBottom: 0,
-          }}
-        >
-          I build things
-        </motion.h1>
-        <motion.h1
-          variants={item}
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(52px, 9vw, 104px)',
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
-            lineHeight: 1.0,
-            color: '#fff',
-            textAlign: 'center',
-            marginBottom: 36,
-          }}
-        >
-          that actually{' '}
-          <span
+        {/* Headline — GSAP word-reveal stagger */}
+        <div ref={headlineRef}>
+          <h1
             style={{
-              background: 'linear-gradient(135deg, #0071E3 0%, #3BA0FF 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(52px, 9vw, 104px)',
+              fontWeight: 300,
+              letterSpacing: '-0.04em',
+              lineHeight: 1.0,
+              color: 'rgba(255,255,255,0.6)',
+              textAlign: 'center',
+              marginBottom: 0,
             }}
           >
-            ship.
-          </span>
-        </motion.h1>
+            <WordReveal text="I build things" />
+          </h1>
+          <h1
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(52px, 9vw, 104px)',
+              fontWeight: 800,
+              letterSpacing: '-0.04em',
+              lineHeight: 1.0,
+              color: '#fff',
+              textAlign: 'center',
+              marginBottom: 36,
+            }}
+          >
+            <WordReveal text="that actually" />
+            {' '}
+            <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
+              <span
+                className="hero-word"
+                style={{
+                  display: 'inline-block',
+                  background: 'linear-gradient(135deg, #0071E3 0%, #3BA0FF 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                ship.
+              </span>
+            </span>
+          </h1>
+        </div>
 
         {/* Body */}
         <motion.p
@@ -217,7 +252,10 @@ export default function Hero() {
             className="btn-primary"
             onClick={(e) => {
               e.preventDefault()
-              document.getElementById('iphone-section')?.scrollIntoView({ behavior: 'smooth' })
+              const el = document.getElementById('iphone-section')
+              if (!el) return
+              const lenis = (window as any).__lenis
+              lenis ? lenis.scrollTo(el) : el.scrollIntoView({ behavior: 'smooth' })
             }}
             style={{ fontWeight: 700, fontSize: 15 }}
           >
