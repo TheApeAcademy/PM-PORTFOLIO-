@@ -15,6 +15,7 @@ interface LabEntry {
   problem: string
   rootCause: string
   proposal: string
+  constraints: string
   impact: string
   docUrl?: string
 }
@@ -35,6 +36,8 @@ const entries: LabEntry[] = [
       'The product optimises for catalogue discovery, not session quality. There is no emotional context layer. The platform treats music preference as categorical (genre, artist) rather than situational (mood, energy arc, social context). The recommendation engine looks backward at history rather than forward into the current moment.',
     proposal:
       'Daye is an AI-native conversational layer built on top of Spotify\'s existing Audio Features API. Users speak or type intent naturally ("give me late-night Lagos rooftop energy, start mellow, build slowly") and Daye interprets emotional intent, curates an adaptive session, and manages transitions like a professional DJ. Real-time queue re-evaluation every 2 tracks. Harmonic mixing. BPM arc management. Voice + text modes. Free tier gets 2 Daye sessions/day to create habit loop and drive Premium conversion.',
+    constraints:
+      'Licensing agreements restrict permissible real-time audio transformations under existing label contracts. Free-tier access risks reducing Premium upgrade motivation if session quality improves significantly. LLM inference latency must stay under 200ms at queue re-evaluation to avoid audible gaps. Retraining the recommendation model on conversational signals introduces regression risk against current engagement benchmarks.',
     impact: '+18% session duration · <8% skip rate · +12% Premium conversion · NPS target 65+',
     docUrl: '/daye-case-study.html',
   },
@@ -46,13 +49,15 @@ const entries: LabEntry[] = [
     iconBg: 'linear-gradient(135deg, #030A12 0%, #061522 100%)',
     iconLabel: 'A',
     status: 'Analysis Complete',
-    tagline: "The assistant that knows your home but doesn't know you.",
+    tagline: "Contextual intelligence, fragmented. Smart home. Zero household memory.",
     problem:
       "Alexa resets to zero at the start of every conversation. It has no persistent memory, no household identity model, and no ability to distinguish between family members reliably. A product that calls itself an \"assistant\" but forgets every interaction is a contradiction. Smart home routines fail silently and users never learn why, so they abandon automation entirely. After the initial novelty wears off, engagement collapses because there is no relationship to deepen.",
     rootCause:
       "Alexa was architecturally designed as a command interface, not a relational one. The \"trigger word + command + response\" model was correct in 2014 but has not evolved with user expectation. The absence of voice-profile-level personalisation means the platform serves the device, not the person using it. Silent failure in routines compounds this: no feedback loop means no improvement in trust.",
     proposal:
       'Persistent Memory Layer (opt-in): A user-consent-gated memory system where Alexa retains context across sessions: preferences, recurring patterns, ongoing tasks. Voice ID per household member with automatic profile switching. Proactive micro-context: "You usually ask for traffic at 7:50am. Want me to start automatically?" Silent failure alerts with plain-language diagnosis: "Your morning routine failed because the smart plug didn\'t respond. Tap to fix." This repositions Alexa from command tool to ambient relationship.',
+    constraints:
+      'Persistent memory is a significant privacy surface — GDPR and CCPA compliance requires granular per-member consent flows that add onboarding friction. Voice ID false attribution in households with similar-sounding members is a trust-destroying failure mode, not a minor accuracy issue. Hardware fragmentation across Echo tiers means context persistence must degrade gracefully at lower capability levels. Memory accuracy will lag user expectations during early rollout, creating a credibility risk before the feature matures.',
     impact:
       'Daily active use retention +24% · Routine adoption +40% · Household NPS recovery from 34 → 58',
   },
@@ -71,6 +76,8 @@ const entries: LabEntry[] = [
       'LinkedIn optimises for time-on-platform over professional value delivered. Engagement (likes, comments, shares) as a primary metric incentivises viral emotional content over substantive professional exchange. The job matching algorithm treats skills as keywords, not capabilities. Applications are unverified claims on a PDF and the platform does nothing to validate them before they reach a hiring manager.',
     proposal:
       'Three interventions: (1) Feed Quality Score, a user-adjustable signal/noise dial that deprioritises engagement-bait and surfaces only content from people you\'ve actually worked with or follow for professional insight. (2) Verified Skills badges, short async assessments that validate claimed skills before an application reaches a recruiter. (3) Warm Intro Layer: when applying to a role, surface first and second-degree connections at the company with a one-tap "ask for context".',
+    constraints:
+      'Verified Skills assessments degrade in signal value as preparation material circulates — any static test gets gamed over time. Feed Quality Score reduces session dwell time, which conflicts directly with LinkedIn\'s advertising revenue model and will face internal resistance. The Warm Intro Layer surfaces relationship data in ways some users may experience as surveillance. Recruiter adoption of new qualification signals requires platform-side incentive alignment that is difficult to enforce without changing recruiter-tier pricing.',
     impact:
       'Recruiter response rate +35% · Application-to-interview conversion +28% · Feed session satisfaction NPS +22pts',
   },
@@ -225,7 +232,7 @@ export default function ProductLab() {
               fontWeight: 300,
             }}
           >
-            Unsolicited analyses I wrote because I couldn't stop seeing the problems. Structured as if I was already inside the company.
+            Structured product analyses written as internal working documents — the kind I'd produce as a PM on the team, not as an outside observer.
           </p>
         </motion.div>
 
@@ -407,6 +414,7 @@ export default function ProductLab() {
               <ContentBlock label="Problem" content={active.problem} accentColor={active.accentColor} />
               <ContentBlock label="Root Cause" content={active.rootCause} accentColor={active.accentColor} />
               <ContentBlock label="Proposed Solution" content={active.proposal} accentColor={active.accentColor} />
+              <ContentBlock label="Constraints & Tradeoffs" content={active.constraints} accentColor={active.accentColor} />
 
               {active.docUrl && (
                 <a

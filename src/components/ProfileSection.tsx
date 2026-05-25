@@ -14,22 +14,22 @@ const slides = [
   },
   {
     eyebrow: 'WHO I AM',
-    text: 'Final year cybersecurity student. I\'ve been my own PM since year two.',
+    text: 'Cybersecurity student. Every product decision on what I\'ve shipped was mine to frame, defend, and execute.',
     big: false,
   },
   {
     eyebrow: 'HOW I THINK',
-    text: 'I see the full user journey before a wireframe exists. I call it thinking in 4K. Photographic product imagination.',
+    text: 'I map behavioral patterns before feature scope. The interesting question is never what to build — it\'s understanding why users act the way they do first.',
     big: false,
   },
   {
     eyebrow: 'WHAT DRIVES ME',
-    text: 'Customer psychology isn\'t a skill I acquired. It\'s how I naturally read every product. I know why users click. And why they don\'t.',
+    text: 'User behavior tells a story that feature lists never surface. I\'m interested in the gap between what users say they want and what the data reveals they actually do.',
     big: false,
   },
   {
     eyebrow: 'HOW I MOVE',
-    text: 'I send unsolicited pitches to companies. Not feature requests: full problem, root cause, solution, impact. Because I see the gap and I can\'t stay quiet.',
+    text: 'I write structured product analyses for companies I\'m not at yet. Not because I know better than their teams — but because framing the problem rigorously is the best way to sharpen how I think.',
     big: false,
   },
 ]

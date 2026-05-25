@@ -11,12 +11,12 @@ const storyLines = [
   'I shipped my first SaaS in year two. Nobody asked me to.',
   'ApeAcademy processes real payments.',
   'Real students. Real assignments.',
-  'I notice things most PMs miss. Not a flex. Just how I\'m wired.',
-  'I think in 4K. Photographic product vision.',
-  'I can tell you why your user abandoned checkout. It\'s rarely what you think.',
-  'Been my own PM from day one.',
-  'I find problems companies haven\'t named yet.',
-  'Then I pitch the solution. Always.',
+  'I look for friction users have normalized. That\'s where the product opportunity lives.',
+  'I model user journeys end-to-end before touching the solution space.',
+  'Checkout abandonment is almost never a payment problem. It\'s a trust problem built upstream.',
+  'Every product decision on ApeAcademy was mine to frame and defend.',
+  'The most valuable problems are the ones that haven\'t been named yet.',
+  'Then I frame it: problem, root cause, proposed intervention, expected impact.',
   'Cape Town in 3 months. Actively looking.',
   'Let\'s build something.',
 ]
@@ -194,10 +194,10 @@ export default function About() {
               ABOUT THE BUILDER
             </p>
             <p style={{ fontSize: 14, color: 'var(--color-muted)', lineHeight: 1.85, fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-              I see the full user journey before a single wireframe exists. When I was designing ApeAcademy's payment flow, I'd already mentally walked 200 students through every edge case before I wrote a line of code. I call it thinking in 4K.
+              I approach product problems from the behavioral layer down. When I designed ApeAcademy's payment flow, I'd already mapped 200 student edge cases before touching the code — not because I'm cautious, but because the mental model existed before the implementation did.
             </p>
             <p style={{ fontSize: 14, color: 'var(--color-muted)', lineHeight: 1.85, fontFamily: 'var(--font-body)', marginTop: 14, fontWeight: 300 }}>
-              I've sent unsolicited product analyses to Spotify, Amazon, and LinkedIn. Not to get noticed. I just couldn't stop seeing the problems. Everything on this site is work I actually did.
+              I've written structured product analyses for Spotify, Amazon, and LinkedIn — framed as internal working documents, not external critiques. The goal isn't to suggest these teams missed something obvious. It's to practice how I'd approach ambiguous problems with incomplete information.
             </p>
           </motion.div>
 
@@ -216,7 +216,7 @@ export default function About() {
             }}
           >
             <p style={{ fontSize: 13, color: 'rgba(0,160,255,0.85)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontStyle: 'italic', fontWeight: 300 }}>
-              "Companies miss revenue because they optimise for the happy path and ignore the exit interview. I find those blind spots and I fix them."
+              "The most tractable product improvements live in the gap between what users say they want and what their behavior actually reveals."
             </p>
           </motion.div>
 

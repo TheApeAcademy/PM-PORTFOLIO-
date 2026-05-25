@@ -187,7 +187,7 @@ export default function Hero() {
             textAlign: 'center',
           }}
         >
-          PM thinking. Frontend execution. I don't wait for permission to build. I've been shipping real products since year two of university.
+          I approach products as systems — where user behavior, retention, and business incentives intersect. I've been building at that intersection since year two.
         </motion.p>
 
         {/* CTAs */}

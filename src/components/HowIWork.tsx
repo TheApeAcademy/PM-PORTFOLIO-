@@ -3,6 +3,16 @@ import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'fra
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
 
+/* ─── Product Approach Steps ─── */
+const approachSteps = [
+  { number: '01', label: 'Observe friction', detail: 'Find where users are working around the product, not with it.' },
+  { number: '02', label: 'Identify behavioral patterns', detail: 'Separate what users say they want from what the data reveals they do.' },
+  { number: '03', label: 'Map incentives', detail: 'Understand what the business optimizes for and where that conflicts with user needs.' },
+  { number: '04', label: 'Analyze tradeoffs', detail: 'Every fix creates a new constraint. Surface them before proposing solutions.' },
+  { number: '05', label: 'Prototype rapidly', detail: 'The fastest way to test an assumption is to make it visible.' },
+  { number: '06', label: 'Measure impact', detail: 'Define the success metric before touching the scope.' },
+]
+
 /* ─── AI Workflow Data ─── */
 const aiToolsData: Record<string, { use: string; color: string }> = {
   Claude:      { use: 'PRDs · Research synthesis · Strategy docs', color: '#D97706' },
@@ -60,27 +70,27 @@ const operatingPrinciples = [
 const exploring = [
   {
     topic: 'AI agent orchestration',
-    description: "After writing the Daye spec, I kept asking: what if the AI ran the whole session autonomously, start to finish? That question led me here.",
+    description: "The Daye spec raised a question I haven't stopped thinking about: at what point does an AI-assisted feature become an AI-operated product, and what does that mean for the PM's role in defining behavior.",
   },
   {
     topic: 'Developer tooling UX',
-    description: "Cursor changed how I build. That made me obsessed with why great DX compounds into product advantages nobody talks about.",
+    description: "Cursor changed the speed and quality of how I ship. That made me want to understand the mechanics behind why great DX compounds into durable product advantages — and why most tooling gets this wrong.",
   },
   {
     topic: 'Fintech infrastructure',
-    description: "ApeAcademy runs on Flutterwave. Understanding float economics completely changed how I think about every payment product.",
+    description: "Building on Flutterwave exposed the operational layer beneath every payment product. Float economics, settlement timing, failure modes — the infrastructure shapes the product strategy whether you acknowledge it or not.",
   },
   {
     topic: 'Product analytics systems',
-    description: "You can't find what you don't measure. I want to design the event schema, not just read the dashboard.",
+    description: "Dashboards answer questions you already know to ask. I'm interested in designing the event schema upstream — the decisions about what to instrument reveal more about product thinking than the reports themselves.",
   },
   {
     topic: 'Conversational UI patterns',
-    description: "Daye is fundamentally a conversation. That made me realise I barely understand what makes a voice interface feel human.",
+    description: "Daye surfaced how little consensus exists on what makes a conversational interface feel native versus transactional. That distinction shapes retention in ways that most teams don't measure until it's too late.",
   },
   {
     topic: 'Startup distribution strategy',
-    description: "ApeAcademy's growth was word-of-mouth. I want to understand how to engineer that intentionally at scale.",
+    description: "ApeAcademy's early traction was organic. I want to understand the mechanics of engineering that intentionally — not through paid acquisition, but through distribution architecture built into the product from day one.",
   },
 ]
 
@@ -296,6 +306,105 @@ export default function HowIWork() {
       </motion.div>
 
       <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }} ref={sectionRef}>
+
+        {/* ══════════════════════════════════════
+            SECTION 0 — HOW I APPROACH PRODUCTS
+        ══════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease }}
+          style={{ marginBottom: 104 }}
+        >
+          <p className="text-caption" style={{ marginBottom: 14, letterSpacing: '0.22em' }}>
+            HOW I APPROACH PRODUCTS
+          </p>
+          <h2
+            className="text-section-headline"
+            style={{ color: 'var(--color-text)', marginBottom: 14, maxWidth: 560 }}
+          >
+            The process, in order.
+          </h2>
+          <p
+            style={{
+              fontSize: 16,
+              color: 'var(--color-muted)',
+              fontFamily: 'var(--font-body)',
+              maxWidth: 480,
+              lineHeight: 1.75,
+              marginBottom: 52,
+              fontWeight: 300,
+            }}
+          >
+            Every analysis, every pitch, every product decision I make runs through this sequence.
+          </p>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(240px, 30vw, 320px), 1fr))',
+              gap: 16,
+            }}
+          >
+            {approachSteps.map((step, i) => {
+              const stepRef = useRef<HTMLDivElement>(null)
+              const stepInView = useInView(stepRef, { once: true, margin: '-40px' })
+              return (
+                <motion.div
+                  key={step.number}
+                  ref={stepRef}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={stepInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.07, ease }}
+                  style={{
+                    padding: '22px 24px',
+                    borderRadius: 16,
+                    border: '1px solid rgba(255,255,255,0.07)',
+                    background: 'rgba(255,255,255,0.02)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 10,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      color: 'rgba(0,113,227,0.6)',
+                      fontFamily: 'var(--font-body)',
+                      letterSpacing: '0.12em',
+                    }}
+                  >
+                    {step.number}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 700,
+                      color: 'var(--color-text)',
+                      fontFamily: 'var(--font-display)',
+                      letterSpacing: '-0.01em',
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {step.label}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      color: 'var(--color-muted)',
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: 300,
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {step.detail}
+                  </span>
+                </motion.div>
+              )
+            })}
+          </div>
+        </motion.div>
 
         {/* ══════════════════════════════════════
             SECTION 1 — AI WORKFLOW
