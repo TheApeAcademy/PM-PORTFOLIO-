@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion'
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -128,6 +128,128 @@ function TiltBlock({ children, style }: { children: React.ReactNode; style?: Rea
     >
       {children}
     </div>
+  )
+}
+
+function ExploringAccordion() {
+  const [active, setActive] = useState<number | null>(null)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.8, ease }}
+    >
+      <p className="text-caption" style={{ marginBottom: 14, letterSpacing: '0.22em' }}>
+        CURRENTLY EXPLORING
+      </p>
+      <h2
+        className="text-section-headline"
+        style={{ color: 'var(--color-text)', marginBottom: 8, maxWidth: 540 }}
+      >
+        What I'm teaching myself right now.
+      </h2>
+      <p style={{
+        fontSize: 15,
+        color: 'var(--color-muted)',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 300,
+        marginBottom: 52,
+        lineHeight: 1.65,
+      }}>
+        Nobody assigned this. I just can't stop.
+      </p>
+
+      <div>
+        {exploring.map((item, i) => {
+          const isActive = active === i
+          return (
+            <div
+              key={item.topic}
+              onMouseEnter={() => setActive(i)}
+              onMouseLeave={() => setActive(null)}
+              style={{ cursor: 'default', position: 'relative' }}
+            >
+              {/* top rule */}
+              <div style={{ height: 1, background: isActive ? 'rgba(0,113,227,0.3)' : 'rgba(255,255,255,0.07)', transition: 'background 0.35s ease' }} />
+
+              {/* left accent bar */}
+              <motion.div
+                animate={{ scaleY: isActive ? 1 : 0, opacity: isActive ? 1 : 0 }}
+                initial={{ scaleY: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 1,
+                  bottom: 0,
+                  width: 2,
+                  background: 'linear-gradient(to bottom, #0071E3, #40a0ff)',
+                  transformOrigin: 'top',
+                }}
+              />
+
+              <motion.div
+                animate={{ x: isActive ? 18 : 0, background: isActive ? 'rgba(0,113,227,0.035)' : 'transparent' }}
+                transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{ padding: 'clamp(20px,3vw,28px) 0 clamp(20px,3vw,28px) clamp(16px,2vw,24px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}
+              >
+                <h3 style={{
+                  fontSize: 'clamp(24px,4vw,48px)',
+                  fontWeight: 800,
+                  fontFamily: 'var(--font-display)',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.05,
+                  color: isActive ? '#fff' : 'rgba(255,255,255,0.72)',
+                  transition: 'color 0.3s ease',
+                  margin: 0,
+                  flex: 1,
+                }}>
+                  {item.topic}
+                </h3>
+                <motion.span
+                  animate={{ rotate: isActive ? 45 : 0, color: isActive ? '#3BA0FF' : 'rgba(255,255,255,0.2)' }}
+                  transition={{ duration: 0.3, ease }}
+                  style={{ fontSize: 22, lineHeight: 1, display: 'block', flexShrink: 0, color: 'rgba(255,255,255,0.2)' }}
+                >
+                  →
+                </motion.span>
+              </motion.div>
+
+              {/* Expanding description */}
+              <AnimatePresence initial={false}>
+                {isActive && (
+                  <motion.div
+                    key="desc"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <p style={{
+                      fontSize: 15,
+                      color: 'rgba(255,255,255,0.48)',
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: 300,
+                      lineHeight: 1.75,
+                      maxWidth: 620,
+                      paddingLeft: 'clamp(16px,2vw,24px)',
+                      paddingBottom: 'clamp(20px,3vw,28px)',
+                      marginTop: -8,
+                    }}>
+                      {item.description}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )
+        })}
+        <div style={{ height: 1, background: 'rgba(255,255,255,0.07)' }} />
+      </div>
+    </motion.div>
   )
 }
 
@@ -376,114 +498,7 @@ export default function HowIWork() {
         {/* ══════════════════════════════════════
             SECTION 3 — CURRENTLY EXPLORING
         ══════════════════════════════════════ */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease }}
-        >
-          <p className="text-caption" style={{ marginBottom: 14, letterSpacing: '0.22em' }}>
-            CURRENTLY EXPLORING
-          </p>
-          <h2
-            className="text-section-headline"
-            style={{ color: 'var(--color-text)', marginBottom: 12, maxWidth: 480 }}
-          >
-            What I'm teaching myself right now.
-          </h2>
-          <p
-            style={{
-              fontSize: 16,
-              color: 'var(--color-muted)',
-              fontFamily: 'var(--font-body)',
-              maxWidth: 420,
-              lineHeight: 1.7,
-              marginBottom: 48,
-              fontWeight: 300,
-            }}
-          >
-            Nobody assigned this. I just can't stop.
-          </p>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 16,
-            }}
-            className="exploring-grid"
-          >
-            {exploring.map((item, i) => (
-              <motion.div
-                key={item.topic}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-30px' }}
-                transition={{ duration: 0.55, delay: i * 0.06, ease }}
-                whileHover={{ y: -4 }}
-                style={{
-                  borderRadius: 20,
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  background: 'rgba(255,255,255,0.03)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  padding: '32px 28px',
-                  cursor: 'default',
-                  transition: 'border-color 0.3s ease, background 0.3s ease',
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLElement
-                  el.style.borderColor = 'rgba(0,113,227,0.35)'
-                  el.style.background = 'rgba(0,113,227,0.05)'
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLElement
-                  el.style.borderColor = 'rgba(255,255,255,0.08)'
-                  el.style.background = 'rgba(255,255,255,0.03)'
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 'clamp(48px,7vw,72px)',
-                    fontWeight: 900,
-                    fontFamily: 'var(--font-display)',
-                    background: 'linear-gradient(135deg, #0071E3, #40a0ff)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    lineHeight: 1,
-                    marginBottom: 0,
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </div>
-                <h3
-                  style={{
-                    fontSize: 'clamp(16px,2vw,20px)',
-                    fontWeight: 700,
-                    color: 'var(--color-text)',
-                    fontFamily: 'var(--font-display)',
-                    letterSpacing: '-0.01em',
-                    marginTop: 12,
-                    marginBottom: 0,
-                  }}
-                >
-                  {item.topic}
-                </h3>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: 'var(--color-muted)',
-                    fontFamily: 'var(--font-body)',
-                    lineHeight: 1.75,
-                    marginTop: 8,
-                    fontWeight: 300,
-                  }}
-                >
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <ExploringAccordion />
 
       </div>
     </section>
