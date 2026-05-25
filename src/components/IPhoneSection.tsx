@@ -392,7 +392,7 @@ function AppIconCell({ project, onOpen }: { project: Project; onOpen: (p: Projec
             pointerEvents: 'none',
           }}
         />
-        <span style={{ position: 'relative', zIndex: 1, lineHeight: 1 }}>
+        <span style={{ position: 'relative', zIndex: 1, lineHeight: 1, fontSize: project.iconLabel.length > 1 ? 18 : 26 }}>
           {project.iconLabel}
         </span>
       </div>
