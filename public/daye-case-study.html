@@ -3773,18 +3773,42 @@ body {
   .iphone-doc-frame {
     width: 300px;
     height: 650px;
-    border-radius: 50px;
-    background: linear-gradient(145deg, #D2D2D7 0%, #ACACB1 25%, #C4C4C9 50%, #9E9EA3 75%, #B8B8BD 100%);
-    padding: 10px;
+    border-radius: 52px;
+    background: linear-gradient(
+      148deg,
+      rgba(255,255,255,0.92) 0%,
+      #E2E2EA 3%,
+      #C6C6D2 8%,
+      #D8D8E4 15%,
+      #B8B8C8 22%,
+      #CCCCD8 30%,
+      #B4B4C4 39%,
+      #CCCCD8 49%,
+      #B2B2C2 59%,
+      #C6C6D4 69%,
+      #B8B8C8 79%,
+      #D2D2E0 89%,
+      #EAEAF2 96%,
+      #C4C4D2 100%
+    );
+    padding: 11px;
     box-shadow:
-      0 0 0 0.5px rgba(255,255,255,0.35),
-      0 0 0 1.5px #6A6A6F,
-      0 50px 120px rgba(0,0,0,0.9),
-      0 24px 60px rgba(0,0,0,0.6),
-      inset 0 1.5px 0 rgba(255,255,255,0.5),
-      inset 0 -1px 0 rgba(0,0,0,0.25);
+      0 0 0 0.5px rgba(255,255,255,0.88),
+      0 0 0 1px rgba(80,80,105,0.65),
+      0 0 0 1.5px rgba(140,140,165,0.18),
+      inset 0 2px 0 rgba(255,255,255,0.8),
+      inset 0 -2px 0 rgba(0,0,0,0.1),
+      inset 2px 0 0 rgba(255,255,255,0.5),
+      inset -2px 0 0 rgba(0,0,0,0.07),
+      0 50px 120px rgba(0,0,0,0.88),
+      0 20px 55px rgba(0,0,0,0.5),
+      0 6px 16px rgba(0,0,0,0.35);
     position: relative;
     z-index: 1;
+    transform-style: preserve-3d;
+    transition: transform 0.12s ease;
+    will-change: transform;
+    cursor: default;
   }
 
   .iphone-doc-frame::before {
@@ -3832,7 +3856,7 @@ body {
   .iphone-doc-screen {
     width: 100%;
     height: 100%;
-    border-radius: 40px;
+    border-radius: 42px;
     overflow: hidden;
     background: radial-gradient(ellipse 110% 55% at 50% 105%, rgba(0,80,220,0.55) 0%, rgba(0,40,130,0.35) 28%, transparent 55%),
                 linear-gradient(180deg, #020307 0%, #030610 25%, #04080F 65%, #020407 100%);
@@ -3840,19 +3864,46 @@ body {
     display: flex;
     flex-direction: column;
   }
+  /* Screen glass sheen */
+  .iphone-doc-screen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 48%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.025) 55%, transparent 100%);
+    border-radius: 42px 42px 0 0;
+    pointer-events: none;
+    z-index: 40;
+  }
 
-  /* Dynamic island */
+  /* Dynamic Island */
   .daye-island {
     position: absolute;
-    top: 12px;
+    top: 13px;
     left: 50%;
     transform: translateX(-50%);
-    width: 96px;
-    height: 28px;
-    border-radius: 14px;
+    width: 104px;
+    height: 30px;
+    border-radius: 20px;
     background: #000;
     z-index: 20;
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.06),
+      0 2px 10px rgba(0,0,0,0.9),
+      inset 0 1px 0 rgba(255,255,255,0.04),
+      inset 0 -1px 0 rgba(0,0,0,0.5);
+  }
+  .daye-island::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #1a1a2e, #000);
+    box-shadow: inset 0 0 3px rgba(100,150,255,0.15);
   }
 
   /* Mobile status bar */
@@ -4157,59 +4208,222 @@ body {
     background: rgba(255,255,255,0.3);
   }
 
-  /* Second iPhone screens */
+  /* =============================================
+     SECONDARY DEVICE ROWS
+  ============================================= */
+
   .iphone-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin-top: 80px;
+    gap: 28px;
+    margin-top: 72px;
     align-items: end;
   }
 
-  .iphone-screen-card {
-    position: relative;
-  }
+  .iphone-screen-card { position: relative; }
 
+  /* iPhone 17 Pro Max — Titanium Natural mini frame */
   .iphone-mini-frame {
     width: 100%;
-    border-radius: 36px;
-    background: linear-gradient(145deg, #D2D2D7 0%, #ACACB1 25%, #C4C4C9 50%, #9E9EA3 75%, #B8B8BD 100%);
-    padding: 7px;
+    border-radius: 44px;
+    background: linear-gradient(
+      148deg,
+      rgba(255,255,255,0.9) 0%,
+      #E0E0E8 3%,
+      #C4C4D0 8%,
+      #D6D6E2 15%,
+      #B6B6C4 22%,
+      #CACAD6 30%,
+      #B2B2C0 39%,
+      #CACACC 49%,
+      #B0B0BE 59%,
+      #C4C4D0 69%,
+      #B6B6C4 79%,
+      #D0D0DC 89%,
+      #E8E8F0 96%,
+      #C2C2CE 100%
+    );
+    padding: 9px;
     box-shadow:
-      0 0 0 0.5px rgba(255,255,255,0.3),
-      0 0 0 1px #6A6A6F,
-      0 30px 70px rgba(0,0,0,0.85),
-      inset 0 1px 0 rgba(255,255,255,0.5);
+      0 0 0 0.5px rgba(255,255,255,0.85),
+      0 0 0 1px rgba(80,80,105,0.6),
+      0 0 0 1.5px rgba(160,160,180,0.14),
+      inset 0 2px 0 rgba(255,255,255,0.75),
+      inset 0 -2px 0 rgba(0,0,0,0.1),
+      inset 2px 0 0 rgba(255,255,255,0.45),
+      inset -2px 0 0 rgba(0,0,0,0.07),
+      0 28px 72px rgba(0,0,0,0.85),
+      0 10px 28px rgba(0,0,0,0.45),
+      0 3px 8px rgba(0,0,0,0.3);
     position: relative;
     aspect-ratio: 300/650;
+    transform-style: preserve-3d;
+    transition: transform 0.12s ease;
+    will-change: transform;
+    cursor: default;
+  }
+
+  /* Samsung S24 Ultra — Titanium Black mini frame */
+  .samsung-mini-frame {
+    width: 100%;
+    border-radius: 38px;
+    background: linear-gradient(
+      148deg,
+      #484850 0%,
+      #2A2A34 5%,
+      #1E1E2A 11%,
+      #2E2E3A 19%,
+      #1C1C28 27%,
+      #282834 36%,
+      #1A1A27 46%,
+      #252532 56%,
+      #1A1A28 66%,
+      #222230 76%,
+      #1C1C2C 86%,
+      #303040 94%,
+      #424250 100%
+    );
+    padding: 9px;
+    box-shadow:
+      0 0 0 0.5px rgba(255,255,255,0.2),
+      0 0 0 1px rgba(20,20,32,0.95),
+      0 0 0 1.5px rgba(60,60,80,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.12),
+      inset 0 -1px 0 rgba(0,0,0,0.35),
+      inset 1px 0 0 rgba(255,255,255,0.08),
+      inset -1px 0 0 rgba(0,0,0,0.2),
+      0 28px 72px rgba(0,0,0,0.9),
+      0 10px 28px rgba(0,0,0,0.55),
+      0 3px 8px rgba(0,0,0,0.4);
+    position: relative;
+    aspect-ratio: 300/660;
+    transform-style: preserve-3d;
+    transition: transform 0.12s ease;
+    will-change: transform;
+    cursor: default;
+  }
+
+  /* Samsung S-Pen slot */
+  .samsung-mini-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 14px;
+    right: 7px;
+    width: 4px;
+    height: 22px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #3A3A48, #1E1E2C);
+    box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+  }
+
+  /* iPad Pro 13" Landscape — Silver mini frame */
+  .ipad-mini-frame {
+    width: 100%;
+    border-radius: 20px;
+    background: linear-gradient(
+      148deg,
+      rgba(255,255,255,0.88) 0%,
+      #E2E2EA 5%,
+      #CACAD6 12%,
+      #DCDCE8 22%,
+      #C4C4D0 33%,
+      #D4D4E0 46%,
+      #C0C0CC 60%,
+      #D0D0DC 74%,
+      #E0E0EC 88%,
+      #D2D2DE 100%
+    );
+    padding: 8px;
+    box-shadow:
+      0 0 0 0.5px rgba(255,255,255,0.8),
+      0 0 0 1px rgba(90,90,115,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.75),
+      inset 0 -1px 0 rgba(0,0,0,0.08),
+      0 20px 60px rgba(0,0,0,0.7),
+      0 8px 24px rgba(0,0,0,0.4);
+    position: relative;
+    aspect-ratio: 650/300;
+    transform-style: preserve-3d;
+    transition: transform 0.12s ease;
+    will-change: transform;
+    cursor: default;
   }
 
   .iphone-mini-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 36px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .iphone-mini-screen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 44%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.065) 0%, rgba(255,255,255,0.02) 55%, transparent 100%);
+    border-radius: 36px 36px 0 0;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .samsung-mini-screen {
     width: 100%;
     height: 100%;
     border-radius: 30px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+  .samsung-mini-screen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 42%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    border-radius: 30px 30px 0 0;
+    pointer-events: none;
+    z-index: 50;
   }
 
+  /* Dynamic Island (iPhone) */
   .mini-island {
     position: absolute;
-    top: 9px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 64px;
-    height: 20px;
-    border-radius: 10px;
+    width: 72px;
+    height: 22px;
+    border-radius: 14px;
     background: #000;
-    z-index: 10;
+    z-index: 20;
+    box-shadow:
+      0 0 0 0.5px rgba(255,255,255,0.05),
+      0 2px 6px rgba(0,0,0,0.8),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+
+  /* Punch-hole camera (Samsung) */
+  .punch-hole {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #000;
+    z-index: 20;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), inset 0 0 3px rgba(80,100,180,0.1);
   }
 
   .iphone-screen-label {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 18px;
   }
-
   .iphone-screen-label strong {
     display: block;
     font-size: 13px;
@@ -4217,16 +4431,80 @@ body {
     color: var(--text);
     margin-bottom: 4px;
   }
-
   .iphone-screen-label span {
     font-size: 12px;
     color: var(--muted);
   }
 
+  /* =============================================
+     3D TILT — scroll + hover cinematic effect
+  ============================================= */
+  .device-tilt-enter {
+    opacity: 0;
+    transform: perspective(1400px) rotateY(-22deg) translateX(-48px) translateZ(-30px);
+    transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1), transform 0.95s cubic-bezier(0.22,1,0.36,1);
+  }
+  .device-tilt-enter.from-right {
+    transform: perspective(1400px) rotateY(22deg) translateX(48px) translateZ(-30px);
+  }
+  .device-tilt-enter.from-top {
+    transform: perspective(1400px) rotateX(18deg) translateY(40px) translateZ(-30px);
+  }
+  .device-tilt-enter.is-visible {
+    opacity: 1;
+    transform: perspective(1400px) rotateY(-7deg) rotateX(3deg) translateZ(0);
+  }
+  .device-tilt-enter.from-right.is-visible {
+    transform: perspective(1400px) rotateY(7deg) rotateX(3deg) translateZ(0);
+  }
+  .device-tilt-enter.from-top.is-visible {
+    transform: perspective(1400px) rotateX(0deg) translateY(0) translateZ(0);
+  }
+
+  /* Glow pulse beneath hero device */
+  .device-glow-pulse {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 40px;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Pathway header for secondary sections */
+  .pathway-header {
+    margin-top: 72px;
+    padding-top: 44px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .pathway-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .pathway-h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+  .pathway-p {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin: 0;
+  }
+
   @media (max-width: 900px) {
-    .mobile-split {
-      grid-template-columns: 1fr;
-    }
+    .mobile-split { grid-template-columns: 1fr; }
     .iphone-doc { display: flex; justify-content: center; }
     .iphone-row {
       display: flex;
@@ -4238,12 +4516,13 @@ body {
       scrollbar-width: none;
     }
     .iphone-row::-webkit-scrollbar { display: none; }
-    .iphone-row .iphone-screen-card {
-      flex: 0 0 160px;
-      min-width: 160px;
-    }
+    .iphone-row .iphone-screen-card,
     .iphone-row .iphone-screen-card:nth-child(2),
-    .iphone-row .iphone-screen-card:nth-child(3) { display: block; }
+    .iphone-row .iphone-screen-card:nth-child(3) {
+      flex: 0 0 175px;
+      min-width: 175px;
+      display: block;
+    }
   }
 
 </style>
@@ -4884,10 +5163,10 @@ body {
         </div>
       </div>
 
-      <!-- Right: iPhone mockup -->
+      <!-- Right: iPhone 17 Pro Max -->
       <div class="iphone-doc reveal reveal-delay-1">
         <div class="iphone-doc-glow"></div>
-        <div class="iphone-doc-frame">
+        <div class="iphone-doc-frame device-tilt-enter from-right">
           <div class="iphone-vol-up"></div>
           <div class="iphone-vol-dn"></div>
 
@@ -4999,7 +5278,7 @@ body {
     <div class="iphone-row reveal">
       <!-- Screen 1: Voice active -->
       <div class="iphone-screen-card">
-        <div class="iphone-mini-frame">
+        <div class="iphone-mini-frame device-tilt-enter from-top">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background: radial-gradient(ellipse 100% 50% at 50% 100%, rgba(0,80,220,0.5) 0%, transparent 55%), linear-gradient(180deg,#020307 0%,#030610 100%); position:relative;">
             <div style="padding:38px 14px 0; flex:1; display:flex; flex-direction:column;">
@@ -5026,7 +5305,7 @@ body {
 
       <!-- Screen 2: Session running (main) -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="iphone-mini-frame" style="box-shadow:0 0 0 1px rgba(29,185,84,0.3),0 30px 70px rgba(0,0,0,0.85);">
+        <div class="iphone-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(29,185,84,0.3),0 30px 70px rgba(0,0,0,0.85);">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 100% 50% at 50% 100%,rgba(0,80,220,0.5) 0%,transparent 55%),linear-gradient(180deg,#020307 0%,#030610 100%);position:relative;">
             <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:8px;">
@@ -5055,7 +5334,7 @@ body {
 
       <!-- Screen 3: Queue view -->
       <div class="iphone-screen-card">
-        <div class="iphone-mini-frame">
+        <div class="iphone-mini-frame device-tilt-enter from-right">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 100% 50% at 50% 100%,rgba(0,80,220,0.5) 0%,transparent 55%),linear-gradient(180deg,#020307 0%,#030610 100%);position:relative;">
             <div style="padding:38px 0 0;flex:1;display:flex;flex-direction:column;overflow:hidden;">
@@ -5104,7 +5383,7 @@ body {
 
       <!-- Screen 4: Beat Studio Home -->
       <div class="iphone-screen-card">
-        <div class="iphone-mini-frame">
+        <div class="iphone-mini-frame device-tilt-enter">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.5) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);position:relative;">
             <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:8px;">
@@ -5149,11 +5428,11 @@ body {
         </div>
       </div>
 
-      <!-- Screen 5: AI Beat Generation — center hero -->
+      <!-- Screen 5: AI Beat Generation — Samsung S24 Ultra — center hero -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="iphone-mini-frame" style="box-shadow:0 0 0 1px rgba(140,90,255,0.35),0 30px 70px rgba(0,0,0,0.85);">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.5) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);position:relative;">
+        <div class="samsung-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(140,90,255,0.3),0 30px 70px rgba(0,0,0,0.9);">
+          <div class="punch-hole"></div>
+          <div class="samsung-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.5) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);position:relative;">
             <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
               <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:0.1em;color:#8C5AFF;text-transform:uppercase;">AI Beat Generator</div>
               <div style="font-size:9px;color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px 10px 3px 10px;padding:7px 9px;align-self:flex-end;max-width:90%;line-height:1.4;">lo-fi Afrobeats, deep bass, 85 BPM, F minor</div>
@@ -5192,7 +5471,7 @@ body {
 
       <!-- Screen 6: Audio Recording + Layering -->
       <div class="iphone-screen-card">
-        <div class="iphone-mini-frame">
+        <div class="iphone-mini-frame device-tilt-enter from-right">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.5) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);position:relative;">
             <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
@@ -5260,7 +5539,7 @@ body {
 
       <!-- Screen 7: DJ Mixing Deck -->
       <div class="iphone-screen-card">
-        <div class="iphone-mini-frame">
+        <div class="iphone-mini-frame device-tilt-enter from-top">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(160,100,0,0.45) 0%,transparent 58%),linear-gradient(180deg,#080500 0%,#100800 100%);position:relative;">
             <div style="padding:38px 11px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
@@ -5323,11 +5602,11 @@ body {
         </div>
       </div>
 
-      <!-- Screen 8: Harmonic Key Wheel + BPM Arc — center hero -->
+      <!-- Screen 8: Harmonic Key Wheel + BPM Arc — Samsung S24 Ultra — center hero -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="iphone-mini-frame" style="box-shadow:0 0 0 1px rgba(212,160,23,0.35),0 30px 70px rgba(0,0,0,0.85);">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(160,100,0,0.45) 0%,transparent 58%),linear-gradient(180deg,#080500 0%,#100800 100%);position:relative;">
+        <div class="samsung-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(212,160,23,0.3),0 30px 70px rgba(0,0,0,0.9);">
+          <div class="punch-hole"></div>
+          <div class="samsung-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(160,100,0,0.45) 0%,transparent 58%),linear-gradient(180deg,#080500 0%,#100800 100%);position:relative;">
             <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
               <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:0.1em;color:#D4A017;text-transform:uppercase;">Harmonic Intelligence</div>
               <!-- Key wheel (SVG circle) -->
@@ -5375,7 +5654,7 @@ body {
 
       <!-- Screen 9: Producer Reference Browser -->
       <div class="iphone-screen-card">
-        <div class="iphone-mini-frame">
+        <div class="iphone-mini-frame device-tilt-enter from-right">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(160,100,0,0.45) 0%,transparent 58%),linear-gradient(180deg,#080500 0%,#100800 100%);position:relative;">
             <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
@@ -5431,8 +5710,8 @@ body {
       <h3 style="font-size:20px;font-weight:600;color:var(--fg);margin:0 0 8px;">No middleman. Direct to Spotify.</h3>
       <p style="font-size:13px;color:var(--muted);max-width:480px;line-height:1.7;margin:0 0 36px;">Artists publish finished tracks directly through Daye — bypassing DistroKid or any third-party distributor. One tap. Instant Spotify distribution.</p>
 
-      <div style="width:220px;">
-        <div class="iphone-mini-frame" style="box-shadow:0 0 0 1px rgba(29,185,84,0.3),0 40px 90px rgba(0,0,0,0.9);">
+      <div style="width:240px;">
+        <div class="iphone-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(29,185,84,0.35),0 40px 100px rgba(0,0,0,0.95);">
           <div class="mini-island"></div>
           <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(0,120,60,0.45) 0%,transparent 58%),linear-gradient(180deg,#020f06 0%,#020e05 100%);position:relative;">
             <div style="padding:38px 14px 0;flex:1;display:flex;flex-direction:column;gap:9px;">
@@ -6888,6 +7167,81 @@ if (window.matchMedia('(max-width: 820px)').matches) {
     }, 400);
   });
 }
+
+// ── CINEMATIC 3D DEVICE TILT ──
+(function() {
+  const frames = document.querySelectorAll(
+    '.iphone-doc-frame, .iphone-mini-frame, .samsung-mini-frame, .ipad-mini-frame'
+  );
+
+  frames.forEach(el => {
+    let animId = null;
+    let currentX = 0, currentY = 0;
+    let targetX = 0, targetY = 0;
+
+    // Default resting tilt based on position in layout
+    const isRight = el.closest('[data-pathway]')?.dataset.pathway === 'right';
+    const restY = el.classList.contains('from-right') ? 6 : -6;
+    const restX = 2;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function animate() {
+      currentX = lerp(currentX, targetX, 0.12);
+      currentY = lerp(currentY, targetY, 0.12);
+      el.style.transform = `perspective(1100px) rotateX(${currentX}deg) rotateY(${currentY}deg) translateZ(0px)`;
+      if (Math.abs(targetX - currentX) > 0.02 || Math.abs(targetY - currentY) > 0.02) {
+        animId = requestAnimationFrame(animate);
+      } else {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    }
+
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      targetX = -ny * 18;
+      targetY = nx * 22;
+      if (!animId) animId = requestAnimationFrame(animate);
+    });
+
+    el.addEventListener('mouseleave', () => {
+      targetX = restX;
+      targetY = restY;
+      if (!animId) animId = requestAnimationFrame(animate);
+    });
+
+    el.addEventListener('mouseenter', () => {
+      el.style.transition = 'none';
+    });
+
+    // Set initial resting position
+    currentX = restX; currentY = restY;
+    el.style.transform = `perspective(1100px) rotateX(${restX}deg) rotateY(${restY}deg)`;
+  });
+})();
+
+// ── SCROLL REVEAL FOR DEVICE FRAMES ──
+(function() {
+  const entries = document.querySelectorAll('.device-tilt-enter');
+  const obs = new IntersectionObserver(list => {
+    list.forEach(entry => {
+      if (entry.isIntersecting) {
+        // stagger by index within parent
+        const siblings = Array.from(entry.target.closest('.iphone-row, .iphone-doc, [class]')?.parentElement?.querySelectorAll?.('.device-tilt-enter') || []);
+        const idx = siblings.indexOf(entry.target);
+        setTimeout(() => {
+          entry.target.classList.add('is-visible');
+        }, idx * 120);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  entries.forEach(el => obs.observe(el));
+})();
 </script>
 </body>
 </html>
