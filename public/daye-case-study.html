@@ -4523,9 +4523,35 @@ body {
       min-width: 175px;
       display: block;
     }
-    .device-cluster { flex-direction: column; align-items: center; gap: 32px; }
-    .cluster-left-wrap, .cluster-right-wrap { display: none; }
-    .cluster-center-wrap { margin: 0 !important; }
+    .device-cluster {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 16px 24px;
+      margin: 0 -16px;
+      justify-content: flex-start;
+      gap: 16px;
+      min-height: auto;
+      align-items: flex-end;
+    }
+    .device-cluster::-webkit-scrollbar { display: none; }
+    .cluster-left-wrap, .cluster-right-wrap {
+      display: block;
+      flex: 0 0 200px;
+      width: 200px;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+    .cluster-center-wrap {
+      margin: 0 !important;
+      flex: 0 0 auto;
+      animation: none;
+    }
+    .iphone-doc-frame {
+      width: clamp(240px, 72vw, 290px) !important;
+      height: calc(clamp(240px, 72vw, 290px) * (650 / 300)) !important;
+    }
   }
 
   /* ── 3-Device cinematic cluster ── */
@@ -4744,10 +4770,6 @@ body {
     .iphone-row .iphone-screen-card:nth-child(3) {
       flex: 0 0 245px !important;
       min-width: 245px !important;
-    }
-    .iphone-doc-frame {
-      width: clamp(280px, 84vw, 320px) !important;
-      height: calc(clamp(280px, 84vw, 320px) * (650 / 300)) !important;
     }
   }
 
