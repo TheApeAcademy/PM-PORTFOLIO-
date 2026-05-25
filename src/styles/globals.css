@@ -540,6 +540,9 @@ body {
     gap: 32px !important;
     align-items: center;
   }
+  .exploring-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* ─── Product Intelligence Lab ─── */

@@ -404,31 +404,84 @@ export default function HowIWork() {
             Nobody assigned this. I just can't stop.
           </p>
 
-          <div>
-            {exploring.map((item, i) => {
-              const rowRef = useRef<HTMLDivElement>(null)
-              const rowInView = useInView(rowRef, { once: true, margin: '-30px' })
-              return (
-                <div key={item.topic}>
-                  <AnimatedRule delay={i * 0.05} color="rgba(255,255,255,0.07)" />
-                  <motion.div
-                    ref={rowRef}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={rowInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: i * 0.055, ease }}
-                    className="exploring-list-row"
-                  >
-                    <span className="exploring-list-topic">
-                      {item.topic}
-                    </span>
-                    <span className="exploring-list-desc">
-                      {item.description}
-                    </span>
-                  </motion.div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 16,
+            }}
+            className="exploring-grid"
+          >
+            {exploring.map((item, i) => (
+              <motion.div
+                key={item.topic}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ duration: 0.55, delay: i * 0.06, ease }}
+                whileHover={{ y: -4 }}
+                style={{
+                  borderRadius: 20,
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  background: 'rgba(255,255,255,0.03)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  padding: '32px 28px',
+                  cursor: 'default',
+                  transition: 'border-color 0.3s ease, background 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.borderColor = 'rgba(0,113,227,0.35)'
+                  el.style.background = 'rgba(0,113,227,0.05)'
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.borderColor = 'rgba(255,255,255,0.08)'
+                  el.style.background = 'rgba(255,255,255,0.03)'
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 'clamp(48px,7vw,72px)',
+                    fontWeight: 900,
+                    fontFamily: 'var(--font-display)',
+                    background: 'linear-gradient(135deg, #0071E3, #40a0ff)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    lineHeight: 1,
+                    marginBottom: 0,
+                  }}
+                >
+                  {String(i + 1).padStart(2, '0')}
                 </div>
-              )
-            })}
-            <AnimatedRule color="rgba(255,255,255,0.07)" />
+                <h3
+                  style={{
+                    fontSize: 'clamp(16px,2vw,20px)',
+                    fontWeight: 700,
+                    color: 'var(--color-text)',
+                    fontFamily: 'var(--font-display)',
+                    letterSpacing: '-0.01em',
+                    marginTop: 12,
+                    marginBottom: 0,
+                  }}
+                >
+                  {item.topic}
+                </h3>
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: 'var(--color-muted)',
+                    fontFamily: 'var(--font-body)',
+                    lineHeight: 1.75,
+                    marginTop: 8,
+                    fontWeight: 300,
+                  }}
+                >
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 

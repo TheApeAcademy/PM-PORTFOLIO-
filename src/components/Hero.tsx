@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import gsap from 'gsap'
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const
@@ -24,7 +24,7 @@ function WordReveal({ text }: { text: string }) {
           <span className="hero-word" style={{ display: 'inline-block' }}>
             {word}
           </span>
-          {i < arr.length - 1 && ' '}
+          {i < arr.length - 1 && ' '}
         </span>
       ))}
     </>
@@ -33,9 +33,6 @@ function WordReveal({ text }: { text: string }) {
 
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false)
-  const { scrollY } = useScroll()
-  const orb1Y = useTransform(scrollY, [0, 600], [0, -80])
-  const orb2Y = useTransform(scrollY, [0, 600], [0, -50])
   const headlineRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -71,12 +68,12 @@ export default function Hero() {
         paddingBottom: 80,
       }}
     >
-      {/* Dark vignette so text stays readable over the 3D canvas */}
+      {/* Dark vignette */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.85) 100%)',
+          background: 'radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.85) 100%)',
           zIndex: 0,
           pointerEvents: 'none',
         }}
@@ -88,8 +85,8 @@ export default function Hero() {
           position: 'absolute',
           inset: 0,
           backgroundImage: `
-            linear-gradient(rgba(0,113,227,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,113,227,0.03) 1px, transparent 1px)
+            linear-gradient(rgba(0,113,227,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,113,227,0.02) 1px, transparent 1px)
           `,
           backgroundSize: '64px 64px',
           zIndex: 0,
@@ -99,44 +96,42 @@ export default function Hero() {
         }}
       />
 
-      {/* Background radial glow */}
-      <div className="hero-glow" style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
-
-      {/* Parallax orbs */}
-      <motion.div
+      {/* Top-left availability label */}
+      <div
         style={{
-          y: orb1Y,
           position: 'absolute',
-          top: '10%',
-          left: '-5%',
-          width: 'min(480px, 100vw)',
-          height: 'min(480px, 100vw)',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,113,227,0.16) 0%, transparent 65%)',
-          filter: 'blur(72px)',
-          zIndex: 0,
-          pointerEvents: 'none',
+          top: 'clamp(80px, 10vw, 120px)',
+          left: 'clamp(24px, 6vw, 80px)',
+          zIndex: 3,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
         }}
-        className="hero-orb-1"
-        aria-hidden
-      />
-      <motion.div
-        style={{
-          y: orb2Y,
-          position: 'absolute',
-          bottom: '15%',
-          right: '-5%',
-          width: 'min(360px, 80vw)',
-          height: 'min(360px, 80vw)',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,80,200,0.1) 0%, transparent 65%)',
-          filter: 'blur(80px)',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-        className="hero-orb-2"
-        aria-hidden
-      />
+      >
+        <span
+          className="pulse-dot"
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: '50%',
+            background: '#22c55e',
+            flexShrink: 0,
+            boxShadow: '0 0 8px #22c55e',
+          }}
+        />
+        <span
+          style={{
+            fontSize: 10,
+            fontWeight: 600,
+            color: 'rgba(255,255,255,0.45)',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
+          Available for roles · Cape Town · 2025
+        </span>
+      </div>
 
       {/* Content */}
       <motion.div
@@ -146,59 +141,16 @@ export default function Hero() {
         animate="show"
         style={{ position: 'relative', zIndex: 2 }}
       >
-        {/* Available pill */}
-        <motion.div variants={item} style={{ marginBottom: 32 }}>
-          <span
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '8px 18px',
-              borderRadius: 980,
-              border: '1px solid rgba(0,113,227,0.25)',
-              background: 'rgba(0,113,227,0.07)',
-              backdropFilter: 'blur(12px)',
-              fontSize: 12,
-              color: 'rgba(0,160,255,0.85)',
-              fontFamily: 'var(--font-body)',
-              letterSpacing: '0.04em',
-              fontWeight: 500,
-            }}
-          >
-            <span
-              className="pulse-dot"
-              style={{ width: 6, height: 6, borderRadius: '50%', background: '#0071E3', flexShrink: 0 }}
-            />
-            Available for roles · Cape Town · 2025
-          </span>
-        </motion.div>
-
-        {/* Eyebrow */}
-        <motion.p
-          variants={item}
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 11,
-            fontWeight: 500,
-            color: 'rgba(255,255,255,0.3)',
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            marginBottom: 24,
-          }}
-        >
-          Product · Frontend · Builder
-        </motion.p>
-
-        {/* Headline — GSAP word-reveal stagger */}
-        <div ref={headlineRef}>
+        {/* Headline */}
+        <div ref={headlineRef} style={{ textAlign: 'center' }}>
           <h1
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(52px, 9vw, 104px)',
-              fontWeight: 300,
+              fontSize: 'clamp(72px, 12vw, 148px)',
+              fontWeight: 200,
               letterSpacing: '-0.04em',
               lineHeight: 1.0,
-              color: 'rgba(255,255,255,0.6)',
+              color: 'rgba(255,255,255,0.55)',
               textAlign: 'center',
               marginBottom: 0,
             }}
@@ -208,31 +160,16 @@ export default function Hero() {
           <h1
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(52px, 9vw, 104px)',
-              fontWeight: 800,
+              fontSize: 'clamp(72px, 12vw, 148px)',
+              fontWeight: 900,
               letterSpacing: '-0.04em',
               lineHeight: 1.0,
               color: '#fff',
               textAlign: 'center',
-              marginBottom: 36,
+              marginBottom: 40,
             }}
           >
-            <WordReveal text="that actually" />
-            {' '}
-            <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
-              <span
-                className="hero-word"
-                style={{
-                  display: 'inline-block',
-                  background: 'linear-gradient(135deg, #0071E3 0%, #3BA0FF 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                ship.
-              </span>
-            </span>
+            <WordReveal text="that actually ship." />
           </h1>
         </div>
 
@@ -241,11 +178,11 @@ export default function Hero() {
           variants={item}
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 18,
+            fontSize: 17,
             fontWeight: 300,
             color: 'rgba(255,255,255,0.45)',
             marginBottom: 52,
-            maxWidth: 520,
+            maxWidth: 460,
             lineHeight: 1.65,
             textAlign: 'center',
           }}
@@ -275,65 +212,6 @@ export default function Hero() {
           <a href="/resume.html" target="_blank" rel="noopener noreferrer" className="btn-secondary">
             View Resume
           </a>
-        </motion.div>
-
-        {/* Bottom stat strip */}
-        <motion.div
-          variants={item}
-          style={{
-            marginTop: 72,
-            display: 'flex',
-            gap: 0,
-            borderRadius: 18,
-            border: '1px solid rgba(255,255,255,0.07)',
-            background: 'rgba(255,255,255,0.025)',
-            backdropFilter: 'blur(20px)',
-            overflow: 'hidden',
-          }}
-        >
-          {[
-            { value: '3', label: 'Products shipped' },
-            { value: '4K', label: 'Thinking in 4K' },
-            { value: '∞', label: 'Ideas never stop' },
-          ].map((s, i) => (
-            <div
-              key={s.label}
-              style={{
-                padding: '18px 32px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 3,
-                borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 24,
-                  fontWeight: 800,
-                  fontFamily: 'var(--font-display)',
-                  background: 'linear-gradient(135deg, #0071E3 0%, #3BA0FF 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  lineHeight: 1,
-                }}
-              >
-                {s.value}
-              </span>
-              <span
-                style={{
-                  fontSize: 10,
-                  color: 'rgba(255,255,255,0.3)',
-                  fontFamily: 'var(--font-body)',
-                  whiteSpace: 'nowrap',
-                  fontWeight: 400,
-                }}
-              >
-                {s.label}
-              </span>
-            </div>
-          ))}
         </motion.div>
       </motion.div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { MeshDistortMaterial, Float } from '@react-three/drei'
 import * as THREE from 'three'
 import gsap from 'gsap'
@@ -9,10 +9,39 @@ gsap.registerPlugin(ScrollTrigger)
 
 const lerpVal = (a: number, b: number, t: number) => a + (b - a) * t
 
+function CameraRig() {
+  const { camera } = useThree()
+  const proxy = useRef({ cameraZ: 5 })
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: document.documentElement,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 2,
+        },
+      })
+      tl.to(proxy.current, { cameraZ: 6.5, ease: 'none', duration: 0.4 })
+      tl.to(proxy.current, { cameraZ: 5.5, ease: 'none', duration: 0.6 })
+    })
+    return () => ctx.revert()
+  }, [])
+
+  useFrame((_state, delta) => {
+    const t = Math.min(delta * 2, 1)
+    const cam = camera as THREE.PerspectiveCamera
+    cam.position.z = lerpVal(cam.position.z, proxy.current.cameraZ, t)
+  })
+
+  return null
+}
+
 export default function Blob() {
   const groupRef = useRef<THREE.Group>(null)
   const matRef = useRef<any>(null)
-  const proxy = useRef({ posX: 0, posY: 0, scale: 1.0, distort: 0.4 })
+  const proxy = useRef({ posX: 0, posY: 0, scale: 1.0, distort: 0.45 })
   const mouseTarget = useRef({ x: 0, y: 0 })
   const mouse = useRef({ x: 0, y: 0 })
 
@@ -32,7 +61,6 @@ export default function Blob() {
           scrub: 2,
         },
       })
-      // Phase 1 (0–40% of scroll): blob grows and drifts left into mid-page
       tl.to(proxy.current, {
         posX: -1.8,
         posY: 0.4,
@@ -41,7 +69,6 @@ export default function Blob() {
         ease: 'none',
         duration: 0.4,
       })
-      // Phase 2 (40–100% of scroll): blob shrinks and drifts right toward footer
       tl.to(proxy.current, {
         posX: 1.4,
         posY: -0.4,
@@ -86,23 +113,26 @@ export default function Blob() {
   })
 
   return (
-    <group ref={groupRef}>
-      <Float speed={2} rotationIntensity={0.25} floatIntensity={0.5}>
-        <mesh>
-          <sphereGeometry args={[1.2, 128, 128]} />
-          <MeshDistortMaterial
-            ref={matRef}
-            color="#0a2040"
-            emissive="#0066ff"
-            emissiveIntensity={1.2}
-            distort={0.4}
-            speed={1.5}
-            roughness={0.2}
-            metalness={0.8}
-            envMapIntensity={2}
-          />
-        </mesh>
-      </Float>
-    </group>
+    <>
+      <CameraRig />
+      <group ref={groupRef}>
+        <Float speed={2} rotationIntensity={0.25} floatIntensity={0.5}>
+          <mesh>
+            <sphereGeometry args={[1.4, 128, 128]} />
+            <MeshDistortMaterial
+              ref={matRef}
+              color="#e8f2ff"
+              emissive="#4488ff"
+              emissiveIntensity={0.12}
+              distort={0.45}
+              speed={1.8}
+              roughness={0.15}
+              metalness={0.0}
+              envMapIntensity={3}
+            />
+          </mesh>
+        </Float>
+      </group>
+    </>
   )
 }

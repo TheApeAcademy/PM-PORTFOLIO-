@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { useDarkMode } from './hooks/useDarkMode'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
@@ -16,6 +16,7 @@ import ProductLab from './components/ProductLab'
 import HowIWork from './components/HowIWork'
 import Footer from './components/Footer'
 import MagneticCursor from './components/MagneticCursor'
+import Preloader from './components/Preloader'
 
 interface DarkModeCtx {
   isDark: boolean
@@ -28,10 +29,12 @@ function App() {
   const { isDark, toggle } = useDarkMode()
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 280, damping: 30, restDelta: 0.001 })
+  const [preloaderDone, setPreloaderDone] = useState(false)
   useSmoothScroll()
 
   return (
     <DarkModeContext.Provider value={{ isDark, toggle }}>
+      {!preloaderDone && <Preloader onComplete={() => setPreloaderDone(true)} />}
       <MagneticCursor />
 
       {/* Scroll progress bar */}
