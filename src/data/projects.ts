@@ -48,8 +48,8 @@ export const projects: Project[] = [
       { label: 'Team size', value: 'Solo' },
     ],
     timeline: 'Jan 2025 – Present',
-    liveUrl: 'https://apeacademy.vercel.app',
-    caseStudyUrl: 'https://apeacademy.vercel.app',
+    liveUrl: 'https://deploy-1-p1ke.vercel.app',
+    caseStudyUrl: 'https://deploy-1-p1ke.vercel.app',
   },
   {
     id: 'jobhunter',
