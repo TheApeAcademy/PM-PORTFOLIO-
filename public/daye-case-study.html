@@ -5094,6 +5094,38 @@ body {
   .macbook-card { position: relative; }
   .macbook-wrap { position: relative; }
 
+  /* Real photo device cards */
+  .real-photo-device {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 32px 80px rgba(0,5,20,0.9), 0 12px 28px rgba(0,5,20,0.6);
+  }
+  .real-photo-device img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .real-photo-device.watch-photo {
+    width: 220px;
+    aspect-ratio: 16/9;
+    border-radius: 14px;
+    box-shadow: 0 0 0 1px rgba(29,185,84,0.2), 0 32px 80px rgba(0,5,20,0.95), 0 12px 28px rgba(0,5,20,0.7);
+  }
+  .real-photo-device.ipad-photo {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px rgba(140,90,255,0.18), 0 40px 100px rgba(10,0,30,0.97), 0 16px 40px rgba(10,0,30,0.7);
+  }
+  .real-photo-device.macbook-photo {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px rgba(212,160,23,0.15), 0 40px 100px rgba(10,6,0,0.97), 0 16px 40px rgba(10,6,0,0.7);
+  }
+
 </style>
 <body>
 
@@ -5888,36 +5920,8 @@ body {
     <div class="device-mix-row reveal">
       <!-- Screen 1: Apple Watch — Now Playing -->
       <div class="watch-card" style="display:flex;flex-direction:column;align-items:center;">
-        <div class="watch-frame device-tilt-enter from-top">
-          <div class="watch-screen" style="background:radial-gradient(ellipse 110% 60% at 50% 100%,rgba(0,60,180,0.55) 0%,transparent 60%),linear-gradient(180deg,#020307 0%,#030610 100%);">
-            <!-- status bar -->
-            <div style="padding:8px 10px 0;display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.45);">9:41</span>
-              <div style="width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);animation:blink 2s ease-in-out infinite;"></div>
-            </div>
-            <!-- orb -->
-            <div style="display:flex;justify-content:center;margin:6px 0 4px;">
-              <div style="width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(29,185,84,0.75),rgba(29,185,84,0.1) 65%);border:1px solid rgba(29,185,84,0.45);animation:orb-breathe 3s ease-in-out infinite;box-shadow:0 0 18px rgba(29,185,84,0.3);"></div>
-            </div>
-            <!-- track info -->
-            <div style="padding:0 9px;text-align:center;">
-              <div style="font-size:8px;color:rgba(255,255,255,0.9);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Lady</div>
-              <div style="font-size:7px;color:rgba(255,255,255,0.45);margin-top:1px;">Fela Kuti</div>
-              <div style="font-family:var(--font-mono);font-size:6px;color:rgba(29,185,84,0.65);margin-top:3px;letter-spacing:0.06em;">72 BPM · Nocturnal</div>
-            </div>
-            <!-- playback controls -->
-            <div style="display:flex;justify-content:center;gap:10px;align-items:center;margin:7px 0 4px;">
-              <span style="font-size:8px;color:rgba(255,255,255,0.5);">⏮</span>
-              <div style="width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;">
-                <span style="font-size:9px;color:#000;margin-left:1px;">▶</span>
-              </div>
-              <span style="font-size:8px;color:rgba(255,255,255,0.5);">⏭</span>
-            </div>
-            <!-- home indicator -->
-            <div style="display:flex;justify-content:center;padding-bottom:6px;">
-              <div style="width:28px;height:3px;border-radius:2px;background:rgba(255,255,255,0.25);"></div>
-            </div>
-          </div>
+        <div class="real-photo-device watch-photo device-tilt-enter from-top">
+          <img src="/1779848512552.png" alt="Apple Watch on wrist in car at night, Daye Now Playing">
         </div>
         <div class="iphone-screen-label" style="margin-top:14px;">
           <strong>Apple Watch</strong>
@@ -6115,93 +6119,10 @@ body {
         </div>
       </div>
 
-      <!-- Screen 6: iPad Pro — Recording Studio split view -->
+      <!-- Screen 6: iPad Pro — Recording Studio / DJ Deck -->
       <div class="iphone-screen-card">
-        <div class="ipad-pro-frame device-tilt-enter" style="box-shadow:0 0 0 1px rgba(140,90,255,0.2),0 45px 110px rgba(10,0,30,0.97),0 18px 48px rgba(10,0,30,0.72),0 6px 16px rgba(10,0,30,0.52);">
-          <div class="ipad-camera-pill"></div>
-          <div class="ipad-pro-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.5) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);">
-            <!-- iPad status bar -->
-            <div style="padding:8px 14px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
-              <span style="font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.35);">9:41</span>
-              <span style="font-family:var(--font-mono);font-size:7px;font-weight:700;color:#8C5AFF;letter-spacing:0.07em;">DAYE STUDIO</span>
-              <div style="display:flex;gap:4px;align-items:center;">
-                <div style="width:5px;height:5px;border-radius:50%;background:#E03030;animation:blink 1s ease-in-out infinite;"></div>
-                <span style="font-family:var(--font-mono);font-size:6px;color:rgba(220,40,40,0.7);">REC</span>
-              </div>
-            </div>
-            <!-- Split view body -->
-            <div style="display:flex;flex:1;overflow:hidden;margin-top:6px;gap:0;">
-              <!-- Left: track layers -->
-              <div style="flex:1;display:flex;flex-direction:column;gap:5px;padding:7px 8px;border-right:1px solid rgba(140,90,255,0.12);">
-                <div style="font-family:var(--font-mono);font-size:6px;letter-spacing:0.1em;color:rgba(140,90,255,0.6);text-transform:uppercase;margin-bottom:1px;">Track Layers</div>
-                <!-- Drums -->
-                <div style="background:rgba(140,90,255,0.1);border:1px solid rgba(140,90,255,0.28);border-radius:4px;padding:4px 6px;display:flex;align-items:center;gap:5px;">
-                  <div style="width:3px;height:14px;background:#8C5AFF;border-radius:2px;flex-shrink:0;"></div>
-                  <span style="font-size:6px;color:rgba(255,255,255,0.75);flex-shrink:0;">Drums</span>
-                  <div style="flex:1;display:flex;gap:1px;align-items:center;">
-                    <div style="width:2px;height:5px;background:rgba(140,90,255,0.55);border-radius:1px;"></div>
-                    <div style="width:2px;height:9px;background:rgba(140,90,255,0.7);border-radius:1px;"></div>
-                    <div style="width:2px;height:6px;background:rgba(140,90,255,0.5);border-radius:1px;"></div>
-                    <div style="width:2px;height:11px;background:rgba(140,90,255,0.75);border-radius:1px;"></div>
-                    <div style="width:2px;height:7px;background:rgba(140,90,255,0.55);border-radius:1px;"></div>
-                  </div>
-                </div>
-                <!-- Bass -->
-                <div style="background:rgba(0,150,200,0.1);border:1px solid rgba(0,150,200,0.25);border-radius:4px;padding:4px 6px;display:flex;align-items:center;gap:5px;">
-                  <div style="width:3px;height:14px;background:#0096C8;border-radius:2px;flex-shrink:0;"></div>
-                  <span style="font-size:6px;color:rgba(255,255,255,0.75);flex-shrink:0;">Bass</span>
-                  <div style="flex:1;display:flex;gap:1px;align-items:center;">
-                    <div style="width:2px;height:8px;background:rgba(0,150,200,0.55);border-radius:1px;"></div>
-                    <div style="width:2px;height:5px;background:rgba(0,150,200,0.45);border-radius:1px;"></div>
-                    <div style="width:2px;height:10px;background:rgba(0,150,200,0.65);border-radius:1px;"></div>
-                    <div style="width:2px;height:7px;background:rgba(0,150,200,0.5);border-radius:1px;"></div>
-                    <div style="width:2px;height:9px;background:rgba(0,150,200,0.6);border-radius:1px;"></div>
-                  </div>
-                </div>
-                <!-- Vocals -->
-                <div style="background:rgba(220,40,40,0.1);border:1px solid rgba(220,40,40,0.32);border-radius:4px;padding:4px 6px;display:flex;align-items:center;gap:5px;">
-                  <div style="width:3px;height:14px;background:#E03030;border-radius:2px;flex-shrink:0;animation:blink 1s ease-in-out infinite;"></div>
-                  <span style="font-size:6px;color:rgba(255,255,255,0.75);flex-shrink:0;">Vocals</span>
-                  <div style="flex:1;display:flex;gap:1px;align-items:center;">
-                    <div style="width:2px;height:4px;background:rgba(220,40,40,0.4);border-radius:1px;"></div>
-                    <div style="width:2px;height:12px;background:rgba(220,40,40,0.75);border-radius:1px;animation:blink 0.5s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:7px;background:rgba(220,40,40,0.55);border-radius:1px;"></div>
-                    <div style="width:2px;height:10px;background:rgba(220,40,40,0.65);border-radius:1px;"></div>
-                    <div style="width:2px;height:5px;background:rgba(220,40,40,0.4);border-radius:1px;"></div>
-                  </div>
-                  <span style="font-size:6px;color:rgba(220,40,40,0.85);font-family:var(--font-mono);animation:blink 1s ease-in-out infinite;flex-shrink:0;">REC</span>
-                </div>
-              </div>
-              <!-- Right: waveform preview + metadata -->
-              <div style="flex:1;display:flex;flex-direction:column;padding:7px 8px;gap:5px;">
-                <div style="font-family:var(--font-mono);font-size:6px;letter-spacing:0.1em;color:rgba(140,90,255,0.6);text-transform:uppercase;margin-bottom:1px;">Waveform Preview</div>
-                <!-- Waveform -->
-                <div style="background:rgba(140,90,255,0.06);border:1px solid rgba(140,90,255,0.15);border-radius:5px;padding:6px;display:flex;align-items:center;gap:1px;height:38px;">
-                  <div style="width:3px;height:8px;background:rgba(140,90,255,0.5);border-radius:1px;"></div>
-                  <div style="width:3px;height:14px;background:rgba(140,90,255,0.65);border-radius:1px;"></div>
-                  <div style="width:3px;height:10px;background:rgba(140,90,255,0.55);border-radius:1px;"></div>
-                  <div style="width:3px;height:20px;background:#8C5AFF;border-radius:1px;"></div>
-                  <div style="width:3px;height:13px;background:rgba(140,90,255,0.7);border-radius:1px;"></div>
-                  <div style="width:3px;height:18px;background:rgba(140,90,255,0.8);border-radius:1px;"></div>
-                  <div style="width:3px;height:9px;background:rgba(140,90,255,0.5);border-radius:1px;"></div>
-                  <div style="width:3px;height:16px;background:rgba(140,90,255,0.75);border-radius:1px;"></div>
-                  <div style="width:3px;height:11px;background:rgba(140,90,255,0.6);border-radius:1px;"></div>
-                  <div style="width:3px;height:7px;background:rgba(140,90,255,0.45);border-radius:1px;"></div>
-                </div>
-                <!-- Metadata -->
-                <div style="background:rgba(140,90,255,0.07);border:1px solid rgba(140,90,255,0.18);border-radius:5px;padding:6px 7px;">
-                  <div style="font-family:var(--font-mono);font-size:7px;color:#8C5AFF;letter-spacing:0.05em;">85 BPM · Fm · 0:34</div>
-                  <div style="font-size:6px;color:rgba(255,255,255,0.35);margin-top:2px;">Lagos Rooftop Beat</div>
-                </div>
-                <!-- Record button -->
-                <div style="display:flex;justify-content:center;margin-top:auto;">
-                  <div style="width:30px;height:30px;border-radius:50%;background:rgba(220,40,40,0.15);border:2px solid rgba(220,40,40,0.5);display:flex;align-items:center;justify-content:center;">
-                    <div style="width:11px;height:11px;border-radius:50%;background:#E03030;animation:blink 1s ease-in-out infinite;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="real-photo-device ipad-photo device-tilt-enter">
+          <img src="/1779848520333.png" alt="iPad DJ deck in studio, hand on screen">
         </div>
         <div class="iphone-screen-label" style="margin-top:16px;">
           <strong>iPad Pro</strong>
@@ -6341,11 +6262,10 @@ body {
 
       <!-- Screen 9: MacBook Pro 14" — Daye Analytics Dashboard -->
       <div class="macbook-card">
-        <div class="macbook-wrap device-tilt-enter from-top">
-          <div class="macbook-frame">
-            <div class="macbook-lid">
-              <div class="macbook-display" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(160,100,0,0.4) 0%,transparent 58%),linear-gradient(180deg,#060400 0%,#0c0800 100%);">
-                <div class="macbook-notch"></div>
+        <div class="real-photo-device macbook-photo device-tilt-enter from-top">
+          <img src="/1779848525908.png" alt="MacBook Pro showing Daye analytics on studio desk">
+        </div>
+        <div style="display:none;"><!-- removed CSS macbook frame -->
                 <!-- macOS menu bar -->
                 <div style="display:flex;align-items:center;gap:6px;padding:3px 10px;background:rgba(0,0,0,0.55);border-bottom:1px solid rgba(255,255,255,0.06);position:relative;z-index:6;flex-shrink:0;">
                   <span style="font-size:7px;color:rgba(255,255,255,0.5);margin-right:2px;">&#63743;</span>
@@ -6407,9 +6327,7 @@ body {
                 </div>
               </div>
             </div>
-            <div class="macbook-base"></div>
-          </div>
-        </div>
+        </div><!-- /hidden CSS frame -->
         <div class="iphone-screen-label" style="margin-top:18px;">
           <strong>MacBook Pro</strong>
           <span>Daye Analytics Dashboard</span>
