@@ -5196,24 +5196,19 @@ body {
   50% { transform: rotateY(-16deg) rotateX(2deg) scale(0.96) translateY(-8px); }
 }
 
-/* Apply float to entered devices */
-.device-tilt-enter.entered:not(.from-right):not(.from-top) {
-  animation: deviceFloat 5s ease-in-out infinite;
+/* Float on images after scroll reveal */
+.device-tilt-enter.is-visible > img {
+  animation: imgFloat 5.5s ease-in-out infinite;
 }
-.cluster-center-wrap .device-tilt-enter.entered {
-  animation: deviceFloat 5s ease-in-out infinite;
+.cluster-left-wrap .device-tilt-enter.is-visible > img {
+  animation: imgFloat 5.5s ease-in-out infinite 0.3s;
 }
-.cluster-left-wrap .device-tilt-enter.entered {
-  animation: deviceFloatSide 5.5s ease-in-out infinite 0.3s;
+.cluster-right-wrap .device-tilt-enter.is-visible > img {
+  animation: imgFloat 5.5s ease-in-out infinite 0.6s;
 }
-.cluster-right-wrap .device-tilt-enter.entered {
-  animation: deviceFloatSideRight 5.5s ease-in-out infinite 0.6s;
-}
-
-/* Watch + iPad keep simpler float */
-.watch-frame.entered,
-.ipad-pro-frame.entered {
-  animation: deviceFloat 6s ease-in-out infinite 0.4s;
+@keyframes imgFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 /* Remove screen background gradients now that images are used */
@@ -5845,91 +5840,26 @@ body {
     <!-- ── 3-Device cinematic cluster ── -->
     <div class="device-cluster">
 
-      <!-- LEFT: iPhone 17 Pro Max — Queue View -->
+      <!-- LEFT: iPhone — late-night Lagos rooftop chat -->
       <div class="cluster-side-wrap cluster-left-wrap">
-        <div class="iphone-mini-frame device-tilt-enter">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen">
-            <img src="/daye-phone.png" alt="Daye app" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
+        <div class="device-tilt-enter" style="width:200px;">
+          <img src="/1779868212933-removebg-preview.png" alt="Daye chat — late-night Lagos rooftop" style="width:100%;height:auto;display:block;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(29,185,84,0.1));">
         </div>
-
       </div>
 
-      <!-- CENTER: iPhone 17 Pro Max — Full Daye Session (Hero) -->
+      <!-- CENTER: Phone — Intelligence Processing -->
       <div class="cluster-center-wrap">
         <div class="iphone-doc-glow"></div>
-        <div class="iphone-doc-frame device-tilt-enter from-top">
-          <div class="iphone-vol-up"></div>
-          <div class="iphone-vol-dn"></div>
-          <div class="iphone-doc-screen">
-            <div class="daye-island"></div>
-            <div class="daye-statusbar">
-              <span class="daye-statusbar-time">9:41</span>
-              <div class="daye-statusbar-icons">
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="white" opacity="0.9"><rect x="0" y="6.5" width="2.5" height="3.5" rx="0.5"/><rect x="3.5" y="4.5" width="2.5" height="5.5" rx="0.5"/><rect x="7" y="2" width="2.5" height="8" rx="0.5"/><rect x="10.5" y="0" width="2.5" height="10" rx="0.5"/></svg>
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" opacity="0.9"><path d="M7 2.5C9 2.5 10.7 3.4 11.8 4.8" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7 2.5C5 2.5 3.3 3.4 2.2 4.8" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7 5.5C8 5.5 8.9 5.9 9.5 6.6" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7 5.5C6 5.5 5.1 5.9 4.5 6.6" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><circle cx="7" cy="8.5" r="1" fill="white"/></svg>
-                <svg width="22" height="11" viewBox="0 0 22 11" fill="none" opacity="0.9"><rect x="0.5" y="0.5" width="18" height="10" rx="2.5" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="14" height="7" rx="1.5" fill="white"/><path d="M20 3.5v4c.7-.3 1.1-1 1.1-2s-.4-1.7-1.1-2z" fill="white" fill-opacity="0.4"/></svg>
-              </div>
-            </div>
-            <div class="daye-mobile-app">
-              <div class="daye-mobile-header">
-                <div class="daye-mobile-logo"><div class="daye-mobile-dot"></div>DAYE</div>
-                <div class="daye-session-badge">Session active</div>
-              </div>
-              <div class="daye-mood-strip">
-                <div class="daye-orb-mobile"></div>
-                <div class="daye-mood-info">
-                  <div class="daye-mood-name">Nocturnal</div>
-                  <div class="daye-mood-sub">Deep &amp; atmospheric</div>
-                </div>
-                <div class="daye-energy-mini">
-                  <div class="daye-energy-label">Energy</div>
-                  <div class="daye-energy-bar"><div class="daye-energy-fill"></div></div>
-                </div>
-              </div>
-              <div class="daye-chat-mobile">
-                <div class="daye-bubble-user">late-night Lagos rooftop energy, start slow</div>
-                <div class="daye-bubble-ai">Got it. Building a session around atmospheric Afrobeats — low BPM, deep bass, gradual energy arc. Starting with Fela's legacy, working toward modern alté.</div>
-                <div class="daye-bubble-user">add something with kora</div>
-                <div class="daye-bubble-ai">Pulling in Toumani Diabaté and Ballaké Sissoko for the mid-session. Harmonic transition from the current key at track 4.</div>
-              </div>
-              <div class="daye-now-playing">
-                <div class="daye-np-art">♫</div>
-                <div class="daye-np-info">
-                  <div class="daye-np-name">Lady</div>
-                  <div class="daye-np-artist">Fela Kuti</div>
-                  <div class="daye-np-vibe">72 BPM · Mellow</div>
-                </div>
-                <div class="daye-np-bars">
-                  <div class="daye-np-bar" style="height:4px"></div>
-                  <div class="daye-np-bar" style="height:10px"></div>
-                  <div class="daye-np-bar" style="height:7px"></div>
-                </div>
-              </div>
-              <div class="daye-voice-bar">
-                <div class="daye-voice-btn">
-                  <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x="4" y="0" width="6" height="11" rx="3" fill="rgba(29,185,84,0.9)"/><path d="M1 8c0 3.3 2.7 6 6 6s6-2.7 6-6" stroke="rgba(29,185,84,0.9)" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="7" y1="14" x2="7" y2="17" stroke="rgba(29,185,84,0.9)" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="17" x2="10" y2="17" stroke="rgba(29,185,84,0.9)" stroke-width="1.5" stroke-linecap="round"/></svg>
-                </div>
-                <div class="daye-input-bar">Tell Daye what you need...</div>
-                <div class="daye-send-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div>
-              </div>
-            </div>
-            <div class="daye-home-bar"></div>
-          </div>
+        <div class="device-tilt-enter from-top" style="width:240px;">
+          <img src="/1779867354385-removebg-preview.png" alt="Daye — Intelligence Processing" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 60px rgba(29,185,84,0.15));">
         </div>
-
       </div>
 
-      <!-- RIGHT: Samsung Galaxy S24 Ultra — Daye Studio (Artist mode) -->
+      <!-- RIGHT: iPad — Live Mix Session 01 -->
       <div class="cluster-side-wrap cluster-right-wrap">
-        <div class="samsung-mini-frame device-tilt-enter from-right" style="box-shadow:0 0 0 1px rgba(140,90,255,0.25),0 28px 72px rgba(0,0,0,0.92),0 10px 28px rgba(0,0,0,0.55),0 3px 8px rgba(0,0,0,0.4);">
-          <div class="punch-hole"></div>
-          <div class="samsung-mini-screen">
-            <img src="/daye-phone-2.png" alt="Daye app" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
+        <div class="device-tilt-enter from-right" style="width:220px;">
+          <img src="/1779867509898-removebg-preview.png" alt="Daye — Live Mix Session 01 BPM 124" style="width:100%;height:auto;display:block;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(140,90,255,0.1));">
         </div>
-
       </div>
 
     </div><!-- /device-cluster -->
@@ -5958,39 +5888,6 @@ body {
       </div>
     </div>
 
-    <!-- Three-screen row — Listener pathway -->
-    <div class="row-ambient green-glow">
-    <div class="device-mix-row reveal">
-      <!-- Screen 1: Apple Watch — Now Playing -->
-      <div class="watch-card" style="display:flex;flex-direction:column;align-items:center;">
-        <div class="watch-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(29,185,84,0.35),0 32px 80px rgba(0,5,20,0.97),0 12px 28px rgba(0,5,20,0.8);">
-          <div class="watch-screen">
-            <img src="/daye-watch.png" alt="Daye on Watch" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
-        </div>
-      </div>
-
-      <!-- Screen 2: Session running (main) -->
-      <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="iphone-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(29,185,84,0.3),0 30px 70px rgba(0,0,0,0.85);">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen">
-            <img src="/daye-phone.png" alt="Daye app" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
-        </div>
-</div>
-
-      <!-- Screen 3: iPad Pro — Full Session Dashboard -->
-      <div class="iphone-screen-card">
-        <div class="ipad-pro-frame device-tilt-enter from-right">
-          <div class="ipad-camera-pill"></div>
-          <div class="ipad-pro-screen">
-            <img src="/daye-ipad.png" alt="Daye on iPad" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
-        </div>
-</div>
-    </div>
-    </div><!-- /row-ambient green-glow -->
 
     <!-- ====================================================
          PATHWAY 02 — ARTIST & CREATOR MODE
@@ -6005,35 +5902,20 @@ body {
     <div class="row-ambient purple-glow">
     <div class="device-mix-row reveal" style="margin-top:36px;">
 
-      <!-- Screen 4: Samsung S24 Ultra — AI Beat Generator (left) -->
+      <!-- MacBook Studio Mode — waveforms -->
       <div class="iphone-screen-card">
-        <div class="samsung-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(140,90,255,0.25),0 30px 70px rgba(0,0,0,0.9);">
-          <div class="punch-hole"></div>
-          <div class="samsung-mini-screen">
-            <img src="/daye-phone-2.png" alt="Daye app" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
+        <div class="device-tilt-enter from-top" style="width:300px;">
+          <img src="/1779848525908-removebg-preview.png" alt="Daye Studio Mode — MacBook waveforms" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 50px rgba(140,90,255,0.12));">
         </div>
-</div>
+      </div>
 
-      <!-- Screen 5: iPhone 17 Pro Max — Beat Studio Home (center hero) -->
+      <!-- iPad DJ Deck — hand on screen -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="iphone-mini-frame device-tilt-enter">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen">
-            <img src="/daye-phone.png" alt="Daye app" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
+        <div class="device-tilt-enter" style="width:280px;">
+          <img src="/1779848520333-removebg-preview.png" alt="Daye DJ Deck — iPad with hand" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 50px rgba(140,90,255,0.12));">
         </div>
-</div>
+      </div>
 
-      <!-- Screen 6: iPad Pro — Recording Studio / DJ Deck -->
-      <div class="iphone-screen-card">
-        <div class="ipad-pro-frame device-tilt-enter">
-          <div class="ipad-camera-pill"></div>
-          <div class="ipad-pro-screen">
-            <img src="/daye-ipad.png" alt="Daye on iPad" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
-        </div>
-</div>
     </div>
     </div><!-- /row-ambient purple-glow -->
 
@@ -6050,98 +5932,20 @@ body {
     <div class="row-ambient amber-glow">
     <div class="device-mix-row reveal" style="margin-top:36px;">
 
-      <!-- Screen 7: DJ Mixing Deck -->
-      <div class="iphone-screen-card">
-        <div class="iphone-mini-frame device-tilt-enter from-top">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen">
-            <img src="/daye-phone.png" alt="Daye app" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
-        </div>
-</div>
-
-      <!-- Screen 8: Harmonic Key Wheel + BPM Arc — Samsung S24 Ultra — center hero -->
+      <!-- iPad DJ Deck — live performance -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="samsung-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(212,160,23,0.3),0 30px 70px rgba(0,0,0,0.9);">
-          <div class="punch-hole"></div>
-          <div class="samsung-mini-screen">
-            <img src="/daye-phone-2.png" alt="Daye app" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
+        <div class="device-tilt-enter from-top" style="width:280px;">
+          <img src="/1779848520333-removebg-preview.png" alt="Daye DJ Deck — iPad live performance" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 50px rgba(212,160,23,0.12));">
         </div>
-</div>
+      </div>
 
-      <!-- Screen 9: MacBook Pro 14" — Daye Analytics Dashboard -->
+      <!-- MacBook analytics — Project Ambient Fusion -->
       <div class="macbook-card">
-        <div class="macbook-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(212,160,23,0.2),0 40px 100px rgba(0,0,0,0.97),0 16px 40px rgba(0,0,0,0.7);">
-          <div class="macbook-camera"></div>
-          <div class="macbook-screen">
-            <img src="/daye-laptop.png" alt="Daye on MacBook" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
+        <div class="device-tilt-enter from-top" style="width:360px;">
+          <img src="/1779868193429-removebg-preview.png" alt="Daye analytics — Project Ambient Fusion" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.97)) drop-shadow(0 0 60px rgba(212,160,23,0.12));">
         </div>
-        <div style="display:none;"><!-- removed CSS macbook frame -->
-                <!-- macOS menu bar -->
-                <div style="display:flex;align-items:center;gap:6px;padding:3px 10px;background:rgba(0,0,0,0.55);border-bottom:1px solid rgba(255,255,255,0.06);position:relative;z-index:6;flex-shrink:0;">
-                  <span style="font-size:7px;color:rgba(255,255,255,0.5);margin-right:2px;">&#63743;</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.7);font-weight:600;">Daye</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.4);">File</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.4);">Session</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.4);">View</span>
-                  <span style="margin-left:auto;font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.4);">9:41</span>
-                </div>
-                <!-- App layout -->
-                <div style="display:flex;flex:1;overflow:hidden;">
-                  <!-- Sidebar -->
-                  <div style="width:70px;background:rgba(0,0,0,0.3);border-right:1px solid rgba(255,255,255,0.06);padding:8px 6px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;">
-                    <div style="font-family:var(--font-mono);font-size:5px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Daye</div>
-                    <div style="padding:3px 5px;border-radius:3px;background:rgba(212,160,23,0.15);border:1px solid rgba(212,160,23,0.25);">
-                      <span style="font-size:6px;color:#D4A017;">Sessions</span>
-                    </div>
-                    <div style="padding:3px 5px;border-radius:3px;">
-                      <span style="font-size:6px;color:rgba(255,255,255,0.35);">Analytics</span>
-                    </div>
-                    <div style="padding:3px 5px;border-radius:3px;">
-                      <span style="font-size:6px;color:rgba(255,255,255,0.35);">Library</span>
-                    </div>
-                  </div>
-                  <!-- Main area -->
-                  <div style="flex:1;padding:8px 10px;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
-                    <div style="font-family:var(--font-mono);font-size:6px;color:#D4A017;letter-spacing:0.1em;text-transform:uppercase;">Session Analytics</div>
-                    <!-- Session Energy Arc bar chart -->
-                    <div style="background:rgba(212,160,23,0.06);border:1px solid rgba(212,160,23,0.15);border-radius:4px;padding:6px 8px;">
-                      <div style="font-family:var(--font-mono);font-size:5px;color:rgba(212,160,23,0.55);text-transform:uppercase;margin-bottom:4px;">Session Energy Arc</div>
-                      <div style="display:flex;align-items:flex-end;gap:2px;height:24px;">
-                        <div style="width:7px;height:8px;background:rgba(212,160,23,0.35);border-radius:1px;"></div>
-                        <div style="width:7px;height:11px;background:rgba(212,160,23,0.45);border-radius:1px;"></div>
-                        <div style="width:7px;height:14px;background:rgba(212,160,23,0.55);border-radius:1px;"></div>
-                        <div style="width:7px;height:18px;background:rgba(212,160,23,0.7);border-radius:1px;"></div>
-                        <div style="width:7px;height:24px;background:#D4A017;border-radius:1px;"></div>
-                        <div style="width:7px;height:20px;background:rgba(212,160,23,0.8);border-radius:1px;"></div>
-                        <div style="width:7px;height:16px;background:rgba(212,160,23,0.65);border-radius:1px;"></div>
-                        <div style="width:7px;height:12px;background:rgba(212,160,23,0.5);border-radius:1px;"></div>
-                      </div>
-                    </div>
-                    <!-- Harmonic Key Wheel small -->
-                    <div style="display:flex;gap:7px;align-items:center;">
-                      <svg width="44" height="44" viewBox="0 0 44 44" style="flex-shrink:0;">
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.12)" stroke-width="7"/>
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.6)" stroke-width="7" stroke-dasharray="13 107" stroke-dashoffset="0" stroke-linecap="round"/>
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.28)" stroke-width="7" stroke-dasharray="9 107" stroke-dashoffset="-30" stroke-linecap="round"/>
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.18)" stroke-width="7" stroke-dasharray="8 107" stroke-dashoffset="-50" stroke-linecap="round"/>
-                        <text x="22" y="25" text-anchor="middle" fill="#D4A017" font-size="6" font-family="monospace">Fm</text>
-                      </svg>
-                      <!-- Stats -->
-                      <div style="display:flex;flex-direction:column;gap:3px;">
-                        <div style="font-size:6px;color:rgba(255,255,255,0.5);">Tracks played: <span style="color:#D4A017;font-family:var(--font-mono);">12</span></div>
-                        <div style="font-size:6px;color:rgba(255,255,255,0.5);">Avg BPM: <span style="color:#D4A017;font-family:var(--font-mono);">84</span></div>
-                        <div style="font-size:6px;color:rgba(255,255,255,0.5);">Keys: <span style="color:#D4A017;font-family:var(--font-mono);">Fm, Am, Dm</span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div><!-- /hidden CSS frame -->
-</div>
+      </div>
+
     </div>
     </div><!-- /row-ambient amber-glow -->
 
@@ -6155,12 +5959,10 @@ body {
       <p style="font-size:13px;color:var(--muted);max-width:480px;line-height:1.7;margin:0 0 36px;">The moment your track goes live on Spotify, Daye sends an Apple Watch notification. No app-switching. Just a tap and it's done.</p>
 
       <div class="watch-card" style="display:flex;flex-direction:column;align-items:center;">
-        <div class="watch-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(29,185,84,0.35),0 32px 80px rgba(0,5,20,0.97),0 12px 28px rgba(0,5,20,0.8);">
-          <div class="watch-screen">
-            <img src="/daye-watch.png" alt="Daye on Watch" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
-          </div>
+        <div class="device-tilt-enter from-top" style="width:180px;">
+          <img src="/1779868180226-removebg-preview.png" alt="Daye — Trending in Lagos Apple Watch notification" style="width:100%;height:auto;display:block;filter:drop-shadow(0 32px 80px rgba(0,5,20,0.97)) drop-shadow(0 0 40px rgba(29,185,84,0.2));">
         </div>
-</div>
+      </div>
     </div>
 
   </div>
