@@ -115,18 +115,10 @@
 
   .hero-bg {
     position: absolute; inset: 0;
-    background-image: url('/1779844510413.png');
-    background-size: cover;
-    background-position: center 25%;
-    pointer-events: none;
-  }
-  .hero-bg::after {
-    content: '';
-    position: absolute; inset: 0;
     background:
-      linear-gradient(to right, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.70) 38%, rgba(8,8,8,0.28) 65%, rgba(8,8,8,0.10) 100%),
-      linear-gradient(to top, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.20) 30%, transparent 55%),
-      radial-gradient(ellipse 60% 50% at 75% 50%, rgba(29,185,84,0.07) 0%, transparent 70%);
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(29,185,84,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(107,79,187,0.05) 0%, transparent 60%);
+    pointer-events: none;
   }
 
   .hero-eyebrow {
@@ -1166,61 +1158,6 @@
     font-weight: 400;
     margin-bottom: 20px;
     border: 1px solid var(--border2);
-    overflow: hidden;
-  }
-
-  .persona-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 50%;
-  }
-
-  .persona-photo-banner {
-    width: calc(100% + 64px);
-    margin: -36px -32px 28px;
-    height: 240px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .persona-photo-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-    display: block;
-  }
-
-  .persona-photo-banner::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.85) 100%);
-  }
-
-  .solution-photo {
-    width: 100%;
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    position: relative;
-  }
-
-  .solution-photo img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    object-position: center 30%;
-    display: block;
-  }
-
-  .solution-photo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 50%, rgba(8,8,8,0.7) 100%);
   }
 
   .persona-name {
@@ -2459,12 +2396,9 @@ body {
   }
 
   .hero-bg {
-    background-position: 65% 25%;
-  }
-  .hero-bg::after {
     background:
-      linear-gradient(to bottom, rgba(8,8,8,0.72) 0%, rgba(8,8,8,0.40) 40%, rgba(8,8,8,0.78) 100%),
-      radial-gradient(ellipse 120% 65% at 50% 15%, rgba(29,185,84,0.08) 0%, transparent 60%);
+      radial-gradient(ellipse 120% 65% at 50% 15%, rgba(29,185,84,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 55% at 8% 95%, rgba(107,79,187,0.09) 0%, transparent 50%);
   }
 
   .hero-waveform {
@@ -5094,41 +5028,6 @@ body {
   .macbook-card { position: relative; }
   .macbook-wrap { position: relative; }
 
-  /* Real photo device cards */
-  .real-photo-device {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 32px 80px rgba(0,5,20,0.9), 0 12px 28px rgba(0,5,20,0.6);
-  }
-  .real-photo-device img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .real-photo-device.watch-photo {
-    width: 220px;
-    height: 460px;
-    border-radius: 36px;
-    box-shadow: 0 0 0 1px rgba(29,185,84,0.2), 0 32px 80px rgba(0,5,20,0.95), 0 12px 28px rgba(0,5,20,0.7);
-  }
-  .real-photo-device.watch-photo img {
-    object-position: center 40%;
-  }
-  .real-photo-device.ipad-photo {
-    width: 340px;
-    height: 460px;
-    border-radius: 18px;
-    box-shadow: 0 0 0 1px rgba(140,90,255,0.18), 0 40px 100px rgba(10,0,30,0.97), 0 16px 40px rgba(10,0,30,0.7);
-  }
-  .real-photo-device.macbook-photo {
-    width: 480px;
-    height: 340px;
-    border-radius: 14px;
-    box-shadow: 0 0 0 1px rgba(212,160,23,0.15), 0 40px 100px rgba(10,6,0,0.97), 0 16px 40px rgba(10,6,0,0.7);
-  }
-
 </style>
 <body>
 
@@ -5422,9 +5321,6 @@ body {
       </div>
 
       <div class="reveal" style="display:flex;flex-direction:column;gap:16px;">
-        <div class="solution-photo">
-          <img src="/1779842005674.png" alt="Person in car at night listening to Daye">
-        </div>
         <div style="background:var(--surface);border:1px solid var(--border);padding:24px;">
           <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;">User says</div>
           <div style="font-family:var(--font-display);font-size:20px;font-style:italic;color:var(--text);line-height:1.4;">"Give me late-night Lagos rooftop energy. Start mellow, build slowly."</div>
@@ -5433,8 +5329,9 @@ body {
           <div style="font-family:var(--font-mono);font-size:10px;color:rgba(29,185,84,0.6);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;">Daye responds</div>
           <div style="font-size:14px;color:rgba(245,245,240,0.85);line-height:1.7;">"Perfect. I'm pulling together something with deep Afrobeats bass, blending Burna Boy into a slow Brent Faiyaz transition around the 20-minute mark. Expect a percussion build by track 6. Let's go."</div>
         </div>
-        <div style="background:var(--surface);border:1px solid var(--border);padding:20px;display:flex;gap:20px;">
-          <div style="flex:1;text-align:center;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:12px;"></div>
+        <div style="display:flex;justify-content:center;padding:8px 0;">
+          <img src="/daye-phone-2.png" alt="Daye Intelligence Processing"
+               style="width:160px;height:auto;display:block;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.7));">
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);padding:20px;">
           <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;">Session Intelligence Active</div>
@@ -5739,38 +5636,7 @@ body {
 
       <!-- LEFT: iPhone 17 Pro Max — Queue View -->
       <div class="cluster-side-wrap cluster-left-wrap">
-        <div class="iphone-mini-frame device-tilt-enter">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(0,70,200,0.5) 0%,transparent 55%),linear-gradient(180deg,#020307 0%,#030610 100%);position:relative;display:flex;flex-direction:column;">
-            <div style="padding:36px 11px 0;flex:1;display:flex;flex-direction:column;overflow:hidden;">
-              <div style="font-family:var(--font-mono);font-size:7px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">Adaptive Queue</div>
-              <div style="display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(29,185,84,0.04);">
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--green);width:10px;">▶</span>
-                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:var(--green);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Lady</div><div style="font-size:7px;color:var(--muted);">Fela Kuti</div></div>
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);">72</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);width:10px;">2</span>
-                <div style="flex:1;min-width:0;"><div style="font-size:8px;">Ye</div><div style="font-size:7px;color:var(--muted);">Burna Boy</div></div>
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);">84</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);width:10px;">3</span>
-                <div style="flex:1;min-width:0;"><div style="font-size:8px;">Soro Soke</div><div style="font-size:7px;color:var(--muted);">Fireboy DML</div></div>
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);">92</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:7px;padding:6px 0;">
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);width:10px;">4</span>
-                <div style="flex:1;min-width:0;"><div style="font-size:8px;">Kora Night</div><div style="font-size:7px;color:var(--muted);">Ballaké Sissoko</div></div>
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);">68</span>
-              </div>
-              <div style="margin-top:auto;padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">
-                <span style="font-family:var(--font-mono);font-size:7px;color:var(--muted2);">AI re-eval in 2 tracks</span>
-                <span style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 2s ease-in-out infinite;"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-phone.png" alt="Daye app" class="device-tilt-enter" style="width:100%;aspect-ratio:300/650;object-fit:contain;display:block;">
         <div class="cluster-device-label">
           <strong>Queue View</strong>
           AI-managed order
@@ -5779,66 +5645,8 @@ body {
 
       <!-- CENTER: iPhone 17 Pro Max — Full Daye Session (Hero) -->
       <div class="cluster-center-wrap">
-        <div class="iphone-doc-glow"></div>
-        <div class="iphone-doc-frame device-tilt-enter from-top">
-          <div class="iphone-vol-up"></div>
-          <div class="iphone-vol-dn"></div>
-          <div class="iphone-doc-screen">
-            <div class="daye-island"></div>
-            <div class="daye-statusbar">
-              <span class="daye-statusbar-time">9:41</span>
-              <div class="daye-statusbar-icons">
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="white" opacity="0.9"><rect x="0" y="6.5" width="2.5" height="3.5" rx="0.5"/><rect x="3.5" y="4.5" width="2.5" height="5.5" rx="0.5"/><rect x="7" y="2" width="2.5" height="8" rx="0.5"/><rect x="10.5" y="0" width="2.5" height="10" rx="0.5"/></svg>
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" opacity="0.9"><path d="M7 2.5C9 2.5 10.7 3.4 11.8 4.8" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7 2.5C5 2.5 3.3 3.4 2.2 4.8" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7 5.5C8 5.5 8.9 5.9 9.5 6.6" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7 5.5C6 5.5 5.1 5.9 4.5 6.6" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><circle cx="7" cy="8.5" r="1" fill="white"/></svg>
-                <svg width="22" height="11" viewBox="0 0 22 11" fill="none" opacity="0.9"><rect x="0.5" y="0.5" width="18" height="10" rx="2.5" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="14" height="7" rx="1.5" fill="white"/><path d="M20 3.5v4c.7-.3 1.1-1 1.1-2s-.4-1.7-1.1-2z" fill="white" fill-opacity="0.4"/></svg>
-              </div>
-            </div>
-            <div class="daye-mobile-app">
-              <div class="daye-mobile-header">
-                <div class="daye-mobile-logo"><div class="daye-mobile-dot"></div>DAYE</div>
-                <div class="daye-session-badge">Session active</div>
-              </div>
-              <div class="daye-mood-strip">
-                <div class="daye-orb-mobile"></div>
-                <div class="daye-mood-info">
-                  <div class="daye-mood-name">Nocturnal</div>
-                  <div class="daye-mood-sub">Deep &amp; atmospheric</div>
-                </div>
-                <div class="daye-energy-mini">
-                  <div class="daye-energy-label">Energy</div>
-                  <div class="daye-energy-bar"><div class="daye-energy-fill"></div></div>
-                </div>
-              </div>
-              <div class="daye-chat-mobile">
-                <div class="daye-bubble-user">late-night Lagos rooftop energy, start slow</div>
-                <div class="daye-bubble-ai">Got it. Building a session around atmospheric Afrobeats — low BPM, deep bass, gradual energy arc. Starting with Fela's legacy, working toward modern alté.</div>
-                <div class="daye-bubble-user">add something with kora</div>
-                <div class="daye-bubble-ai">Pulling in Toumani Diabaté and Ballaké Sissoko for the mid-session. Harmonic transition from the current key at track 4.</div>
-              </div>
-              <div class="daye-now-playing">
-                <div class="daye-np-art">♫</div>
-                <div class="daye-np-info">
-                  <div class="daye-np-name">Lady</div>
-                  <div class="daye-np-artist">Fela Kuti</div>
-                  <div class="daye-np-vibe">72 BPM · Mellow</div>
-                </div>
-                <div class="daye-np-bars">
-                  <div class="daye-np-bar" style="height:4px"></div>
-                  <div class="daye-np-bar" style="height:10px"></div>
-                  <div class="daye-np-bar" style="height:7px"></div>
-                </div>
-              </div>
-              <div class="daye-voice-bar">
-                <div class="daye-voice-btn">
-                  <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x="4" y="0" width="6" height="11" rx="3" fill="rgba(29,185,84,0.9)"/><path d="M1 8c0 3.3 2.7 6 6 6s6-2.7 6-6" stroke="rgba(29,185,84,0.9)" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="7" y1="14" x2="7" y2="17" stroke="rgba(29,185,84,0.9)" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="17" x2="10" y2="17" stroke="rgba(29,185,84,0.9)" stroke-width="1.5" stroke-linecap="round"/></svg>
-                </div>
-                <div class="daye-input-bar">Tell Daye what you need...</div>
-                <div class="daye-send-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div>
-              </div>
-            </div>
-            <div class="daye-home-bar"></div>
-          </div>
-        </div>
+        
+        <img src="/daye-phone.png" alt="Daye app on iPhone" class="device-tilt-enter from-top" style="width:300px;height:auto;display:block;position:relative;z-index:1;">
         <div class="cluster-device-label" style="margin-top:20px;">
           <strong>Voice Session Active</strong>
           iPhone 17 Pro Max · Listener mode
@@ -5847,45 +5655,7 @@ body {
 
       <!-- RIGHT: Samsung Galaxy S24 Ultra — Daye Studio (Artist mode) -->
       <div class="cluster-side-wrap cluster-right-wrap">
-        <div class="samsung-mini-frame device-tilt-enter from-right" style="box-shadow:0 0 0 1px rgba(140,90,255,0.25),0 28px 72px rgba(0,0,0,0.92),0 10px 28px rgba(0,0,0,0.55),0 3px 8px rgba(0,0,0,0.4);">
-          <div class="punch-hole"></div>
-          <div class="samsung-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.55) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);position:relative;display:flex;flex-direction:column;">
-            <div style="padding:36px 11px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
-              <div style="display:flex;align-items:center;gap:5px;">
-                <div style="width:5px;height:5px;border-radius:50%;background:#8C5AFF;box-shadow:0 0 5px #8C5AFF;flex-shrink:0;"></div>
-                <span style="font-family:var(--font-mono);font-size:8px;font-weight:700;color:#8C5AFF;letter-spacing:0.08em;">DAYE STUDIO</span>
-                <span style="margin-left:auto;font-family:var(--font-mono);font-size:6px;color:rgba(140,90,255,0.5);background:rgba(140,90,255,0.1);border:1px solid rgba(140,90,255,0.2);padding:1px 5px;border-radius:3px;">Artist</span>
-              </div>
-              <div style="font-size:8px;color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:8px 8px 2px 8px;padding:6px 8px;align-self:flex-end;max-width:90%;line-height:1.35;">lo-fi Afrobeats, deep bass, 85 BPM, F minor</div>
-              <div style="font-size:8px;color:rgba(255,255,255,0.85);background:rgba(140,90,255,0.12);border:1px solid rgba(140,90,255,0.28);border-radius:8px 8px 8px 2px;padding:6px 8px;max-width:94%;line-height:1.35;">Generating — Afrobeats foundation, 85 BPM, Fm, deep sub-bass locked in.</div>
-              <!-- Waveform -->
-              <div style="display:flex;align-items:center;gap:2px;height:24px;padding:0 2px;">
-                <div style="flex:1;height:100%;background:rgba(140,90,255,0.08);border-radius:4px;position:relative;overflow:hidden;">
-                  <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;gap:1.5px;">
-                    <div style="width:2px;height:40%;background:rgba(140,90,255,0.5);border-radius:1px;animation:pi-wave 0.8s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:80%;background:#8C5AFF;border-radius:1px;animation:pi-wave 0.8s 0.1s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:55%;background:rgba(140,90,255,0.7);border-radius:1px;animation:pi-wave 0.8s 0.2s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:90%;background:#8C5AFF;border-radius:1px;animation:pi-wave 0.8s 0.3s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:45%;background:rgba(140,90,255,0.6);border-radius:1px;animation:pi-wave 0.8s 0.4s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:70%;background:#8C5AFF;border-radius:1px;animation:pi-wave 0.8s 0.5s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:35%;background:rgba(140,90,255,0.5);border-radius:1px;animation:pi-wave 0.8s 0.15s ease-in-out infinite;"></div>
-                    <div style="width:2px;height:60%;background:#8C5AFF;border-radius:1px;animation:pi-wave 0.8s 0.35s ease-in-out infinite;"></div>
-                  </div>
-                </div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;">
-                <div style="background:rgba(140,90,255,0.18);border:1px solid rgba(140,90,255,0.35);border-radius:7px;padding:8px 6px;text-align:center;">
-                  <div style="font-size:11px;margin-bottom:2px;">🎵</div>
-                  <div style="font-size:6px;color:#8C5AFF;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.05em;">AI Beat</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 6px;text-align:center;">
-                  <div style="font-size:11px;margin-bottom:2px;">🎙</div>
-                  <div style="font-size:6px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.05em;">Record</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-phone.png" alt="Daye app" class="device-tilt-enter from-right" style="width:100%;aspect-ratio:300/650;object-fit:contain;display:block;">
         <div class="cluster-device-label">
           <strong>Daye Studio</strong>
           Samsung S24 Ultra · Artist mode
@@ -5923,9 +5693,7 @@ body {
     <div class="device-mix-row reveal">
       <!-- Screen 1: Apple Watch — Now Playing -->
       <div class="watch-card" style="display:flex;flex-direction:column;align-items:center;">
-        <div class="real-photo-device watch-photo device-tilt-enter from-top">
-          <img src="/1779848512552.png" alt="Apple Watch on wrist in car at night, Daye Now Playing">
-        </div>
+        <img src="/daye-watch.png" alt="Daye on Apple Watch" class="device-tilt-enter from-top" style="width:100%;max-width:180px;height:auto;display:block;margin:0 auto;">
         <div class="iphone-screen-label" style="margin-top:14px;">
           <strong>Apple Watch</strong>
           <span>Now Playing</span>
@@ -5934,27 +5702,7 @@ body {
 
       <!-- Screen 2: Session running (main) -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="iphone-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(29,185,84,0.3),0 30px 70px rgba(0,0,0,0.85);">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 100% 50% at 50% 100%,rgba(0,80,220,0.5) 0%,transparent 55%),linear-gradient(180deg,#020307 0%,#030610 100%);position:relative;">
-            <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s ease-in-out infinite;"></div>
-                <span style="font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--green);letter-spacing:0.08em;">DAYE</span>
-                <span style="margin-left:auto;font-family:var(--font-mono);font-size:7px;color:rgba(29,185,84,0.6);background:rgba(29,185,84,0.1);border:1px solid rgba(29,185,84,0.2);padding:2px 6px;">Session on</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
-                <div style="width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(29,185,84,0.5),rgba(29,185,84,0.06) 55%);border:1px solid rgba(29,185,84,0.3);animation:orb-breathe 3s ease-in-out infinite;flex-shrink:0;"></div>
-                <div>
-                  <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:0.1em;color:var(--green);text-transform:uppercase;">Nocturnal</div>
-                  <div style="font-size:9px;color:var(--muted);">Deep &amp; atmospheric</div>
-                </div>
-              </div>
-              <div style="font-size:9px;color:rgba(245,245,240,0.85);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px 10px 3px 10px;padding:7px 9px;align-self:flex-end;max-width:82%;">late-night Lagos rooftop energy</div>
-              <div style="font-size:9px;color:rgba(245,245,240,0.85);background:rgba(29,185,84,0.1);border:1px solid rgba(29,185,84,0.2);border-radius:10px 10px 10px 3px;padding:7px 9px;max-width:92%;line-height:1.4;">Building session — Afrobeats, low BPM, gradual energy arc.</div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-phone.png" alt="Daye app" class="device-tilt-enter from-top" style="width:100%;aspect-ratio:300/650;object-fit:contain;display:block;">
         <div class="iphone-screen-label">
           <strong>iPhone 17 Pro Max</strong>
           <span style="color:var(--green);">Voice Session running</span>
@@ -5963,61 +5711,7 @@ body {
 
       <!-- Screen 3: iPad Pro — Full Session Dashboard -->
       <div class="iphone-screen-card">
-        <div class="ipad-pro-frame device-tilt-enter from-right">
-          <div class="ipad-camera-pill"></div>
-          <div class="ipad-pro-screen" style="background:radial-gradient(ellipse 100% 50% at 50% 100%,rgba(0,80,220,0.45) 0%,transparent 55%),linear-gradient(180deg,#020307 0%,#030610 100%);">
-            <!-- iPad status bar -->
-            <div style="padding:8px 14px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
-              <span style="font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.4);">9:41</span>
-              <span style="font-family:var(--font-mono);font-size:7px;font-weight:700;color:var(--green);letter-spacing:0.07em;">DAYE</span>
-              <div style="display:flex;gap:5px;align-items:center;">
-                <span style="font-size:7px;color:rgba(255,255,255,0.3);">WiFi</span>
-                <div style="width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s ease-in-out infinite;"></div>
-              </div>
-            </div>
-            <!-- Split view body -->
-            <div style="display:flex;flex:1;gap:0;overflow:hidden;margin-top:6px;">
-              <!-- Left pane: orb + chat -->
-              <div style="flex:1;display:flex;flex-direction:column;gap:7px;padding:8px 10px;border-right:1px solid rgba(255,255,255,0.06);">
-                <div style="font-family:var(--font-mono);font-size:6px;letter-spacing:0.12em;color:rgba(29,185,84,0.6);text-transform:uppercase;">Nocturnal Session</div>
-                <div style="display:flex;justify-content:center;margin:2px 0;">
-                  <div style="width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(29,185,84,0.6),rgba(29,185,84,0.08) 60%);border:1px solid rgba(29,185,84,0.4);animation:orb-breathe 3s ease-in-out infinite;box-shadow:0 0 20px rgba(29,185,84,0.2);"></div>
-                </div>
-                <div style="font-size:7px;color:rgba(245,245,240,0.8);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px 8px 2px 8px;padding:5px 7px;align-self:flex-end;max-width:90%;line-height:1.4;">late-night Lagos rooftop energy</div>
-                <div style="font-size:7px;color:rgba(245,245,240,0.8);background:rgba(29,185,84,0.1);border:1px solid rgba(29,185,84,0.22);border-radius:8px 8px 8px 2px;padding:5px 7px;line-height:1.4;">Building session — Afrobeats, low BPM, gradual arc.</div>
-                <!-- Now playing mini -->
-                <div style="margin-top:auto;background:rgba(29,185,84,0.07);border:1px solid rgba(29,185,84,0.18);border-radius:6px;padding:5px 7px;display:flex;align-items:center;gap:5px;">
-                  <span style="font-size:8px;color:var(--green);">▶</span>
-                  <div><div style="font-size:7px;color:rgba(255,255,255,0.85);">Lady</div><div style="font-size:6px;color:rgba(255,255,255,0.4);">Fela Kuti · 72 BPM</div></div>
-                </div>
-              </div>
-              <!-- Right pane: adaptive queue -->
-              <div style="flex:1;display:flex;flex-direction:column;padding:8px 10px;gap:4px;">
-                <div style="font-family:var(--font-mono);font-size:6px;letter-spacing:0.12em;color:var(--muted2);text-transform:uppercase;margin-bottom:2px;">Adaptive Queue</div>
-                <div style="display:flex;align-items:center;gap:6px;background:rgba(29,185,84,0.06);border:1px solid rgba(29,185,84,0.15);border-radius:5px;padding:5px 6px;">
-                  <span style="font-size:7px;color:var(--green);width:8px;">▶</span>
-                  <div style="flex:1;min-width:0;"><div style="font-size:7px;color:var(--green);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Lady</div><div style="font-size:6px;color:rgba(255,255,255,0.35);">Fela Kuti</div></div>
-                  <span style="font-family:var(--font-mono);font-size:6px;color:rgba(29,185,84,0.65);">72</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,0.04);padding:5px 6px;">
-                  <span style="font-family:var(--font-mono);font-size:6px;color:var(--muted2);width:8px;">2</span>
-                  <div style="flex:1;min-width:0;"><div style="font-size:7px;color:rgba(255,255,255,0.75);">Ye</div><div style="font-size:6px;color:rgba(255,255,255,0.35);">Burna Boy</div></div>
-                  <span style="font-family:var(--font-mono);font-size:6px;color:var(--muted2);">84</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,0.04);padding:5px 6px;">
-                  <span style="font-family:var(--font-mono);font-size:6px;color:var(--muted2);width:8px;">3</span>
-                  <div style="flex:1;min-width:0;"><div style="font-size:7px;color:rgba(255,255,255,0.75);">Soro Soke</div><div style="font-size:6px;color:rgba(255,255,255,0.35);">Fireboy DML</div></div>
-                  <span style="font-family:var(--font-mono);font-size:6px;color:var(--muted2);">92</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:6px;padding:5px 6px;">
-                  <span style="font-family:var(--font-mono);font-size:6px;color:var(--muted2);width:8px;">4</span>
-                  <div style="flex:1;min-width:0;"><div style="font-size:7px;color:rgba(255,255,255,0.75);">Kora Night</div><div style="font-size:6px;color:rgba(255,255,255,0.35);">Ballaké Sissoko</div></div>
-                  <span style="font-family:var(--font-mono);font-size:6px;color:var(--muted2);">68</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-ipad.png" alt="Daye on iPad" class="device-tilt-enter from-right" style="width:100%;max-width:265px;aspect-ratio:744/1133;object-fit:contain;display:block;margin:0 auto;">
         <div class="iphone-screen-label" style="margin-top:16px;">
           <strong>iPad Pro</strong>
           <span>Full Session Dashboard</span>
@@ -6041,34 +5735,7 @@ body {
 
       <!-- Screen 4: Samsung S24 Ultra — AI Beat Generator (left) -->
       <div class="iphone-screen-card">
-        <div class="samsung-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(140,90,255,0.25),0 30px 70px rgba(0,0,0,0.9);">
-          <div class="punch-hole"></div>
-          <div class="samsung-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.5) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);position:relative;">
-            <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
-              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:0.1em;color:#8C5AFF;text-transform:uppercase;">AI Beat Generator</div>
-              <div style="font-size:9px;color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px 10px 3px 10px;padding:7px 9px;align-self:flex-end;max-width:90%;line-height:1.4;">lo-fi Afrobeats, deep bass, 85 BPM, F minor</div>
-              <div style="font-size:9px;color:rgba(255,255,255,0.85);background:rgba(140,90,255,0.12);border:1px solid rgba(140,90,255,0.28);border-radius:10px 10px 10px 3px;padding:7px 9px;max-width:94%;line-height:1.4;">Generating — Afrobeats foundation, 85 BPM, Fm, deep sub-bass locked in. Drum pattern ready.</div>
-              <div style="background:rgba(140,90,255,0.07);border:1px solid rgba(140,90,255,0.18);border-radius:8px;padding:8px;margin-top:2px;">
-                <div style="font-family:var(--font-mono);font-size:7px;color:rgba(140,90,255,0.55);letter-spacing:0.1em;margin-bottom:6px;text-transform:uppercase;">Beat Parameters</div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:7px;color:rgba(255,255,255,0.35);">BPM</span><span style="font-size:7px;color:#8C5AFF;font-family:var(--font-mono);">85</span></div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:7px;color:rgba(255,255,255,0.35);">Key</span><span style="font-size:7px;color:#8C5AFF;font-family:var(--font-mono);">F minor</span></div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:7px;color:rgba(255,255,255,0.35);">Mood</span><span style="font-size:7px;color:#8C5AFF;font-family:var(--font-mono);">Nocturnal</span></div>
-                <div style="display:flex;justify-content:space-between;"><span style="font-size:7px;color:rgba(255,255,255,0.35);">Style</span><span style="font-size:7px;color:#8C5AFF;font-family:var(--font-mono);">Afrobeats / Lo-fi</span></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:2px;height:18px;padding:0 2px;margin-top:2px;">
-                <div style="width:3px;height:6px;background:rgba(140,90,255,0.6);border-radius:1px;animation:pi-wave 0.7s ease-in-out infinite;"></div>
-                <div style="width:3px;height:12px;background:rgba(140,90,255,0.7);border-radius:1px;animation:pi-wave 0.7s 0.1s ease-in-out infinite;"></div>
-                <div style="width:3px;height:8px;background:rgba(140,90,255,0.5);border-radius:1px;animation:pi-wave 0.7s 0.2s ease-in-out infinite;"></div>
-                <div style="width:3px;height:16px;background:rgba(140,90,255,0.8);border-radius:1px;animation:pi-wave 0.7s 0.3s ease-in-out infinite;"></div>
-                <div style="width:3px;height:10px;background:rgba(140,90,255,0.6);border-radius:1px;animation:pi-wave 0.7s 0.4s ease-in-out infinite;"></div>
-                <div style="width:3px;height:14px;background:rgba(140,90,255,0.75);border-radius:1px;animation:pi-wave 0.7s 0.5s ease-in-out infinite;"></div>
-                <div style="width:3px;height:7px;background:rgba(140,90,255,0.5);border-radius:1px;animation:pi-wave 0.7s 0.1s ease-in-out infinite;"></div>
-                <div style="width:3px;height:12px;background:rgba(140,90,255,0.65);border-radius:1px;animation:pi-wave 0.7s 0.2s ease-in-out infinite;"></div>
-                <div style="flex:1;text-align:right;font-family:var(--font-mono);font-size:7px;color:rgba(140,90,255,0.5);">Preview</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-phone.png" alt="Daye app" class="device-tilt-enter from-top" style="width:100%;aspect-ratio:300/650;object-fit:contain;display:block;">
         <div class="iphone-screen-label">
           <strong>Samsung S24 Ultra</strong>
           <span style="color:#8C5AFF;">AI Beat Generator</span>
@@ -6077,56 +5744,16 @@ body {
 
       <!-- Screen 5: iPhone 17 Pro Max — Beat Studio Home (center hero) -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="iphone-mini-frame device-tilt-enter">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(80,0,200,0.5) 0%,transparent 58%),linear-gradient(180deg,#060210 0%,#0c0320 100%);position:relative;">
-            <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
-                <div style="width:5px;height:5px;border-radius:50%;background:#8C5AFF;box-shadow:0 0 6px #8C5AFF;"></div>
-                <span style="font-family:var(--font-mono);font-size:9px;font-weight:700;color:#8C5AFF;letter-spacing:0.08em;">DAYE STUDIO</span>
-                <span style="margin-left:auto;font-family:var(--font-mono);font-size:7px;color:rgba(140,90,255,0.5);background:rgba(140,90,255,0.1);border:1px solid rgba(140,90,255,0.2);padding:1px 5px;border-radius:3px;">Artist</span>
-              </div>
-              <div style="font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;">My Projects</div>
-              <div style="display:flex;flex-direction:column;gap:5px;">
-                <div style="background:rgba(140,90,255,0.1);border:1px solid rgba(140,90,255,0.25);border-radius:6px;padding:6px 8px;display:flex;align-items:center;gap:7px;">
-                  <div style="width:22px;height:22px;border-radius:4px;background:rgba(140,90,255,0.3);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;">♫</div>
-                  <div style="flex:1;min-width:0;">
-                    <div style="font-size:8px;color:rgba(255,255,255,0.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Lagos Rooftop Beat</div>
-                    <div style="font-size:7px;color:rgba(255,255,255,0.35);">85 BPM · Fm · Draft</div>
-                  </div>
-                </div>
-                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:6px 8px;display:flex;align-items:center;gap:7px;">
-                  <div style="width:22px;height:22px;border-radius:4px;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;">◎</div>
-                  <div style="flex:1;min-width:0;">
-                    <div style="font-size:8px;color:rgba(255,255,255,0.5);">Midnight Alté</div>
-                    <div style="font-size:7px;color:rgba(255,255,255,0.25);">92 BPM · Am · Draft</div>
-                  </div>
-                </div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px;">
-                <div style="background:rgba(140,90,255,0.18);border:1px solid rgba(140,90,255,0.35);border-radius:8px;padding:10px 6px;text-align:center;">
-                  <div style="font-size:13px;margin-bottom:3px;">🎵</div>
-                  <div style="font-size:7px;color:#8C5AFF;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.05em;">AI Beat</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 6px;text-align:center;">
-                  <div style="font-size:13px;margin-bottom:3px;">🎙</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.05em;">Record</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-phone.png" alt="Daye app" class="device-tilt-enter from-top" style="width:100%;aspect-ratio:300/650;object-fit:contain;display:block;">
         <div class="iphone-screen-label">
           <strong>iPhone 17 Pro Max</strong>
           <span>Beat Studio Home</span>
         </div>
       </div>
 
-      <!-- Screen 6: iPad Pro — Recording Studio / DJ Deck -->
+      <!-- Screen 6: iPad Pro — Recording Studio split view -->
       <div class="iphone-screen-card">
-        <div class="real-photo-device ipad-photo device-tilt-enter">
-          <img src="/1779848520333.png" alt="iPad DJ deck in studio, hand on screen">
-        </div>
+        <img src="/daye-ipad.png" alt="Daye on iPad" class="device-tilt-enter" style="width:100%;max-width:265px;aspect-ratio:744/1133;object-fit:contain;display:block;margin:0 auto;">
         <div class="iphone-screen-label" style="margin-top:16px;">
           <strong>iPad Pro</strong>
           <span>Recording Studio</span>
@@ -6150,63 +5777,7 @@ body {
 
       <!-- Screen 7: DJ Mixing Deck -->
       <div class="iphone-screen-card">
-        <div class="iphone-mini-frame device-tilt-enter from-top">
-          <div class="mini-island"></div>
-          <div class="iphone-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(160,100,0,0.45) 0%,transparent 58%),linear-gradient(180deg,#080500 0%,#100800 100%);position:relative;">
-            <div style="padding:38px 11px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <div style="width:5px;height:5px;border-radius:50%;background:#D4A017;box-shadow:0 0 6px #D4A017;"></div>
-                <span style="font-family:var(--font-mono);font-size:8px;font-weight:700;color:#D4A017;letter-spacing:0.08em;">DJ DECK</span>
-              </div>
-              <!-- Two decks -->
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:2px;">
-                <div style="background:rgba(212,160,23,0.08);border:1px solid rgba(212,160,23,0.22);border-radius:6px;padding:6px;">
-                  <div style="font-family:var(--font-mono);font-size:6px;color:rgba(212,160,23,0.55);text-transform:uppercase;margin-bottom:4px;">Deck A</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.8);margin-bottom:2px;">Lady</div>
-                  <div style="font-size:6px;color:rgba(255,255,255,0.4);">Fela Kuti</div>
-                  <div style="margin-top:5px;display:flex;gap:1px;align-items:center;height:14px;">
-                    <div style="width:2px;height:5px;background:rgba(212,160,23,0.5);border-radius:1px;"></div>
-                    <div style="width:2px;height:10px;background:rgba(212,160,23,0.7);border-radius:1px;"></div>
-                    <div style="width:2px;height:7px;background:rgba(212,160,23,0.55);border-radius:1px;"></div>
-                    <div style="width:2px;height:12px;background:rgba(212,160,23,0.8);border-radius:1px;"></div>
-                    <div style="width:2px;height:8px;background:rgba(212,160,23,0.6);border-radius:1px;"></div>
-                  </div>
-                  <div style="font-family:var(--font-mono);font-size:7px;color:#D4A017;margin-top:4px;">72 BPM</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px;">
-                  <div style="font-family:var(--font-mono);font-size:6px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px;">Deck B</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.8);margin-bottom:2px;">Ye</div>
-                  <div style="font-size:6px;color:rgba(255,255,255,0.4);">Burna Boy</div>
-                  <div style="margin-top:5px;display:flex;gap:1px;align-items:center;height:14px;">
-                    <div style="width:2px;height:8px;background:rgba(255,255,255,0.25);border-radius:1px;"></div>
-                    <div style="width:2px;height:6px;background:rgba(255,255,255,0.2);border-radius:1px;"></div>
-                    <div style="width:2px;height:11px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
-                    <div style="width:2px;height:7px;background:rgba(255,255,255,0.22);border-radius:1px;"></div>
-                    <div style="width:2px;height:9px;background:rgba(255,255,255,0.25);border-radius:1px;"></div>
-                  </div>
-                  <div style="font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.4);margin-top:4px;">84 BPM</div>
-                </div>
-              </div>
-              <!-- Crossfader -->
-              <div style="margin-top:4px;">
-                <div style="font-family:var(--font-mono);font-size:6px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px;">Crossfader</div>
-                <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;position:relative;">
-                  <div style="height:100%;width:35%;background:linear-gradient(90deg,#D4A017,rgba(212,160,23,0.5));border-radius:2px;"></div>
-                  <div style="width:10px;height:10px;border-radius:50%;background:#D4A017;position:absolute;top:50%;left:33%;transform:translate(-50%,-50%);box-shadow:0 0 6px rgba(212,160,23,0.6);"></div>
-                </div>
-                <div style="display:flex;justify-content:space-between;margin-top:3px;">
-                  <span style="font-size:6px;color:#D4A017;font-family:var(--font-mono);">A</span>
-                  <span style="font-size:6px;color:rgba(255,255,255,0.25);font-family:var(--font-mono);">B</span>
-                </div>
-              </div>
-              <!-- Key match -->
-              <div style="background:rgba(212,160,23,0.07);border:1px solid rgba(212,160,23,0.15);border-radius:5px;padding:5px 7px;display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:7px;color:rgba(255,255,255,0.4);">Key match</span>
-                <span style="font-size:7px;color:#D4A017;font-family:var(--font-mono);">Fm → Am ✓</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-phone.png" alt="Daye app" class="device-tilt-enter from-top" style="width:100%;aspect-ratio:300/650;object-fit:contain;display:block;">
         <div class="iphone-screen-label">
           <strong>iPhone 17 Pro Max</strong>
           <span>DJ Mixing Deck</span>
@@ -6215,48 +5786,7 @@ body {
 
       <!-- Screen 8: Harmonic Key Wheel + BPM Arc — Samsung S24 Ultra — center hero -->
       <div class="iphone-screen-card" style="transform:scale(1.06);transform-origin:bottom center;">
-        <div class="samsung-mini-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(212,160,23,0.3),0 30px 70px rgba(0,0,0,0.9);">
-          <div class="punch-hole"></div>
-          <div class="samsung-mini-screen" style="background:radial-gradient(ellipse 110% 55% at 50% 100%,rgba(160,100,0,0.45) 0%,transparent 58%),linear-gradient(180deg,#080500 0%,#100800 100%);position:relative;">
-            <div style="padding:38px 12px 0;flex:1;display:flex;flex-direction:column;gap:7px;">
-              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:0.1em;color:#D4A017;text-transform:uppercase;">Harmonic Intelligence</div>
-              <!-- Key wheel (SVG circle) -->
-              <div style="display:flex;justify-content:center;margin:4px 0 2px;">
-                <svg width="90" height="90" viewBox="0 0 90 90">
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(212,160,23,0.1)" stroke-width="12"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(212,160,23,0.55)" stroke-width="12" stroke-dasharray="25 214" stroke-dashoffset="0" stroke-linecap="round"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(212,160,23,0.25)" stroke-width="12" stroke-dasharray="18 214" stroke-dashoffset="-60" stroke-linecap="round"/>
-                  <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(212,160,23,0.18)" stroke-width="12" stroke-dasharray="15 214" stroke-dashoffset="-100" stroke-linecap="round"/>
-                  <text x="45" y="42" text-anchor="middle" fill="#D4A017" font-size="9" font-family="monospace">Fm</text>
-                  <text x="45" y="53" text-anchor="middle" fill="rgba(212,160,23,0.55)" font-size="7" font-family="monospace">Current</text>
-                </svg>
-              </div>
-              <div style="display:flex;justify-content:space-between;font-size:7px;color:rgba(255,255,255,0.35);padding:0 2px;">
-                <span>Compatible keys</span>
-                <span style="color:#D4A017;font-family:var(--font-mono);">Am · Cm · Ab</span>
-              </div>
-              <!-- BPM arc -->
-              <div style="background:rgba(212,160,23,0.06);border:1px solid rgba(212,160,23,0.15);border-radius:7px;padding:7px 8px;">
-                <div style="font-family:var(--font-mono);font-size:7px;color:rgba(212,160,23,0.55);text-transform:uppercase;margin-bottom:5px;">BPM Energy Arc</div>
-                <div style="display:flex;align-items:flex-end;gap:2px;height:22px;">
-                  <div style="width:6px;height:8px;background:rgba(212,160,23,0.4);border-radius:1px;"></div>
-                  <div style="width:6px;height:11px;background:rgba(212,160,23,0.5);border-radius:1px;"></div>
-                  <div style="width:6px;height:14px;background:rgba(212,160,23,0.6);border-radius:1px;"></div>
-                  <div style="width:6px;height:18px;background:rgba(212,160,23,0.75);border-radius:1px;"></div>
-                  <div style="width:6px;height:22px;background:#D4A017;border-radius:1px;"></div>
-                  <div style="width:6px;height:19px;background:rgba(212,160,23,0.8);border-radius:1px;"></div>
-                  <div style="width:6px;height:15px;background:rgba(212,160,23,0.65);border-radius:1px;"></div>
-                  <div style="width:6px;height:12px;background:rgba(212,160,23,0.5);border-radius:1px;"></div>
-                </div>
-                <div style="display:flex;justify-content:space-between;margin-top:4px;">
-                  <span style="font-size:6px;color:rgba(255,255,255,0.3);">72 BPM</span>
-                  <span style="font-size:6px;color:#D4A017;">Peak → 98</span>
-                  <span style="font-size:6px;color:rgba(255,255,255,0.3);">84 BPM</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-phone.png" alt="Daye app" class="device-tilt-enter from-top" style="width:100%;aspect-ratio:300/650;object-fit:contain;display:block;">
         <div class="iphone-screen-label">
           <strong>Samsung S24 Ultra</strong>
           <span style="color:#D4A017;">Harmonic Key Wheel</span>
@@ -6265,72 +5795,7 @@ body {
 
       <!-- Screen 9: MacBook Pro 14" — Daye Analytics Dashboard -->
       <div class="macbook-card">
-        <div class="real-photo-device macbook-photo device-tilt-enter from-top">
-          <img src="/1779848525908.png" alt="MacBook Pro showing Daye analytics on studio desk">
-        </div>
-        <div style="display:none;"><!-- removed CSS macbook frame -->
-                <!-- macOS menu bar -->
-                <div style="display:flex;align-items:center;gap:6px;padding:3px 10px;background:rgba(0,0,0,0.55);border-bottom:1px solid rgba(255,255,255,0.06);position:relative;z-index:6;flex-shrink:0;">
-                  <span style="font-size:7px;color:rgba(255,255,255,0.5);margin-right:2px;">&#63743;</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.7);font-weight:600;">Daye</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.4);">File</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.4);">Session</span>
-                  <span style="font-size:7px;color:rgba(255,255,255,0.4);">View</span>
-                  <span style="margin-left:auto;font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.4);">9:41</span>
-                </div>
-                <!-- App layout -->
-                <div style="display:flex;flex:1;overflow:hidden;">
-                  <!-- Sidebar -->
-                  <div style="width:70px;background:rgba(0,0,0,0.3);border-right:1px solid rgba(255,255,255,0.06);padding:8px 6px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;">
-                    <div style="font-family:var(--font-mono);font-size:5px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Daye</div>
-                    <div style="padding:3px 5px;border-radius:3px;background:rgba(212,160,23,0.15);border:1px solid rgba(212,160,23,0.25);">
-                      <span style="font-size:6px;color:#D4A017;">Sessions</span>
-                    </div>
-                    <div style="padding:3px 5px;border-radius:3px;">
-                      <span style="font-size:6px;color:rgba(255,255,255,0.35);">Analytics</span>
-                    </div>
-                    <div style="padding:3px 5px;border-radius:3px;">
-                      <span style="font-size:6px;color:rgba(255,255,255,0.35);">Library</span>
-                    </div>
-                  </div>
-                  <!-- Main area -->
-                  <div style="flex:1;padding:8px 10px;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
-                    <div style="font-family:var(--font-mono);font-size:6px;color:#D4A017;letter-spacing:0.1em;text-transform:uppercase;">Session Analytics</div>
-                    <!-- Session Energy Arc bar chart -->
-                    <div style="background:rgba(212,160,23,0.06);border:1px solid rgba(212,160,23,0.15);border-radius:4px;padding:6px 8px;">
-                      <div style="font-family:var(--font-mono);font-size:5px;color:rgba(212,160,23,0.55);text-transform:uppercase;margin-bottom:4px;">Session Energy Arc</div>
-                      <div style="display:flex;align-items:flex-end;gap:2px;height:24px;">
-                        <div style="width:7px;height:8px;background:rgba(212,160,23,0.35);border-radius:1px;"></div>
-                        <div style="width:7px;height:11px;background:rgba(212,160,23,0.45);border-radius:1px;"></div>
-                        <div style="width:7px;height:14px;background:rgba(212,160,23,0.55);border-radius:1px;"></div>
-                        <div style="width:7px;height:18px;background:rgba(212,160,23,0.7);border-radius:1px;"></div>
-                        <div style="width:7px;height:24px;background:#D4A017;border-radius:1px;"></div>
-                        <div style="width:7px;height:20px;background:rgba(212,160,23,0.8);border-radius:1px;"></div>
-                        <div style="width:7px;height:16px;background:rgba(212,160,23,0.65);border-radius:1px;"></div>
-                        <div style="width:7px;height:12px;background:rgba(212,160,23,0.5);border-radius:1px;"></div>
-                      </div>
-                    </div>
-                    <!-- Harmonic Key Wheel small -->
-                    <div style="display:flex;gap:7px;align-items:center;">
-                      <svg width="44" height="44" viewBox="0 0 44 44" style="flex-shrink:0;">
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.12)" stroke-width="7"/>
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.6)" stroke-width="7" stroke-dasharray="13 107" stroke-dashoffset="0" stroke-linecap="round"/>
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.28)" stroke-width="7" stroke-dasharray="9 107" stroke-dashoffset="-30" stroke-linecap="round"/>
-                        <circle cx="22" cy="22" r="17" fill="none" stroke="rgba(212,160,23,0.18)" stroke-width="7" stroke-dasharray="8 107" stroke-dashoffset="-50" stroke-linecap="round"/>
-                        <text x="22" y="25" text-anchor="middle" fill="#D4A017" font-size="6" font-family="monospace">Fm</text>
-                      </svg>
-                      <!-- Stats -->
-                      <div style="display:flex;flex-direction:column;gap:3px;">
-                        <div style="font-size:6px;color:rgba(255,255,255,0.5);">Tracks played: <span style="color:#D4A017;font-family:var(--font-mono);">12</span></div>
-                        <div style="font-size:6px;color:rgba(255,255,255,0.5);">Avg BPM: <span style="color:#D4A017;font-family:var(--font-mono);">84</span></div>
-                        <div style="font-size:6px;color:rgba(255,255,255,0.5);">Keys: <span style="color:#D4A017;font-family:var(--font-mono);">Fm, Am, Dm</span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div><!-- /hidden CSS frame -->
+        <img src="/daye-laptop.png" alt="Daye on MacBook" class="device-tilt-enter from-top" style="width:100%;max-width:520px;height:auto;display:block;">
         <div class="iphone-screen-label" style="margin-top:18px;">
           <strong>MacBook Pro</strong>
           <span>Daye Analytics Dashboard</span>
@@ -6349,37 +5814,7 @@ body {
       <p style="font-size:13px;color:var(--muted);max-width:480px;line-height:1.7;margin:0 0 36px;">The moment your track goes live on Spotify, Daye sends an Apple Watch notification. No app-switching. Just a tap and it's done.</p>
 
       <div class="watch-card" style="display:flex;flex-direction:column;align-items:center;">
-        <div class="watch-frame device-tilt-enter from-top" style="box-shadow:0 0 0 1px rgba(29,185,84,0.35),0 32px 80px rgba(0,5,20,0.97),0 12px 28px rgba(0,5,20,0.8);">
-          <div class="watch-screen" style="background:radial-gradient(ellipse 110% 60% at 50% 100%,rgba(0,100,40,0.55) 0%,transparent 60%),linear-gradient(180deg,#020f06 0%,#020e05 100%);">
-            <!-- status bar -->
-            <div style="padding:8px 10px 0;display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.4);">9:41</span>
-              <div style="width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s ease-in-out infinite;"></div>
-            </div>
-            <!-- green checkmark -->
-            <div style="display:flex;justify-content:center;margin:6px 0 3px;">
-              <div style="width:32px;height:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(29,185,84,0.45);">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5 6.5-6.5" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <!-- text -->
-            <div style="padding:0 8px;text-align:center;">
-              <div style="font-size:9px;color:rgba(255,255,255,0.95);font-weight:700;margin-bottom:2px;">Published!</div>
-              <div style="font-size:7px;color:rgba(255,255,255,0.75);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Lagos Rooftop Beat</div>
-              <div style="font-size:6px;color:rgba(29,185,84,0.8);margin-top:2px;">Now live on Spotify</div>
-            </div>
-            <!-- CTA button -->
-            <div style="padding:0 10px;margin-top:8px;">
-              <div style="background:var(--green);border-radius:8px;padding:6px 8px;text-align:center;">
-                <span style="font-family:var(--font-mono);font-size:7px;font-weight:700;color:#000;letter-spacing:0.04em;">View on Spotify</span>
-              </div>
-            </div>
-            <!-- home indicator -->
-            <div style="display:flex;justify-content:center;padding:6px 0 4px;">
-              <div style="width:28px;height:3px;border-radius:2px;background:rgba(255,255,255,0.2);"></div>
-            </div>
-          </div>
-        </div>
+        <img src="/daye-watch.png" alt="Daye on Apple Watch" class="device-tilt-enter from-top" style="width:100%;max-width:180px;height:auto;display:block;margin:0 auto;">
         <div class="iphone-screen-label" style="margin-top:14px;">
           <strong>Apple Watch</strong>
           <span>Track published</span>
@@ -6510,16 +5945,6 @@ body {
         <div class="metric-num">2.1x</div>
         <div class="metric-label">Artist Discovery</div>
         <div class="metric-desc">Context-driven sessions surface catalog depth over hit repetition, increasing artist exposure and creator ecosystem health.</div>
-      </div>
-    </div>
-
-    <!-- CONTEXT PHOTO -->
-    <div class="reveal" style="margin:48px 0 40px;position:relative;overflow:hidden;border:1px solid var(--border);">
-      <img src="/1779842120270.png" alt="Artist reviewing Daye analytics dashboard on iPad" style="width:100%;height:320px;object-fit:cover;object-position:center 15%;display:block;">
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,0.0) 0%,rgba(8,8,8,0.0) 60%,rgba(8,8,8,0.6) 100%),linear-gradient(to top,rgba(8,8,8,0.8) 0%,transparent 40%);"></div>
-      <div style="position:absolute;bottom:24px;left:28px;">
-        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:6px;">Real user moment</div>
-        <div style="font-size:14px;color:var(--text);font-family:var(--font-display);font-style:italic;">"12,847 streams. I built that from my bedroom."</div>
       </div>
     </div>
 
@@ -6684,9 +6109,6 @@ body {
 
     <div class="personas-grid reveal">
       <div class="persona-card">
-        <div class="persona-photo-banner">
-          <img src="/1779844244467.png" alt="Amara — creative listener on transit" style="object-position:center 25%;">
-        </div>
         <div class="persona-avatar" style="background:rgba(29,185,84,0.08);">A</div>
         <div class="persona-name">Amara, 26</div>
         <div class="persona-role">Creative Night Listener</div>
@@ -6700,9 +6122,6 @@ body {
       </div>
 
       <div class="persona-card">
-        <div class="persona-photo-banner">
-          <img src="/1779842093919.png" alt="Kofi — performance athlete on the move" style="object-position:center 55%;">
-        </div>
         <div class="persona-avatar" style="background:rgba(107,79,187,0.08);">K</div>
         <div class="persona-name">Kofi, 31</div>
         <div class="persona-role">Performance Athlete</div>
@@ -6716,9 +6135,6 @@ body {
       </div>
 
       <div class="persona-card">
-        <div class="persona-photo-banner">
-          <img src="/1779842084122.png" alt="Zara — emerging artist in the studio" style="object-position:center 15%;">
-        </div>
         <div class="persona-avatar" style="background:rgba(232,184,75,0.08);">Z</div>
         <div class="persona-name">Zara, 22</div>
         <div class="persona-role">Emerging Artist</div>
@@ -7000,6 +6416,18 @@ body {
   </div>
 </section>
 
+<div class="reveal" style="margin:0;overflow:hidden;">
+  <div style="position:relative;max-height:360px;overflow:hidden;">
+    <img src="/daye-car.png" alt="Daye in a vehicle" style="width:100%;object-fit:cover;max-height:360px;display:block;opacity:0.85;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.6) 0%,transparent 50%,rgba(0,0,0,0.3) 100%);display:flex;align-items:center;padding:0 48px;">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;color:rgba(29,185,84,0.8);text-transform:uppercase;margin-bottom:8px;">Platform Ecosystem</div>
+        <div style="font-family:var(--font-display);font-size:clamp(28px,3vw,42px);font-weight:700;color:#fff;line-height:1.2;">Daye. Everywhere<br>you listen.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="divider"></div>
 
 <!-- GTM -->
@@ -7095,11 +6523,13 @@ body {
 
 <div class="divider"></div>
 
+<div style="overflow:hidden;position:relative;max-height:420px;">
+  <img src="/daye-tv.png" alt="Daye on home TV" style="width:100%;object-fit:cover;max-height:420px;display:block;opacity:0.9;">
+</div>
+
 <!-- CLOSING -->
-<section id="closing" style="position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background-image:url('/1779846303194.png');background-size:cover;background-position:center;pointer-events:none;"></div>
-  <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,0.82) 0%,rgba(8,8,8,0.65) 50%,rgba(8,8,8,0.30) 100%),linear-gradient(to top,rgba(8,8,8,0.85) 0%,transparent 55%);pointer-events:none;"></div>
-  <div class="closing-inner reveal" style="position:relative;z-index:2;">
+<section id="closing">
+  <div class="closing-inner reveal">
     <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:24px;">Product Proposal — Bankole O.</div>
     <h2 class="closing-title">
       The future of music<br>is <em>conversational.</em>
@@ -7819,7 +7249,7 @@ if (window.matchMedia('(max-width: 820px)').matches) {
 // ── CINEMATIC 3D DEVICE TILT ──
 (function() {
   const frames = document.querySelectorAll(
-    '.iphone-doc-frame, .iphone-mini-frame, .samsung-mini-frame, .ipad-mini-frame'
+    '.watch-frame, img.device-tilt-enter'
   );
 
   frames.forEach(el => {
