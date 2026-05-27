@@ -115,10 +115,18 @@
 
   .hero-bg {
     position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(29,185,84,0.04) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(107,79,187,0.05) 0%, transparent 60%);
+    background-image: url('/1779844510413.png');
+    background-size: cover;
+    background-position: center 25%;
     pointer-events: none;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.88) 40%, rgba(8,8,8,0.5) 70%, rgba(8,8,8,0.3) 100%),
+      linear-gradient(to top, rgba(8,8,8,0.98) 0%, rgba(8,8,8,0.4) 35%, transparent 65%),
+      radial-gradient(ellipse 60% 50% at 75% 50%, rgba(29,185,84,0.07) 0%, transparent 70%);
   }
 
   .hero-eyebrow {
@@ -1158,6 +1166,61 @@
     font-weight: 400;
     margin-bottom: 20px;
     border: 1px solid var(--border2);
+    overflow: hidden;
+  }
+
+  .persona-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
+  }
+
+  .persona-photo-banner {
+    width: calc(100% + 64px);
+    margin: -36px -32px 28px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .persona-photo-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+  }
+
+  .persona-photo-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.85) 100%);
+  }
+
+  .solution-photo {
+    width: 100%;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .solution-photo img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+
+  .solution-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(8,8,8,0.7) 100%);
   }
 
   .persona-name {
@@ -2396,9 +2459,12 @@ body {
   }
 
   .hero-bg {
+    background-position: 65% 25%;
+  }
+  .hero-bg::after {
     background:
-      radial-gradient(ellipse 120% 65% at 50% 15%, rgba(29,185,84,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse 80% 55% at 8% 95%, rgba(107,79,187,0.09) 0%, transparent 50%);
+      linear-gradient(to bottom, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.75) 40%, rgba(8,8,8,0.88) 100%),
+      radial-gradient(ellipse 120% 65% at 50% 15%, rgba(29,185,84,0.08) 0%, transparent 60%);
   }
 
   .hero-waveform {
@@ -5321,6 +5387,9 @@ body {
       </div>
 
       <div class="reveal" style="display:flex;flex-direction:column;gap:16px;">
+        <div class="solution-photo">
+          <img src="/1779842005674.png" alt="Person in car at night listening to Daye">
+        </div>
         <div style="background:var(--surface);border:1px solid var(--border);padding:24px;">
           <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;">User says</div>
           <div style="font-family:var(--font-display);font-size:20px;font-style:italic;color:var(--text);line-height:1.4;">"Give me late-night Lagos rooftop energy. Start mellow, build slowly."</div>
@@ -6523,6 +6592,16 @@ body {
       </div>
     </div>
 
+    <!-- CONTEXT PHOTO -->
+    <div class="reveal" style="margin:48px 0 40px;position:relative;overflow:hidden;border:1px solid var(--border);">
+      <img src="/1779842120270.png" alt="Artist reviewing Daye analytics dashboard on iPad" style="width:100%;height:320px;object-fit:cover;object-position:center 15%;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,0.0) 0%,rgba(8,8,8,0.0) 60%,rgba(8,8,8,0.6) 100%),linear-gradient(to top,rgba(8,8,8,0.8) 0%,transparent 40%);"></div>
+      <div style="position:absolute;bottom:24px;left:28px;">
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:6px;">Real user moment</div>
+        <div style="font-size:14px;color:var(--text);font-family:var(--font-display);font-style:italic;">"12,847 streams. I built that from my bedroom."</div>
+      </div>
+    </div>
+
     <!-- INTERACTIVE CHARTS BLOCK -->
     <div class="chart-block reveal">
       <div class="chart-block-label">Market Context</div>
@@ -6684,6 +6763,9 @@ body {
 
     <div class="personas-grid reveal">
       <div class="persona-card">
+        <div class="persona-photo-banner">
+          <img src="/1779844244467.png" alt="Amara — creative listener on transit">
+        </div>
         <div class="persona-avatar" style="background:rgba(29,185,84,0.08);">A</div>
         <div class="persona-name">Amara, 26</div>
         <div class="persona-role">Creative Night Listener</div>
@@ -6697,6 +6779,9 @@ body {
       </div>
 
       <div class="persona-card">
+        <div class="persona-photo-banner">
+          <img src="/1779842093919.png" alt="Kofi — performance athlete on the move">
+        </div>
         <div class="persona-avatar" style="background:rgba(107,79,187,0.08);">K</div>
         <div class="persona-name">Kofi, 31</div>
         <div class="persona-role">Performance Athlete</div>
@@ -6710,6 +6795,9 @@ body {
       </div>
 
       <div class="persona-card">
+        <div class="persona-photo-banner">
+          <img src="/1779842084122.png" alt="Zara — emerging artist in the studio">
+        </div>
         <div class="persona-avatar" style="background:rgba(232,184,75,0.08);">Z</div>
         <div class="persona-name">Zara, 22</div>
         <div class="persona-role">Emerging Artist</div>
@@ -7087,8 +7175,10 @@ body {
 <div class="divider"></div>
 
 <!-- CLOSING -->
-<section id="closing">
-  <div class="closing-inner reveal">
+<section id="closing" style="position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:url('/1779846303194.png');background-size:cover;background-position:center;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,0.97) 0%,rgba(8,8,8,0.90) 50%,rgba(8,8,8,0.70) 100%),linear-gradient(to top,rgba(8,8,8,0.98) 0%,transparent 50%);pointer-events:none;"></div>
+  <div class="closing-inner reveal" style="position:relative;z-index:2;">
     <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:24px;">Product Proposal — Bankole O.</div>
     <h2 class="closing-title">
       The future of music<br>is <em>conversational.</em>
