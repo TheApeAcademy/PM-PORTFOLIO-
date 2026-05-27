@@ -5242,28 +5242,28 @@ body {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 40px calc(50vw - 142px) 24px;
-  gap: 20px;
+  padding: 32px 11vw 24px;
+  gap: 14px;
   cursor: grab;
 }
 .hero-carousel:active { cursor: grabbing; }
 .hero-carousel::-webkit-scrollbar { display: none; }
 
 .hero-carousel-item {
-  flex: 0 0 284px;
+  flex: 0 0 78vw;
   scroll-snap-align: center;
   transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.5s;
-  transform: perspective(1100px) scale(0.72) rotateY(12deg);
-  opacity: 0.4;
-  transform-origin: center bottom;
+  transform: perspective(1000px) rotateY(18deg);
+  opacity: 0.45;
+  transform-origin: center center;
   will-change: transform, opacity;
 }
 .hero-carousel-item.c-right {
-  transform: perspective(1100px) scale(0.72) rotateY(-12deg);
-  opacity: 0.4;
+  transform: perspective(1000px) rotateY(-18deg);
+  opacity: 0.45;
 }
 .hero-carousel-item.is-center {
-  transform: perspective(1100px) scale(1) rotateY(0deg) !important;
+  transform: perspective(1000px) rotateY(0deg) !important;
   opacity: 1 !important;
 }
 .hero-carousel-item img {
@@ -5279,7 +5279,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin: 12px 0 0;
+  margin: 16px 0 0;
   padding-bottom: 8px;
 }
 .carousel-dot {
