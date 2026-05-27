@@ -5230,6 +5230,71 @@ body {
   50% { transform: translateY(-10px); }
 }
 
+/* ===== HERO DEVICE CAROUSEL ===== */
+.hero-carousel-wrap {
+  margin: 48px -24px 0;
+  position: relative;
+}
+.hero-carousel {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 40px calc(50vw - 142px) 24px;
+  gap: 20px;
+  cursor: grab;
+}
+.hero-carousel:active { cursor: grabbing; }
+.hero-carousel::-webkit-scrollbar { display: none; }
+
+.hero-carousel-item {
+  flex: 0 0 284px;
+  scroll-snap-align: center;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.5s;
+  transform: perspective(1100px) scale(0.72) rotateY(12deg);
+  opacity: 0.4;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+.hero-carousel-item.c-right {
+  transform: perspective(1100px) scale(0.72) rotateY(-12deg);
+  opacity: 0.4;
+}
+.hero-carousel-item.is-center {
+  transform: perspective(1100px) scale(1) rotateY(0deg) !important;
+  opacity: 1 !important;
+}
+.hero-carousel-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.hero-carousel-item.is-center img {
+  animation: imgFloat 5.5s ease-in-out infinite;
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding-bottom: 8px;
+}
+.carousel-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.carousel-dot.active {
+  width: 22px;
+  border-radius: 3px;
+  background: #1DB954;
+}
+
 /* Remove screen background gradients now that images are used */
 .iphone-mini-screen,
 .samsung-mini-screen {
@@ -5856,31 +5921,29 @@ body {
       Daye on mobile isn't a stripped-down version — it's the primary form factor. The gym. The commute. The rooftop. Voice-first, context-aware, and always one sentence away from a perfect session.
     </p>
 
-    <!-- ── 3-Device cinematic cluster ── -->
-    <div class="device-cluster">
+    <!-- ── 3-Device scroll-snap carousel ── -->
+    <div class="hero-carousel-wrap">
+      <div class="hero-carousel" id="heroCarousel">
 
-      <!-- LEFT: iPhone — late-night Lagos rooftop chat -->
-      <div class="cluster-side-wrap cluster-left-wrap">
-        <div class="device-tilt-enter">
-          <img src="/1779868212933-removebg-preview.png" alt="Daye chat — late-night Lagos rooftop" style="width:100%;height:auto;display:block;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(29,185,84,0.1));">
+        <div class="hero-carousel-item c-left" data-ci="0">
+          <img src="/1779868212933-removebg-preview.png" alt="Daye chat — late-night Lagos rooftop" style="filter:drop-shadow(0 40px 80px rgba(0,0,0,0.92)) drop-shadow(0 0 50px rgba(29,185,84,0.15));">
         </div>
-      </div>
 
-      <!-- CENTER: S24 Ultra — Intelligence Processing -->
-      <div class="cluster-center-wrap">
-        <div class="device-tilt-enter from-top">
-          <img src="/1779867354385-removebg-preview.png" alt="Daye — Intelligence Processing" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 60px rgba(29,185,84,0.15));">
+        <div class="hero-carousel-item is-center" data-ci="1">
+          <img src="/1779867354385-removebg-preview.png" alt="Daye — Intelligence Processing" style="filter:drop-shadow(0 50px 100px rgba(0,0,0,0.97)) drop-shadow(0 0 70px rgba(29,185,84,0.25));">
         </div>
-      </div>
 
-      <!-- RIGHT: iPad — Live Mix Session 01 -->
-      <div class="cluster-side-wrap cluster-right-wrap">
-        <div class="device-tilt-enter from-right">
-          <img src="/1779867509898-removebg-preview.png" alt="Daye — Live Mix Session 01 BPM 124" style="width:100%;height:auto;display:block;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(140,90,255,0.1));">
+        <div class="hero-carousel-item c-right" data-ci="2">
+          <img src="/1779867509898-removebg-preview.png" alt="Daye — Live Mix Session 01 BPM 124" style="filter:drop-shadow(0 40px 80px rgba(0,0,0,0.92)) drop-shadow(0 0 50px rgba(29,185,84,0.1));">
         </div>
-      </div>
 
-    </div><!-- /device-cluster -->
+      </div>
+      <div class="carousel-dots">
+        <div class="carousel-dot" data-dot="0"></div>
+        <div class="carousel-dot active" data-dot="1"></div>
+        <div class="carousel-dot" data-dot="2"></div>
+      </div>
+    </div><!-- /hero-carousel-wrap -->
 
     <!-- Features bar -->
     <div class="mobile-feat-bar reveal">
@@ -5917,16 +5980,11 @@ body {
       <p style="font-size:14px;color:var(--muted);max-width:600px;line-height:1.75;margin:0;">Daye Studio gives artists a full creative layer inside Spotify. Describe a sound in natural language — AI generates a beat. Layer your vocals on top. Publish directly to Spotify without DistroKid or any third-party distributor. The creative loop, closed.</p>
     </div>
 
-    <div class="row-ambient purple-glow">
-    <div class="device-mix-row reveal" style="margin-top:36px; justify-content:center;">
-
-      <!-- MacBook Audio Mode — waveforms (standalone, centred) -->
-      <div style="width:100%; max-width:700px; margin:0 auto;">
-        <div class="device-tilt-enter from-top">
-          <img src="/daye-macbook-studio.png" alt="Daye Audio Mode — MacBook studio waveforms" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 50px rgba(140,90,255,0.15));">
-        </div>
+    <div class="row-ambient purple-glow" style="margin:36px -24px 0;">
+    <div class="reveal" style="padding:0 16px;">
+      <div class="device-tilt-enter from-top">
+        <img src="/daye-macbook-studio.png" alt="Daye Audio Mode — MacBook studio waveforms" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 60px rgba(140,90,255,0.2));">
       </div>
-
     </div>
     </div><!-- /row-ambient purple-glow -->
 
@@ -5940,21 +5998,17 @@ body {
       <p style="font-size:14px;color:var(--muted);max-width:600px;line-height:1.75;margin:0;">Daye embeds a professional DJ suite. Harmonic key detection, BPM arc management, real-time crossfade controls, and an energy curve visualiser that maps the emotional shape of a full session. Then a 4th screen: publish your track and distribute directly.</p>
     </div>
 
-    <div class="row-ambient amber-glow">
-    <div class="device-mix-row reveal" style="margin-top:36px; justify-content:center; gap:24px; flex-wrap:wrap;">
+    <div class="row-ambient amber-glow" style="margin:36px -24px 0;">
+    <div class="reveal" style="padding:0 16px;display:flex;flex-direction:column;gap:32px;">
 
       <!-- iPad DJ Deck — live performance -->
-      <div style="flex:1; min-width:240px; max-width:420px;">
-        <div class="device-tilt-enter from-top">
-          <img src="/daye-ipad-dj-deck.png" alt="Daye DJ Deck — iPad live performance" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 50px rgba(212,160,23,0.15));">
-        </div>
+      <div class="device-tilt-enter from-top">
+        <img src="/daye-ipad-dj-deck.png" alt="Daye DJ Deck — iPad live performance" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.95)) drop-shadow(0 0 60px rgba(212,160,23,0.2));">
       </div>
 
       <!-- MacBook analytics — Project Ambient Fusion -->
-      <div style="flex:1; min-width:240px; max-width:420px;">
-        <div class="device-tilt-enter from-top">
-          <img src="/1779868193429-removebg-preview.png" alt="Daye analytics — Project Ambient Fusion" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.97)) drop-shadow(0 0 60px rgba(212,160,23,0.15));">
-        </div>
+      <div class="device-tilt-enter from-top">
+        <img src="/1779868193429-removebg-preview.png" alt="Daye analytics — Project Ambient Fusion" style="width:100%;height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,0.97)) drop-shadow(0 0 60px rgba(212,160,23,0.2));">
       </div>
 
     </div>
@@ -7511,6 +7565,59 @@ if (window.matchMedia('(max-width: 820px)').matches) {
   revealInViewport();
   setTimeout(revealInViewport, 300);
   setTimeout(revealInViewport, 800);
+})();
+
+// ── HERO DEVICE CAROUSEL ──
+(function() {
+  var carousel = document.getElementById('heroCarousel');
+  if (!carousel) return;
+  var items = Array.from(carousel.querySelectorAll('.hero-carousel-item'));
+  var dots = Array.from(document.querySelectorAll('.carousel-dot'));
+  var current = 1;
+
+  function getClosest() {
+    var scrollLeft = carousel.scrollLeft;
+    var mid = scrollLeft + carousel.offsetWidth / 2;
+    var closest = 0, best = Infinity;
+    items.forEach(function(item, i) {
+      var d = Math.abs((item.offsetLeft + item.offsetWidth / 2) - mid);
+      if (d < best) { best = d; closest = i; }
+    });
+    return closest;
+  }
+
+  function applyState(ci) {
+    items.forEach(function(item, i) {
+      item.classList.remove('is-center', 'c-left', 'c-right');
+      if (i === ci)      item.classList.add('is-center');
+      else if (i < ci)   item.classList.add('c-left');
+      else               item.classList.add('c-right');
+    });
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === ci); });
+    current = ci;
+  }
+
+  function scrollTo(i) {
+    var item = items[i];
+    var target = item.offsetLeft - (carousel.offsetWidth - item.offsetWidth) / 2;
+    carousel.scrollTo({ left: target, behavior: 'smooth' });
+  }
+
+  dots.forEach(function(dot, i) {
+    dot.addEventListener('click', function() { scrollTo(i); });
+  });
+
+  carousel.addEventListener('scroll', function() {
+    applyState(getClosest());
+  }, { passive: true });
+
+  // Init — snap to center item
+  function init() {
+    scrollTo(1);
+    applyState(1);
+  }
+  setTimeout(init, 80);
+  setTimeout(init, 350);
 })();
 </script>
 </body>
