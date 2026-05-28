@@ -1,0 +1,17 @@
+{
+  "name": "Banks — Product · Frontend · Builder",
+  "short_name": "Banks",
+  "description": "PM thinking. Frontend execution. Real products in production.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/favicon.svg?v=2",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
