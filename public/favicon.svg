@@ -1,33 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Dark background -->
-  <rect width="64" height="64" rx="10" fill="#120929"/>
+  <!-- Black background -->
+  <rect width="64" height="64" rx="8" fill="#000"/>
 
-  <!-- Building body -->
-  <rect x="7" y="13" width="50" height="47" rx="3" fill="#863bff"/>
+  <!-- Rooftop antenna -->
+  <line x1="32" y1="7" x2="32" y2="13" stroke="rgba(255,255,255,0.45)" stroke-width="1.2"/>
+  <line x1="27" y1="10" x2="37" y2="10" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
 
-  <!-- Roof band -->
-  <rect x="7" y="13" width="50" height="7" rx="3" fill="#5e18d4"/>
-  <rect x="7" y="17" width="50" height="3" fill="#5e18d4"/>
+  <!-- Building outer outline (sketch style) -->
+  <rect x="7" y="13" width="50" height="47" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.4"/>
 
-  <!-- Rooftop antenna / detail -->
-  <rect x="30" y="8" width="4" height="7" rx="1" fill="#5e18d4"/>
-  <rect x="26" y="10" width="12" height="3" rx="1" fill="#5e18d4"/>
+  <!-- Roof dividing line -->
+  <line x1="7" y1="21" x2="57" y2="21" stroke="rgba(255,255,255,0.3)" stroke-width="0.9"/>
 
-  <!-- Window row 1 (top) -->
-  <rect x="11" y="14" width="7" height="4" rx="1" fill="white" opacity="0.22"/>
-  <rect x="21" y="14" width="7" height="4" rx="1" fill="white" opacity="0.22"/>
-  <rect x="39" y="14" width="7" height="4" rx="1" fill="#47bfff" opacity="0.55"/>
-  <rect x="47" y="14" width="7" height="4" rx="1" fill="white" opacity="0.22"/>
+  <!-- Top window strip - left side -->
+  <rect x="11" y="15" width="7" height="4" rx="0.5" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+  <rect x="21" y="15" width="7" height="4" rx="0.5" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
 
-  <!-- Window row 2 -->
-  <rect x="11" y="23" width="7" height="4" rx="1" fill="white" opacity="0.18"/>
-  <rect x="47" y="23" width="7" height="4" rx="1" fill="white" opacity="0.18"/>
+  <!-- Top window strip - right side (blue tint) -->
+  <rect x="36" y="15" width="7" height="4" rx="0.5" fill="none" stroke="rgba(56,189,248,0.55)" stroke-width="0.8"/>
+  <rect x="46" y="15" width="7" height="4" rx="0.5" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
 
-  <!-- Window row 3 -->
-  <rect x="11" y="31" width="7" height="4" rx="1" fill="white" opacity="0.15"/>
-  <rect x="47" y="31" width="7" height="4" rx="1" fill="#47bfff" opacity="0.4"/>
+  <!-- Vertical column dividers -->
+  <line x1="22" y1="22" x2="22" y2="57" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+  <line x1="42" y1="22" x2="42" y2="57" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
 
-  <!-- Big bold B - dominant element -->
+  <!-- Side windows - left column -->
+  <rect x="11" y="25" width="7" height="4" rx="0.5" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="0.7"/>
+  <rect x="11" y="33" width="7" height="4" rx="0.5" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
+
+  <!-- Side windows - right column -->
+  <rect x="46" y="25" width="7" height="4" rx="0.5" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="0.7"/>
+  <rect x="46" y="33" width="7" height="4" rx="0.5" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
+
+  <!-- Big blue B — dominant element -->
   <text
     x="32"
     y="54"
@@ -35,10 +40,9 @@
     font-weight="900"
     font-size="34"
     text-anchor="middle"
-    fill="white"
-    letter-spacing="-1"
+    fill="#38bdf8"
   >B</text>
 
-  <!-- Ground entrance -->
-  <rect x="22" y="56" width="20" height="4" rx="1" fill="#5e18d4"/>
+  <!-- Ground entrance sketch -->
+  <rect x="23" y="57" width="18" height="3" rx="0.5" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
 </svg>
