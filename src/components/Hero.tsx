@@ -129,7 +129,7 @@ export default function Hero() {
             fontFamily: 'var(--font-body)',
           }}
         >
-          Available for roles · Cape Town · 2025
+          Available for roles · Nigeria · 2026
         </span>
       </div>
 

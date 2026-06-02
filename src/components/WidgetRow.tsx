@@ -187,10 +187,10 @@ export function LocationWidget({ inView }: { inView: boolean }) {
             lineHeight: 1.1,
           }}
         >
-          Cape Town
+          Nigeria
         </motion.span>
         <span style={{ fontSize: 12, color: 'var(--color-muted)', fontFamily: 'var(--font-body)' }}>
-          Relocating · May 2025
+          Actively looking
         </span>
       </div>
       <div

@@ -25,7 +25,7 @@ const milestones = [
   {
     year: '2025',
     title: 'Scaling the thinking.',
-    body: 'Daye concept. LinkedIn analysis. Alexa analysis. Building a body of work that walks into the room before I do. Cape Town next.',
+    body: 'Daye concept. LinkedIn analysis. Alexa analysis. Building a body of work that walks into the room before I do. Nigeria.',
     tag: 'Now',
   },
   {
