@@ -165,7 +165,7 @@ export default function Footer() {
               lineHeight: 1.6,
             }}
           >
-            Built by Banks · Cape Town 2025 · © Bankole
+            Built by Banks · Nigeria 2026 · © Bankole
           </p>
           <p
             style={{

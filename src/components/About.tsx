@@ -17,7 +17,7 @@ const storyLines = [
   'Every product decision on ApeAcademy was mine to frame and defend.',
   'The most valuable problems are the ones that haven\'t been named yet.',
   'Then I frame it: problem, root cause, proposed intervention, expected impact.',
-  'Cape Town in 3 months. Actively looking.',
+  'Nigeria. Actively looking.',
   'Let\'s build something.',
 ]
 
