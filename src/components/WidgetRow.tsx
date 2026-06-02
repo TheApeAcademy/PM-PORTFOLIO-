@@ -166,14 +166,14 @@ export function LocationWidget({ inView }: { inView: boolean }) {
       gradient="linear-gradient(145deg, #020818 0%, #001233 60%, #002466 100%)"
       style={{ border: '1px solid rgba(0,113,227,0.2)' }}
     >
-      <WidgetLabel>Next Stop</WidgetLabel>
+      <WidgetLabel>Based in</WidgetLabel>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#0071E3" />
             <circle cx="12" cy="9" r="2.5" fill="#001233" />
           </svg>
-          <span style={{ fontSize: 11, color: 'rgba(0,113,227,0.9)', fontFamily: 'var(--font-body)' }}>South Africa</span>
+          <span style={{ fontSize: 11, color: 'rgba(0,113,227,0.9)', fontFamily: 'var(--font-body)' }}>Nigeria</span>
         </div>
         <motion.span
           initial={{ opacity: 0 }}
@@ -207,7 +207,7 @@ export function LocationWidget({ inView }: { inView: boolean }) {
       >
         <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#0071E3' }} />
         <span style={{ fontSize: 10, color: '#0071E3', fontFamily: 'var(--font-body)', fontWeight: 600 }}>
-          3 months out
+          Open to work
         </span>
       </div>
     </Widget>
